@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Blogs on Digvijay Ghotane</title>
+    <link>/blog/</link>
+    <description>Recent content in Blogs on Digvijay Ghotane</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-US</language>
+    <lastBuildDate>Fri, 10 Jan 2020 16:16:02 -0500</lastBuildDate>
+    
+	<atom:link href="/blog/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Access Control using Radio Frequency Identification</title>
+      <link>/blog/rfid/</link>
+      <pubDate>Fri, 10 Jan 2020 16:16:02 -0500</pubDate>
+      
+      <guid>/blog/rfid/</guid>
+      <description>In today&#39;s world we have a lot of products that go through a lot of distribution centers. We require something that can electronically manage all the products and store data, big data of the products that are going through these centers.
+Companies today want this data and it is very hard to manually keep track of every item. Auburn University&#39;s RFID Lab conducted research on the use of RFID technology for distribution centers like Walmart, etc.</description>
+    </item>
+    
+    <item>
+      <title>Dual Tone Multi-Frequency Home Modulation System</title>
+      <link>/blog/dtmf/</link>
+      <pubDate>Fri, 10 Jan 2020 14:53:20 -0500</pubDate>
+      
+      <guid>/blog/dtmf/</guid>
+      <description>Technology has advanced more and more over the years, and with this advancement, it has become an essential part of our lives. It has made our lives more comfortable and at the same time easier. We are able to access and do more work efficiently and much more easily without much human effort. Technology is substituting the manual work and everything we do in our day to day lives is becoming more automated.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Galleries on Digvijay Ghotane</title>
+    <link>/gallery/</link>
+    <description>Recent content in Galleries on Digvijay Ghotane</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-US</language>
+    <lastBuildDate>Fri, 10 Jan 2020 14:40:54 -0500</lastBuildDate>
+    
+	<atom:link href="/gallery/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Model United Nations Experience</title>
+      <link>/gallery/modelun/</link>
+      <pubDate>Fri, 10 Jan 2020 14:40:54 -0500</pubDate>
+      
+      <guid>/gallery/modelun/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Python for Data Science Course</title>
+      <link>/gallery/datasci/</link>
+      <pubDate>Fri, 10 Jan 2020 14:39:00 -0500</pubDate>
+      
+      <guid>/gallery/datasci/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Business Analytics Specialization</title>
+      <link>/gallery/upenn/</link>
+      <pubDate>Fri, 10 Jan 2020 14:36:50 -0500</pubDate>
+      
+      <guid>/gallery/upenn/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Résumé</title>
+      <link>/gallery/r%C3%A9sum%C3%A9/</link>
+      <pubDate>Fri, 10 Jan 2020 14:28:22 -0500</pubDate>
+      
+      <guid>/gallery/r%C3%A9sum%C3%A9/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
