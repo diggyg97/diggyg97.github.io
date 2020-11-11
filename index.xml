@@ -6,37 +6,10 @@
     <description>Recent content on Digvijay Ghotane</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
-    <lastBuildDate>Fri, 10 Jan 2020 14:40:54 -0500</lastBuildDate>
+    <lastBuildDate>Fri, 08 Feb 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Model United Nations Experience</title>
-      <link>/gallery/modelun/</link>
-      <pubDate>Fri, 10 Jan 2020 14:40:54 -0500</pubDate>
-      
-      <guid>/gallery/modelun/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Python for Data Science Course</title>
-      <link>/gallery/datasci/</link>
-      <pubDate>Fri, 10 Jan 2020 14:39:00 -0500</pubDate>
-      
-      <guid>/gallery/datasci/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Business Analytics Specialization</title>
-      <link>/gallery/upenn/</link>
-      <pubDate>Fri, 10 Jan 2020 14:36:50 -0500</pubDate>
-      
-      <guid>/gallery/upenn/</guid>
-      <description></description>
-    </item>
     
     <item>
       <title>Dual Tone Multi-Frequency Home Modulation System</title>
@@ -64,8 +37,9 @@ Companies today want this data and it is very hard to manually keep track of eve
       
       <guid>/about/</guid>
       <description>I&#39;m just trying to leverage data to answer policy questions.
- Who am I? My name is Digvijay Ghotane, but you can call me Diggy. I&#39;m based in Washington D.C. for the foreseeable future, with home being the lovely city of Mumbai.
-What do I do? I&#39;m currently in my final year of my graduate degree program at the McCourt School of Public Policy at Georgetown University. I will graduate in May 2021 with a Master of Science in Data Science for Public Policy.</description>
+ Who am I? I am a Master of Science - Data Science for Public Policy candidate at the McCourt School of Public Policy, Georgetown University, expected to graduate in May 2021.
+My interests include security and political violence, the environment, and financial markets.
+I like going out on walks, reading a book, or bicycling in my free time.</description>
     </item>
     
   </channel>
