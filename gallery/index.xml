@@ -6,35 +6,17 @@
     <description>Recent content in Galleries on Digvijay Ghotane</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
-    <lastBuildDate>Fri, 10 Jan 2020 14:40:54 -0500</lastBuildDate>
+    <lastBuildDate>Wed, 11 Nov 2020 07:04:54 -0500</lastBuildDate>
     
 	<atom:link href="/gallery/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Model United Nations Experience</title>
-      <link>/gallery/modelun/</link>
-      <pubDate>Fri, 10 Jan 2020 14:40:54 -0500</pubDate>
+      <title>Missing Data Plot</title>
+      <link>/gallery/missing-data/</link>
+      <pubDate>Wed, 11 Nov 2020 07:04:54 -0500</pubDate>
       
-      <guid>/gallery/modelun/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Python for Data Science Course</title>
-      <link>/gallery/datasci/</link>
-      <pubDate>Fri, 10 Jan 2020 14:39:00 -0500</pubDate>
-      
-      <guid>/gallery/datasci/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Business Analytics Specialization</title>
-      <link>/gallery/upenn/</link>
-      <pubDate>Fri, 10 Jan 2020 14:36:50 -0500</pubDate>
-      
-      <guid>/gallery/upenn/</guid>
+      <guid>/gallery/missing-data/</guid>
       <description></description>
     </item>
     
