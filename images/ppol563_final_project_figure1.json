@@ -1,0 +1,400 @@
+{
+    "data": [
+        {
+            "line": {
+                "dash": "solid",
+                "color": "rgba(0, 0, 0, 1)",
+                "width": 1.88976377952756
+            },
+            "meta": {
+                "columnNames": {
+                    "x": "data.1.x-c1261d49e78c",
+                    "y": "data.1.y-c1265f00a759",
+                    "text": "data.1.text-c12623eaf4c9"
+                }
+            },
+            "mode": "lines+markers",
+            "type": "scatter",
+            "xsrc": "digvijayghotane:2:be502f",
+            "x": [
+                17591,
+                17622,
+                17652,
+                17683,
+                17713,
+                17744,
+                17775,
+                17805,
+                17836,
+                17866,
+                17897,
+                17928,
+                17956,
+                17987,
+                18017,
+                18048,
+                18078,
+                18109,
+                18140,
+                18170,
+                18201,
+                18231,
+                18262,
+                18293,
+                18322,
+                18353,
+                18383,
+                18414,
+                18444,
+                18475,
+                18506,
+                18536,
+                18567
+            ],
+            "ysrc": "digvijayghotane:2:e7b2b7",
+            "y": [
+                5.8,
+                5.8,
+                5.7,
+                5.7,
+                5.7,
+                5.6,
+                5.6,
+                5.6,
+                5.7,
+                5.7,
+                5.8,
+                5.8,
+                5.7,
+                5.6,
+                5.5,
+                5.4,
+                5.4,
+                5.3,
+                5.3,
+                5.3,
+                5.3,
+                5.3,
+                5.2,
+                5.1,
+                6,
+                11.7,
+                8.8,
+                8.7,
+                8.5,
+                8.6,
+                9,
+                8.3,
+                7.5
+            ],
+            "frame": null,
+            "xaxis": "x",
+            "yaxis": "y",
+            "marker": {
+                "line": {
+                    "color": "rgba(139,0,0,1)",
+                    "width": 1.88976377952756
+                },
+                "size": 5.66929133858268,
+                "color": "rgba(139,0,0,1)",
+                "symbol": "circle",
+                "opacity": 1,
+                "autocolorscale": false
+            },
+            "hoveron": "points",
+            "textsrc": "digvijayghotane:2:91de14",
+            "text": [
+                "Date: 2018-03-01<br />Unemployment Rate (in %):  5.8",
+                "Date: 2018-04-01<br />Unemployment Rate (in %):  5.8",
+                "Date: 2018-05-01<br />Unemployment Rate (in %):  5.7",
+                "Date: 2018-06-01<br />Unemployment Rate (in %):  5.7",
+                "Date: 2018-07-01<br />Unemployment Rate (in %):  5.7",
+                "Date: 2018-08-01<br />Unemployment Rate (in %):  5.6",
+                "Date: 2018-09-01<br />Unemployment Rate (in %):  5.6",
+                "Date: 2018-10-01<br />Unemployment Rate (in %):  5.6",
+                "Date: 2018-11-01<br />Unemployment Rate (in %):  5.7",
+                "Date: 2018-12-01<br />Unemployment Rate (in %):  5.7",
+                "Date: 2019-01-01<br />Unemployment Rate (in %):  5.8",
+                "Date: 2019-02-01<br />Unemployment Rate (in %):  5.8",
+                "Date: 2019-03-01<br />Unemployment Rate (in %):  5.7",
+                "Date: 2019-04-01<br />Unemployment Rate (in %):  5.6",
+                "Date: 2019-05-01<br />Unemployment Rate (in %):  5.5",
+                "Date: 2019-06-01<br />Unemployment Rate (in %):  5.4",
+                "Date: 2019-07-01<br />Unemployment Rate (in %):  5.4",
+                "Date: 2019-08-01<br />Unemployment Rate (in %):  5.3",
+                "Date: 2019-09-01<br />Unemployment Rate (in %):  5.3",
+                "Date: 2019-10-01<br />Unemployment Rate (in %):  5.3",
+                "Date: 2019-11-01<br />Unemployment Rate (in %):  5.3",
+                "Date: 2019-12-01<br />Unemployment Rate (in %):  5.3",
+                "Date: 2020-01-01<br />Unemployment Rate (in %):  5.2",
+                "Date: 2020-02-01<br />Unemployment Rate (in %):  5.1",
+                "Date: 2020-03-01<br />Unemployment Rate (in %):  6.0",
+                "Date: 2020-04-01<br />Unemployment Rate (in %): 11.7",
+                "Date: 2020-05-01<br />Unemployment Rate (in %):  8.8",
+                "Date: 2020-06-01<br />Unemployment Rate (in %):  8.7",
+                "Date: 2020-07-01<br />Unemployment Rate (in %):  8.5",
+                "Date: 2020-08-01<br />Unemployment Rate (in %):  8.6",
+                "Date: 2020-09-01<br />Unemployment Rate (in %):  9.0",
+                "Date: 2020-10-01<br />Unemployment Rate (in %):  8.3",
+                "Date: 2020-11-01<br />Unemployment Rate (in %):  7.5"
+            ],
+            "hoverinfo": "text",
+            "showlegend": false
+        },
+        {
+            "meta": {
+                "columnNames": {
+                    "x": "data.2.x-c126166cca8b",
+                    "y": "data.2.y-c1264065772d"
+                }
+            },
+            "mode": "text",
+            "text": "~6% increase in<br />unemployment rate from<br />March 2020 to April 2020",
+            "type": "scatter",
+            "xsrc": "digvijayghotane:2:91bac3",
+            "x": [
+                18201
+            ],
+            "ysrc": "digvijayghotane:2:e9a190",
+            "y": [
+                11
+            ],
+            "frame": null,
+            "xaxis": "x",
+            "yaxis": "y",
+            "hoveron": "points",
+            "textfont": {
+                "size": 13.2283464566929,
+                "color": "rgba(0, 0, 0, 1)"
+            },
+            "hoverinfo": "text",
+            "hovertext": "x: 2019-11-01<br />y: 11",
+            "showlegend": false
+        }
+    ],
+    "layout": {
+        "font": {
+            "size": 14.6118721461187,
+            "color": "rgba(0, 0, 0, 1)",
+            "family": ""
+        },
+        "title": {
+            "x": 0.5,
+            "font": {
+                "size": 19.9252801992528,
+                "color": "rgba(0, 0, 0, 1)",
+                "family": "Times New Roman"
+            },
+            "text": "Unemployment Rate in the District of Columbia<br><sup>From March 2018 to November 2020</sup>",
+            "xref": "paper"
+        },
+        "xaxis": {
+            "type": "linear",
+            "range": [
+                17591,
+                18567
+            ],
+            "ticks": "outside",
+            "title": {
+                "font": {
+                    "size": 15.9402241594022,
+                    "color": "rgba(0, 0, 0, 1)",
+                    "family": "Times New Roman"
+                },
+                "text": "Date"
+            },
+            "anchor": "y",
+            "domain": [
+                0,
+                1
+            ],
+            "nticks": null,
+            "ticklen": 3.65296803652968,
+            "showgrid": true,
+            "showline": true,
+            "tickfont": {
+                "size": 13.2835201328352,
+                "color": "rgba(0, 0, 0, 1)",
+                "family": "Times New Roman"
+            },
+            "tickmode": "array",
+            "ticktext": [
+                "Mar 2018",
+                "Jun 2018",
+                "Sep 2018",
+                "Dec 2018",
+                "Mar 2019",
+                "Jun 2019",
+                "Sep 2019",
+                "Dec 2019",
+                "Mar 2020",
+                "Jun 2020",
+                "Sep 2020",
+                null
+            ],
+            "tickvals": [
+                17591,
+                17683,
+                17775,
+                17866,
+                17956,
+                18048,
+                18140,
+                18231,
+                18322,
+                18414,
+                18506,
+                null
+            ],
+            "zeroline": false,
+            "autorange": false,
+            "gridcolor": null,
+            "gridwidth": 0,
+            "linecolor": null,
+            "linewidth": 0,
+            "tickangle": 0,
+            "tickcolor": "rgba(51,51,51,1)",
+            "tickwidth": 0.66417600664176,
+            "automargin": true,
+            "hoverformat": ".2f",
+            "categoryarray": [
+                "Mar 2018",
+                "Jun 2018",
+                "Sep 2018",
+                "Dec 2018",
+                "Mar 2019",
+                "Jun 2019",
+                "Sep 2019",
+                "Dec 2019",
+                "Mar 2020",
+                "Jun 2020",
+                "Sep 2020",
+                null
+            ],
+            "categoryorder": "array",
+            "showticklabels": true
+        },
+        "yaxis": {
+            "type": "linear",
+            "range": [
+                4.77,
+                12.03
+            ],
+            "ticks": "outside",
+            "title": {
+                "font": {
+                    "size": 15.9402241594022,
+                    "color": "rgba(0, 0, 0, 1)",
+                    "family": "Times New Roman"
+                },
+                "text": "Unemployment Rate (in %)"
+            },
+            "anchor": "x",
+            "domain": [
+                0,
+                1
+            ],
+            "nticks": null,
+            "ticklen": 3.65296803652968,
+            "showgrid": true,
+            "showline": false,
+            "tickfont": {
+                "size": 14.6118721461187,
+                "color": "rgba(0, 0, 0, 1)",
+                "family": "Times New Roman"
+            },
+            "tickmode": "array",
+            "ticktext": [
+                null,
+                "6",
+                "8",
+                "10",
+                "12"
+            ],
+            "tickvals": [
+                null,
+                6,
+                8,
+                10,
+                12
+            ],
+            "zeroline": false,
+            "autorange": false,
+            "gridcolor": null,
+            "gridwidth": 0,
+            "linecolor": null,
+            "linewidth": 0,
+            "tickangle": 0,
+            "tickcolor": "rgba(51,51,51,1)",
+            "tickwidth": 0.66417600664176,
+            "automargin": true,
+            "hoverformat": ".2f",
+            "categoryarray": [
+                null,
+                "6",
+                "8",
+                "10",
+                "12"
+            ],
+            "categoryorder": "array",
+            "showticklabels": true
+        },
+        "legend": {
+            "font": {
+                "size": 11.9551681195517,
+                "color": "rgba(0, 0, 0, 1)",
+                "family": "Times New Roman"
+            },
+            "bgcolor": "rgba(255,255,255,1)",
+            "bordercolor": "transparent",
+            "borderwidth": 1.88976377952756
+        },
+        "margin": {
+            "b": 44.6977168949772,
+            "l": 41.51100041511,
+            "r": 7.30593607305936,
+            "t": 47.7462847654628
+        },
+        "shapes": [
+            {
+                "x0": 0,
+                "x1": 1,
+                "y0": 0,
+                "y1": 1,
+                "line": {
+                    "color": null,
+                    "width": 0,
+                    "linetype": []
+                },
+                "type": "rect",
+                "xref": "paper",
+                "yref": "paper",
+                "fillcolor": null
+            }
+        ],
+        "barmode": "relative",
+        "hovermode": "closest",
+        "showlegend": false,
+        "annotations": [
+            {
+                "x": 1,
+                "y": -0.1,
+                "font": {
+                    "size": 12
+                },
+                "text": "Source: Bureau of Labor Statistics",
+                "xref": "paper",
+                "yref": "paper",
+                "align": "right",
+                "xshift": 0,
+                "yshift": 0,
+                "xanchor": "right",
+                "yanchor": "auto",
+                "showarrow": false
+            }
+        ],
+        "plot_bgcolor": "rgba(255,255,255,1)",
+        "paper_bgcolor": "rgba(255,255,255,1)"
+    },
+    "frames": []
+}
