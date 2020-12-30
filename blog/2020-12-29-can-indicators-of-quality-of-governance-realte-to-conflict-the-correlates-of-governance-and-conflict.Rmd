@@ -1,0 +1,423 @@
+---
+title: Can Indicators of Quality of Governance realte to Conflict? The Correlates
+  of Governance and Conflict
+author: Digvijay Ghotane
+date: '2020-12-29'
+slug: can-indicators-of-quality-of-governance-realte-to-conflict-the-correlates-of-governance-and-conflict
+---
+# Executive Summary  
+
+International law is more or less realized on assumption that there exists an analogy between national systems and international order. Resorting to force by means of self-defense to protect certain rights is very common in primitive systems of law with blood feuds. In domestic legal order, the methods to resort to force are exclusively in the control of the established authority that is responsible for governance within a nation. The established authority that is responsible for such governance can carry out its function through various methods such as but not limited to, administrative acts, legislation, the decision of courts, and activities on the international stage such as entering into bilateral or multilateral treaties (Shaw, 2008).  
+
+Conflict is prevalent all around the world, especially in the Middle East and Northern Africa, and has been for the past couple of decades. I believe it is rather important to see if countries with a similar type of governance have similar levels of armed conflicts. Why? Because there is more or less always international involvement when there is an armed conflict which leads to distortion of the said international order, in my humble opinion. To this end, I group country-year observations together by employing agglomerative hierarchical clustering clustering to quality of governance measured by over 2000 variables, by reducing the variables to their first 15 principal components.  
+
+The data reflects a clustering between pairs of countries and years in the past two decades and the period before that and it becomes more clear as the number of clusters increases. This clustering is in terms of similar forms of governance, essentially. Even though we do not see the relevance in the form of governance and conflict at a general level, we see clustering of conflict-prone countries in years such as 2017 when armed conflict by non-state actors was at the peak.  
+
+# Introduction  
+
+Armed conflicts have severe consequences to not only the socio-economic and political systems of a state but also to the environment, with crippling man-made famines seen in Yemen and Afghanistan due to the prevalence of civil unrest and armed conflicts in these nation-states. The number of non-state based armed conflicts in 2017 was recorded to be the highest by the Uppsala Conflict Data Program (UCDP) (Pettersson, T. et Öberg M., 2020) as seen from Figure 1.  
+
+| ![Figure 1: Events of Armed Conflicts by Non-State Actors](/images/figure1_ppol566_project.png) | 
+|:--:| 
+| ***Figure 1: Events of Armed Conflicts by Non-State Actors*** |
+
+It’d be interesting to see if rather countries with similar levels of quality of governance have similar levels of conflict. This is rather important because “good governance” may be used as a tool to thereby avoid conflict in the future, which essentially means predicting the bad drivers of governance that leads to conflict and thereby possibly avoiding those actions of bad governance.  
+
+But, what defines the quality of governance? Generally speaking, the indicator of a ‘good’ government is the Gross Domestic Product (GDP) (Good Governments - Vallandingham.Me, n.d.). We use the GDP which is the value of goods and services produced by a country over some time, as a measure to quantify the progress made by a government. An argument presented by Jim Vallandingham for his entry to the World Data Visualization Prize by Microsoft (Good Governments - Vallandingham.Me, n.d.) expresses how GDP is a cumulative measure and fails to address what makes a government good for the individuals of the nation itself. Thus, good governance would encompass measures that not only focus on the economic well-being of individuals but also the social progress of individuals in a nation-state as well. There are other measures that many organizations have developed such as the Human Development Index (HDI), Economic Freedom Score, Gini Index, among other measures.  
+
+The Quality of Governance Institute at the University of Gothenburg publishes a time-series dataset (Teorell et al., 2020) with approximately 2100 variables related to the quality of governance which include topics such as but not limited to, census, societal measures indicating the quality of life, education, energy, military, media, labor markets, judicial institutions, economy, political system, among others. Using over 2100 features for statistical analysis is simply not feasible, so the first step is going to be reducing the size of this dataset to capture as much variance in the data with the least number of features. I do this with the help of employing the method of Principal Component Analysis. The major reason behind using this method is for dimensionality reduction. But before addressing that, we use Singular Value Decomposition via the data interpolating empirical orthogonal functions (DINEOF) approach to address the gaps present in the data. The application of this method is best explained in the research article “On the Sensitivity of Field Reconstruction and Prediction Using Empirical Orthogonal Functions Derived from Gappy Data” (Taylor et al., 2013). We also see this method used in reconstructing different geophysical and time-series datasets such as one used in reconstructing satellite-derived sea surface temperature data (B. Ping et al., 2015).  
+
+| ![Figure 2: Variance Explained by Principal Components of the QoG Data](/images/figure2_ppol566_project.png) | 
+|:--:| 
+| ***Figure 2: Variance Explained by Principal Components of the QoG Data*** |
+
+To find clusters of similar country-year pairs using quality of governance data, I then employ agglomerative hierarchical clustering by having the input features as the first 15 principal components which capture 81.94% variation in the data as seen in Figure 2. We also can see the scree plots in the lower half of the figure for the first 16 and 45 principal components respectively. Venables and Ripley in Modern Applied Statistics with S (2010) argue, “there are many different clustering methods, often giving different answers, and so the danger of over-interpretation is high.” Hierarchical clustering has also previously been used at least two times (Obinger & Wagschal, 2001; Saint-Arnaud & Bernard, 2003) in such a country-year setting for comparative political economy. The reason I decide to use hierarchical cluster analysis is that I hypothesize there may be a hierarchical pattern in my data rather than a partitioned one since it relates to the rating of a country’s governance relating to 18 different thematic topics over the years. I suppose that the only problem I’d face going forward with this method is the selection of the inter-cluster similarity proximity-links.  
+
+The end goal is to find if the variability in the data captured concerning the quality of political institutions has any correlation to conflict. The Uppsala Conflict Data Program (UCDP) provides a Georeferenced Event Dataset (GED) (Sundberg R. et Melander E., 2013). This dataset captures armed conflict disaggregated to the level of the event. I aggregate the data to country-year by the number of events of armed conflict and make bins by setting cut-offs according to the number of casualties for rating the intensity of the armed conflict in each unit of observation.  
+
+# Data
+
+The Quality of Government (QoG) Institute was formed in 2004 within the Department of Political Science at the University of Gothenburg. The main focus of their research is to address the “empirical and theoretical” problem of the creation and maintenance of high-quality political institutions. They aim to make the data on QoG and its correlates publicly available. The Uppsala Conflict Data Program (UCDP) is the major provider of data about armed conflicts and civil wars and is housed within the Department of Peace and Conflict Research at Uppsala University. Even though the QoG dataset has a variable ‘conflict intensity’ which measures how serious conflict is in that given country-year unit of observation, it does not have a large coverage within the dataset. Hence, I will use the Uppsala Conflict Data Program Dataset to measure the intensity of conflict in a given country-year unit of observation. 
+
+| | Country Name | Year | PC1 | PC2 | PC3 | PC4 | PC5 | PC6 | PC7 |
+|---|---|---|---|---|---|---|---|---|---|
+| Count | 15324 | 15324 | 15324 | 15324 | 15324 | 15324 | 15324 | 15324 | 15324 |
+| Unique | 211 |---|---|---|---|---|---|---|---|
+| Mean |---| 1982.7 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| St. Dev. |---| 21.37 | 34.23 | 28.01 | 22.55 | 19.59 | 18.39 | 17.97 | 15.0 |
+| Min. |---| 1946 | -94.11 | -99.3 | -93.92 | -60.37 | -129.91 | -103.04 | -99.09 |
+| 25% |---| 1964 | -26.21 | -17.34 | -15.91 | -12.95 | -11.01 | -12.27 | -7.46 |
+| 50% |---| 1983 | 0.2 | -0.88 | 2.45 | -1.29 | -1.86 | -0.49 | 0.68 |
+| 75% |---| 2001 | 23.18 | 14.7 | 15.22 | 10.16 | 9.61 | 10.25 | 8.47 |
+| Max. |---| 2019 | 115.65 | 102.14 | 121.74 | 64.37 | 220.77 | 129.43 | 171.09 |
+
+***Table 1: Descriptive Statistics of QoG Data - Principal Component Analysis***
+
+## Quality of Government Data  
+
+The main dataset that I will be using is a compilation dataset from multiple sources called the ‘QoG Standard Dataset’ (Teorell J. et al., 2020). I will be making use of the Time-Series dataset which has a unit of analysis of country-year for all current United Nations member states and years ranging from 1946-2019. This dataset has over 2000 columns or variables with a wide range of thematic areas such as the economy, religion, welfare, gender equality, healthcare, media, among others. The unit of analysis of this dataset is country-year with 15324 total rows. 2,077 columns out of the total 2086 have different observation inputs with each column defined in the codebook provided by the QoG Institute which relates to the policy topics mentioned before. The time range for the data is from 1946 to 2020, while it contains all countries that have ever been a member state of the United Nations with 211 total countries, as shown in Table 1.  
+
+| ![Figure 3: Missing Data from QoG Data Columns](/images/figure3_ppol566_project.png) | 
+|:--:| 
+| ***Figure 3: Missing Data from QoG Data Columns*** |
+
+Right off the bat, we see that the QoG dataset has a lot of missing values as seen from Figure 3, and probably lacks variability within the data. The lowest number of missing entries is in the column “al_religion2000” which represents religious fractionalization, i.e. probability of two persons chosen at random being of the same religion, with a total of 2195 missing entries. We see at a general level we have a lot of missing entries in all of the columns as shown in the figure, with total observations being depicted by the red line and each point on the x-axis being a column variable. The first step is to drop columns and rows which have all missing values. I also standardize variables that are not categorical. Since this data is time-series, I may face the problem of autocorrelation. I can check for the same using Variance Inflation Factors (VIF) by simulating simple linear regressions with each variable as the dependent variable and all other variables as the independent variable. If the VIF’s are above a threshold level (usually 5), I’d say there’s a lot of correlation of the particular variable with the other variables and hence must be removed before conducting Principal Component Analysis to avoid getting higher weights associated with highly correlated variables. I fail to check for the VIF parameter due to the sheer computational expense that is involved with this dataset in conducting that procedure.  
+
+After reducing the data from 2077 columns to only 15 columns of relevant features, we get a better look at the descriptive statistics of the QoG dataset from Table 1. The table only shows the first seven principal components since it’s hard to fit all of them together. Each data point has been standardized to have a mean 0. The score matrix in table 1 of the PCA analysis also shows the values have a range, not between 0 and 1 (for columns named PC1 through PC7, which are the principal components) (as the original data) but are different, since these are principal components, i.e. transformation applied to data, and not the actual data points itself.  
+
+## Uppsala Conflict Data Program  
+
+| | Country Name | Year | Type of Violence | Deaths |
+|---|---|---|---|---|
+| Count | 225385 | 225385 | 225385 | 225385 |
+| Unique | 122 | 31 | 3 | 614 |
+| Mean | --- | 2009 | 1.42 | 11.3 |
+| Min. | --- | 1989 | 1 | 0 |
+| 25% | --- | 2004 | 1 | 1 |
+| 50% | --- | 2012 | 1 | 2 |
+| 75% | --- | 2015 | 1 | 5 |
+| Max. | --- | 2019 | 3 | 48183 |
+
+***Table 2: UCDP Data***
+
+The next step is to combine the dataset with the number of armed conflicts in each year in each country. I will be aggregating the Uppsala Conflict Data Program’s (UCDP) Georeferenced Event Dataset (GED) (Pettersson, T. et Öberg M. 2020; Sundberg, R. et Melander, E. 2013) for this purpose. This dataset is the most disaggregated provided by the UCDP which has individual events of organized violence. I aggregate this data to a country-year unit of analysis with the observation being the number of events in each year in each country. Table 2 shows that our UCDP data ranges from the year 1989 to 2019 and only has data for 122 countries. The type of violence column is of importance to us since we will filter the dataset by non-state actor type of violence. The goal if to see whether armed conflict by non-state actors such as belligerent groups or extremists is directly linked to specific clusters of observations from the quality of governance data. We also see how number of deaths due to any event changes considerably with the maximum being forty eight thousand deaths while there being no fatalities during certain events.  
+
+| ![Figure 4(a): Density plot for armed conflicts aggregated by country-year](/images/figure4a_ppol566_project.png) | 
+|:--:| 
+| ***Figure 4(a): Density plot for armed conflicts aggregated by country-year*** |
+
+We see from Figure 4(a) the total aggregated number of events by country-year plotted by a density plot to create bins. We create three bins, low conflict, medium conflict, and high conflict for events less than equal to 10, events between 10 and 200, and 200 and above, respectively. This is so that we can see how the clusters from our cluster analysis reflect upon these bins in the findings section. We find that we have about 20 high conflict country-year pairs, 251 medium conflict pairs, and 403 low-conflict pairs from Figure 4(b).  
+
+| ![Figure 4(b): Pie-chart distribution of Low Conflict, Medium Conflict and High Conflict country-year pairs](/images/figure4b_ppol566_project.png) | 
+|:--:| 
+| ***Figure 4(b): Pie-chart distribution of Low Conflict, Medium Conflict and High Conflict country-year pairs*** |
+
+# Methodology  
+
+Given the missingness in my data, a standard approach using singular value decomposition (SVD) was impossible due to the inability to decompose a data matrix with missing values (Taylor et al., 2013). Although I could use Eigen decomposition of the covariance matrix, there are drawbacks to this method known as least squares empirical orthogonal functions (LSEOF). The problem is that we can get negative eigenvalues using this method, thus overestimating the magnitude of eigenvalues for other variables with positive eigenvalues (Beckers and Rixen 2003; Björnsson and Venegas 1997).  
+
+Thus, I make use of an alternative approach known as data interpolating empirical orthogonal functions (DINEOF) (Beckers and Rixen 2003; Alvera-Azcárate et al. 2005), which interpolates missing values via an iterative SVD algorithm. The missing values in the data frame are directly filled in using an unbiased guess (for example, zero for normalized data). In addition to this, some non-missing values in the data are also treated as gaps, i.e. substituted with an unbiased guess as well, while their original values are retained to compare the two root-mean-squared errors that are generated by substituting the non-missing values and not substituting them. Then, the unbiased guess that produces the lowest root-mean-squared errors is filled into the missing data points in the data frame. This is done by adding each Principal Component to the iteration and it keeps doing it until all missing values are substituted, hence it is iterative. The reason I chose this method is that it has been extensively used in the past as stated before such as in reconstructing different geophysical and time-series datasets such as one used in reconstructing satellite-derived sea surface temperature data (B. Ping et al., 2015).  
+
+After filling the gaps, we apply Principal Component Analysis (PCA) using Singular Value Decomposition to our imputed data frame. But what is PCA? It is an unsupervised machine learning technique to summarize a dataset of a large dimension into a dataset consisting of higher-order lower-dimensional principal components. These components capture variability into the whole data rather than an individual feature. Since PCA allows for entering into a simple and less dimensionally complex plane, I believe that it would be very useful in this case for our data. We see that from Figure 2 the data of over 2100 features can be represented by a mere 40 features which explain almost 100% variance in the data. This is great news, we’ve successfully reduced over 2100 features to less than 50 features. The first 15 principal components are then selected to capture 81.94% variance in the data as shown in Figure 2. The strength and the weakness of PCA are the same, that is it unsupervised learning, that is it has on one side, no parameters tuning required but on the other hand, it does not take into account any prior knowledge as parametric algorithms do. PCA also does not perform well with data on different scales (hence the standardization), on non-linear data, or highly correlated data (one of the major problems in our analysis). The good part of using Singular Value Decomposition over Eigen decomposition in PCA is that Singular Value Decomposition does not require your data matrix to be diagonalizable like Eigen decomposition does.  
+
+The next step is to find similar clusters. As stated before, I chose to go forward with agglomerative hierarchical cluster analysis since this method has been extensively used (Obinger & Wagschal, 2001; Saint-Arnaud & Bernard, 2003) in such a country-year setting for comparative political economy. Moreover, I believe there is some sort of hierarchy within the dataset itself since it measures factors related to the governance of different countries for different years. K-means cluster analysis algorithm or Lloyd’s algorithm requires the user to input the value of k beforehand which hierarchical clustering completely eliminates. This is one of the primary reasons for not choosing the K-means clustering algorithm. Moreover, if we see in Figure 5 we see that our Principal Components have some outliers. K-means performs very poorly with outliers. Also, since it is country-year level governance data, I believe that the clusters would also be of different sizes, densities, and even shapes, k-means is probably not a very useful cluster analysis algorithm in this case.  
+
+| ![Figure 5: Distribution of data within Principal Components of QoG data](/images/figure5_ppol566_project.png) | 
+|:--:| 
+| ***Figure 5: Distribution of data within Principal Components of QoG data*** |
+
+On the other hand, hierarchical clustering even though it seems useful has its drawbacks. It is computationally expensive, a decision to merge clusters cannot be undone, there is no objective function to be minimized here per se. We also have to select one of the inter-cluster similarity proximity-links such as Single Link (MIN), Complete Link (MAX), grouped average, or ward. Each method comes with its drawback such as being sensitive to noise or outliers, difficulty in handling clusters of different sizes and shapes, among others. Keeping in mind that our data has outliers, may also have globular clusters, I’d choose to go with the ward method of linkages. This way I’d be less susceptible to noise and outliers at the cost of being a little biased toward globular clusters instead of clusters of all shapes. Figure 6 shows how different methods compare to each other and how all except the ward’s method generated results that were inferable compared to other methods whose dendrograms did not make much sense right off the bat.  
+
+| ![Figure 6: Dendrograms of linkage methods for Agglomerative Hierarchical Cluster Analysis](/images/figure6_ppol566_project.png) | 
+|:--:| 
+| ***Figure 6: Dendrograms of linkage methods for Agglomerative Hierarchical Cluster Analysis*** |
+
+# Findings  
+| ![Figure 7: Dendrogram for Agglomerative Hierarchical Cluster Analysis using Ward linkages](/images/figure7_ppol566_project.png) | 
+|:--:| 
+| ***Figure 7: Dendrogram for Agglomerative Hierarchical Cluster Analysis using Ward linkages*** |
+
+As spoken before, we chose the ward linkage method and the dendrogram can be seen in Figure 7. The partition can be made at how many ever cluster now. Thus, this data was clustered using agglomerative hierarchical clustering using ward linkages. This looks like a good clustering model to the eye and it’ll be interesting to see what’s in these clusters. Let’s first check for just 2 clusters, then we’ll check for 4 and lastly, we’ll check for 6 clusters.  
+
+| ![Figure 8: Grouping clusters by country-year plots](/images/figure8a_ppol566_project.png) | 
+|:--:| 
+| ![Figure 8: Grouping clusters by country-year plots](/images/figure8b_ppol566_project.png) | 
+| ![Figure 8: Grouping clusters by country-year plots](/images/figure8c_ppol566_project.png) | 
+| ***Figure 8: Grouping clusters by country-year plots*** |
+
+The first thing we notice from Figure 8 is that when we only have 2 clusters, we see that countries are clustered together as a whole rather than  country-year pairs. But as we move toward 6 clusters from 2 clusters, the distinction between country-year pairs from the past 2 decades and the period before that becomes more evident. Even though the country-year pairs are distinct, we don't see much correlation or any kind of a pattern between the clusters and the levels of conflict. Even though high conflict observations are paired mainly into one cluster, the medium and low conflict clusters are not distinct. One can see using Figure 9 below the different cluster configurations (2, 4 or 6 clusters), but no definitive cluster really was defined by conflict for the entire data. The "No Conflict" essentially means that the UCDP Georeferenced Event Dataset did not have any entry for the particular country-year observation. The clusters are on the y axis where each cluster represents a country-year cluster of observations done by ward linkage hierarchical cluster analysis. The x-axis has all the country-year observations and one can hover to see which point corresponds to what observation.  
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, fig.show = 'asis'}
+require(tidyverse)
+require(grid)
+library(viridis)
+require(countrycode)
+require(plotly)
+require(jsonlite)
+library(rvest)
+library(magrittr)
+library(ggmap)
+library(stringr)
+ged = read_csv("data/ged201.csv") # Reading in GED Data
+
+ged = ged %>% 
+  filter(type_of_violence == 2) %>% 
+  dplyr::select(country, year, latitude, longitude) %>% 
+  group_by(country, year) %>% 
+  summarize(n = n()) %>% 
+  mutate(bin = "Unknown",
+         bin = ifelse(n <= 10, "Low Conflict", bin),
+         bin = ifelse(n >= 200, "High Conflict", bin),
+         bin = ifelse(10 < n & n < 200, "Medium Conflict", bin)) %>% 
+  ungroup() %>% 
+  mutate(country = countrycode(country, origin = "country.name", destination = "country.name")) %>% 
+  mutate_all(~replace(., is.na(.), "Yugoslavia")) %>% 
+  mutate(year = as.numeric(year))
+
+clust = read_csv("data/final_cluster_analysis.csv") %>% 
+  dplyr::select(-X1) %>% 
+  mutate(country = countrycode(cname, origin = "country.name", destination = "country.name"))
+
+df = clust %>% 
+  mutate(country = countrycode(cname, origin = "country.name", destination = "country.name")) %>% 
+  left_join(., ged, by = c("country", "year")) %>% 
+  #filter(year > 1988) %>% 
+  dplyr::select(-cname) %>% 
+  mutate(cluster_2 = factor(cluster_2),
+         cluster_4 = factor(cluster_4),
+         cluster_6 = factor(cluster_6)) %>% 
+  dplyr::select(`Country Name`  = country,
+                `ISO Code` = ccodealp,
+         Year = year,
+         `Country Name and Year` = cname_year,
+         `2 Clusters` = cluster_2,
+         `4 Clusters` = cluster_4,
+         `6 Clusters` = cluster_6,
+         `Conflict Level` = bin) %>% 
+  mutate(`Conflict Level` = replace_na(`Conflict Level`, "No Conflict"),
+         `Conflict Level` = factor(`Conflict Level`, levels = c("High Conflict", "Medium Conflict", "Low Conflict","No Conflict")))
+
+df %>% #filter(`Conflict Level` != "No Conflict") %>% 
+  plot_ly(x = ~`Country Name and Year`,
+          y = ~`2 Clusters`,
+          type = "scatter",
+          color = ~`Conflict Level`,
+          text = ~paste0(`Conflict Level`, " existed in ", `Country Name`, " in the year ", `Year`,"."),
+          hoverinfo = "text",
+          mode = "markers",
+          colors =  viridis_pal(option = "B")(4)
+          ) %>% 
+  add_trace(y = ~`4 Clusters`,
+          type = "scatter",
+          color = ~`Conflict Level`,
+          #text = ~paste0(`Conflict Level`, " existed in ", `Country Name and Year`),
+          hoverinfo = "text",
+          mode = "markers", 
+          visible = F) %>%
+  add_trace(y = ~`6 Clusters`,
+          type = "scatter",
+          color = ~`Conflict Level`,
+          #text = ~paste0(),
+          hoverinfo = "text",
+          mode = "markers", 
+          visible = F) %>%
+  layout(title = "Country-Year Clusters (2, 4 & 6 using Hierarchical Clustering)",
+         xaxis = list(title = "Country and Year",
+                      showticklabels = F,
+                      showgrid = F),
+         yaxis = list(title = "Cluster",
+                      dtick = 1,
+                      tick0 = 0,
+                      tickmode = "linear",
+                      showgrid = F),
+         annotations = 
+ list(x = 1, y = -0.05, text = "Source: Quality of Governance Standard Time-Series Dataset \n& UCDP Georeferenced Event Dataset", 
+      showarrow = F, xref='paper', yref='paper', 
+      xanchor='right', yanchor='auto', xshift=0, yshift=0),
+    updatemenus = list(
+      list(label = "Choose the no. of clusters",
+           active = 0,
+        buttons = list(
+          list(method = "restyle",
+               args = list("y",list(~`2 Clusters`)),
+               label = "2 Clusters"),
+
+          list(method = "restyle",
+               args = list("y",list(~`4 Clusters`)),
+               label = "4 Clusters"),
+
+          list(method = "restyle",
+               args = list("y",list(~`6 Clusters`)),
+               label = "6 Clusters")
+
+          ))
+    )
+  )
+```
+Figure 9: Country-Year Clusters (2, 4 & 6 using Hierarchical Clustering)
+
+We can see in Figure 10 that the picture is more clear. Even though we can’t say much about conflict from the same, we can see that similar countries are grouped. It becomes even more clear when we look at the six clusters where the world is essentially clustered in 2017 as one – United States, Canada, Europe and Australia; second – the Middle East and Northern African, except Saudi Arabia of course; three – large parts of Asia, Latin America and Africa; four – island nations, among other categories. So even though we did not see a pattern at a general level with the help of our data from the Georeferenced Event Dataset, we do see that in the past decade the countries that are having most conflicts are grouped together. Thus it becomes more clear to me that governance overall affects political economy more or less more than anything. It is not a direct driver of conflict, but we can see conflict in nations that may have a similar type of governance in some years.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, fig.show = 'asis'}
+require(tidyverse)
+require(grid)
+library(viridis)
+require(countrycode)
+require(plotly)
+require(jsonlite)
+library(rvest)
+library(magrittr)
+library(ggmap)
+library(stringr)
+ged = read_csv("data/ged201.csv") # Reading in GED Data
+
+ged = ged %>% 
+  filter(type_of_violence == 2) %>% 
+  dplyr::select(country, year, latitude, longitude) %>% 
+  group_by(country, year) %>% 
+  summarize(n = n()) %>% 
+  mutate(bin = "Unknown",
+         bin = ifelse(n <= 10, "Low Conflict", bin),
+         bin = ifelse(n >= 200, "High Conflict", bin),
+         bin = ifelse(10 < n & n < 200, "Medium Conflict", bin)) %>% 
+  ungroup() %>% 
+  mutate(country = countrycode(country, origin = "country.name", destination = "country.name")) %>% 
+  mutate_all(~replace(., is.na(.), "Yugoslavia")) %>% 
+  mutate(year = as.numeric(year))
+
+clust = read_csv("data/final_cluster_analysis.csv") %>% 
+  dplyr::select(-X1) %>% 
+  mutate(country = countrycode(cname, origin = "country.name", destination = "country.name"))
+
+df = clust %>% 
+  mutate(country = countrycode(cname, origin = "country.name", destination = "country.name")) %>% 
+  left_join(., ged, by = c("country", "year")) %>% 
+  #filter(year > 1988) %>% 
+  dplyr::select(-cname) %>% 
+  mutate(cluster_2 = factor(cluster_2),
+         cluster_4 = factor(cluster_4),
+         cluster_6 = factor(cluster_6)) %>% 
+  dplyr::select(`Country Name`  = country,
+                `ISO Code` = ccodealp,
+         Year = year,
+         `Country Name and Year` = cname_year,
+         `2 Clusters` = cluster_2,
+         `4 Clusters` = cluster_4,
+         `6 Clusters` = cluster_6,
+         `Conflict Level` = bin) %>% 
+  mutate(`Conflict Level` = replace_na(`Conflict Level`, "No Conflict"),
+         `Conflict Level` = factor(`Conflict Level`, levels = c("High Conflict", "Medium Conflict", "Low Conflict","No Conflict")))
+
+nfactor = length(levels(df$`2 Clusters`))
+df %>% 
+  filter(is.na(`2 Clusters`) == F) %>% 
+  mutate(test = as.numeric(`2 Clusters`)) %>% 
+
+  plot_ly(type='choropleth', 
+          locations=~`ISO Code`,
+          text=~paste0(`Country Name`, " is in cluster ", `2 Clusters`, " in the year ", `Year`, "."),
+          frame = ~Year,
+          hoverinfo = "text",
+          z = ~test,
+          colorscale =  "Viridis",
+          #colors = cols,
+          colorbar=list(title = "Cluster", tickvals=1:nfactor, ticktext=levels(df$`2 Clusters`)),
+          marker = list(line = list(color = toRGB("black"), 
+                                    width = 0.5))) %>% 
+  layout(annotations = list(x = 1, 
+                            y = -0.01, 
+                            text = "Source: Quality of Governance Standard Time-Series Dataset", 
+                            showarrow = F, 
+                            xref='paper', 
+                            yref='paper', 
+                            xanchor='right',
+                            yanchor='auto', 
+                            xshift=0, 
+                            yshift=0),
+         geo = list(showframe = FALSE, 
+                    showcoastlines = FALSE, 
+                    projection = list(type = 'Mercator')),
+         title = "Countries by 2 Clusters (1946-2019)") %>% 
+  animation_opts(transition = 0)
+
+nfactor = length(levels(df$`4 Clusters`))
+df %>% 
+  filter(is.na(`4 Clusters`) == F) %>% 
+  mutate(test = as.numeric(`4 Clusters`)) %>% 
+
+  plot_ly(type='choropleth', 
+          locations=~`ISO Code`,
+          text=~paste0(`Country Name`, " is in cluster ", `4 Clusters`, " in the year ", `Year`, "."),
+          frame = ~Year,
+          hoverinfo = "text",
+          z = ~test,
+          colorscale =  "Viridis",
+          #colors = cols,
+          colorbar=list(title = "Cluster", tickvals=1:nfactor, ticktext=levels(df$`4 Clusters`)),
+          marker = list(line = list(color = toRGB("black"), 
+                                    width = 0.5))) %>% 
+  layout(annotations = list(x = 1, 
+                            y = -0.01, 
+                            text = "Source: Quality of Governance Standard Time-Series Dataset", 
+                            showarrow = F, 
+                            xref='paper', 
+                            yref='paper', 
+                            xanchor='right',
+                            yanchor='auto', 
+                            xshift=0, 
+                            yshift=0),
+         geo = list(showframe = FALSE, 
+                    showcoastlines = FALSE, 
+                    projection = list(type = 'Mercator')),
+         title = "Countries by 4 Clusters (1946-2019)") %>% 
+  animation_opts(transition = 0)
+
+nfactor = length(levels(df$`6 Clusters`))
+df %>% 
+  filter(is.na(`6 Clusters`) == F) %>% 
+  mutate(test = as.numeric(`6 Clusters`)) %>% 
+
+  plot_ly(type='choropleth', 
+          locations=~`ISO Code`,
+          text=~paste0(`Country Name`, " is in cluster ", `6 Clusters`, " in the year ", `Year`, "."),
+          frame = ~Year,
+          hoverinfo = "text",
+          z = ~test,
+          colorscale =  "Viridis",
+          #colors = cols,
+          colorbar=list(title = "Cluster", tickvals=1:nfactor, ticktext=levels(df$`6 Clusters`)),
+          marker = list(line = list(color = toRGB("black"), 
+                                    width = 0.5))) %>% 
+  layout(annotations = list(x = 1, 
+                            y = -0.01, 
+                            text = "Source: Quality of Governance Standard Time-Series Dataset", 
+                            showarrow = F, 
+                            xref='paper', 
+                            yref='paper', 
+                            xanchor='right',
+                            yanchor='auto', 
+                            xshift=0, 
+                            yshift=0),
+         geo = list(showframe = FALSE, 
+                    showcoastlines = FALSE, 
+                    projection = list(type = 'Mercator')),
+         title = "Countries by 6 Clusters (1946-2019)") %>% 
+  animation_opts(transition = 0)
+```
+Figure 10: Country-Year Cluster Map (2, 4 & 6 using Hierarchical Clustering) (1946-2019)  
+
+# Conclusion  
+
+I employed Principal Component Analysis alongside hierarchical clustering, which are two unsupervised machine learning approaches to find out if countries with similar levels of governance or similar governance in terms of what they’re scored as relating to a whole number of factors spoken about before. If one were to dwell deeper into these clusters, they may find some interesting insights. Moreover, we could also be able to learn why the clusters are the way they are. For example, the paper Country Clustering in Comparative Political Economy (Ahlquist & Breunig, 2009) compares the study of two other papers (Obinger & Wagschal, 2001; Saint-Arnaud & Bernard, 2003). The clusters in those papers differ from each other but they’re both countries based. One talks about regimes such as conservative or liberal while the other one talks about race and ethnicity. It is important to understand that the interpretation of these clusters is up to the user.  
+
+There wasn’t much that showed that a particular cluster relates to more or less conflict hence I decided to exclude it from the findings. Since the insights, we’ve received only tell us that there may be a difference within countries in the last two decades and the period before that. We can’t claim that a particular type of governance also explains conflict. There are many more limitations to this though such as the availability of data. Even though the QoG dataset was extensive, the Geo-referenced Event Dataset was not. This was one of the limitations of our analysis. The other limitation is the lack of a logical explanation as to why our clusters form the way they do.  
+
+I believe this project is very rudimentary and even though it projects the different clusters, there is still a long way to go. We see that for the year 2017, the clusters of countries seem pretty apt. This hints toward political economy not being strongly correlated with conflict on a general level.  
+
+
+# Bibliography  
+
+*Ahlquist, J. S., & Breunig, C. (2009). Country clustering in comparative political economy. In MPIfG Discussion Paper (No. 09/5; MPIfG Discussion Paper). Max Planck Institute for the Study of Societies. https://ideas.repec.org/p/zbw/mpifgd/095.html*  
+
+*Good Governments—Vallandingham.me. (n.d.). Retrieved November 9, 2020, from http://vallandingham.me/world_gov_challenge/*  
+
+*Obinger, H., & Wagschal, U. (2001). Families of nations and public policy. West European Politics, 24(1), 99–114. https://doi.org/10.1080/01402380108425419*  
+
+*Pettersson, Therese & Magnus Öberg (2020) Organized violence, 1989-2019. Journal of Peace Research 57(4). (n.d.).*  
+
+*Ping, B., Su, F., & Meng, Y. (2015). Reconstruction of Satellite-Derived Sea Surface Temperature Data Based on an Improved DINEOF Algorithm. IEEE Journal of Selected Topics in Applied Earth Observations and Remote Sensing, 8(8), 4181–4188. https://doi.org/10.1109/JSTARS.2015.2457495*  
+
+*Refs.cgi.txt. (n.d.).*  
+
+*Saint-Arnaud, S., & Bernard, P. (2003). Convergence or Resilience? A Hierarchical Cluster Analysis of the Welfare Regimes in Advanced Countries. Current Sociology, 51(5), 499–527. https://doi.org/10.1177/00113921030515004*  
+
+*Shaw, M. N. (2008). International Law. Cambridge University Press. http://public.ebookcentral.proquest.com/choice/publicfullrecord.aspx?p=377898*  
+
+*Sundberg, Ralph and Erik Melander (2013) Introducing the UCDP Georeferenced Event Dataset. Journal of Peace Research 50(. (n.d.).*  
+
+*Taylor, M. H., Losch, M., Wenzel, M., & Schröter, J. (2013). On the Sensitivity of Field Reconstruction and Prediction Using Empirical Orthogonal Functions Derived from Gappy Data. Journal of Climate, 26(22), 9194–9205. https://doi.org/10.1175/JCLI-D-13-00089.1*  
+
+*Teorell, J., Dahlberg, S., Holmberg, S., Rothstein, B., Alvarado Pachon, N., & Axelsson, S. (2020). QoG Standard Dataset 2020 [Data set]. University of Gothenburg: The Quality of Government Institute. https://doi.org/10.18157/QOGSTDJAN20*  
+
+*Venables, W. N., & Ripley, B. D. (2010). Modern Applied Statistics with S (4. ed., [Nachdr.]). Springer.*  

@@ -1,0 +1,160 @@
+---
+title: TESTING TESTING
+author: Digivjay Ghotane
+date: '2020-12-29'
+slug: testing-testing
+---
+# Executive Summary  
+International law is more or less realized on assumption that there exists an analogy between national systems and international order. Resorting to force by means of self-defense to protect certain rights is very common in primitive systems of law with blood feuds. In domestic legal order, the methods to resort to force are exclusively in the control of the established authority that is responsible for governance within a nation. The established authority that is responsible for such governance can carry out its function through various methods such as but not limited to, administrative acts, legislation, the decision of courts, and activities on the international stage such as entering into bilateral or multilateral treaties (Shaw, 2008).  
+
+Conflict is prevalent all around the world, especially in the Middle East and Northern Africa, and has been for the past couple of decades. I believe it is rather important to see if countries with a similar type of governance have similar levels of armed conflicts. Why? Because there is more or less always international involvement when there is an armed conflict which leads to distortion of the said international order, in my humble opinion. To this end, I group country-year observations together by employing agglomerative hierarchical clustering clustering to quality of governance measured by over 2000 variables, by reducing the variables to their first 15 principal components.  
+
+The data reflects a clustering between pairs of countries and years in the past two decades and the period before that and it becomes more clear as the number of clusters increases. This clustering is in terms of similar forms of governance, essentially. Even though we do not see the relevance in the form of governance and conflict at a general level, we see clustering of conflict-prone countries in years such as 2017 when armed conflict by non-state actors was at the peak.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+require(tidyverse)
+require(grid)
+library(viridis)
+require(countrycode)
+require(plotly)
+require(jsonlite)
+library(rvest)
+library(magrittr)
+library(ggmap)
+library(stringr)
+ged = read_csv("data/ged201.csv") # Reading in GED Data
+
+ged = ged %>% 
+  filter(type_of_violence == 2) %>% 
+  dplyr::select(country, year, latitude, longitude) %>% 
+  group_by(country, year) %>% 
+  summarize(n = n()) %>% 
+  mutate(bin = "Unknown",
+         bin = ifelse(n <= 10, "Low Conflict", bin),
+         bin = ifelse(n >= 200, "High Conflict", bin),
+         bin = ifelse(10 < n & n < 200, "Medium Conflict", bin)) %>% 
+  ungroup() %>% 
+  mutate(country = countrycode(country, origin = "country.name", destination = "country.name")) %>% 
+  mutate_all(~replace(., is.na(.), "Yugoslavia")) %>% 
+  mutate(year = as.numeric(year))
+
+clust = read_csv("data/final_cluster_analysis.csv") %>% 
+  dplyr::select(-X1) %>% 
+  mutate(country = countrycode(cname, origin = "country.name", destination = "country.name"))
+
+df = clust %>% 
+  mutate(country = countrycode(cname, origin = "country.name", destination = "country.name")) %>% 
+  left_join(., ged, by = c("country", "year")) %>% 
+  #filter(year > 1988) %>% 
+  dplyr::select(-cname) %>% 
+  mutate(cluster_2 = factor(cluster_2),
+         cluster_4 = factor(cluster_4),
+         cluster_6 = factor(cluster_6)) %>% 
+  dplyr::select(`Country Name`  = country,
+                `ISO Code` = ccodealp,
+         Year = year,
+         `Country Name and Year` = cname_year,
+         `2 Clusters` = cluster_2,
+         `4 Clusters` = cluster_4,
+         `6 Clusters` = cluster_6,
+         `Conflict Level` = bin) %>% 
+  mutate(`Conflict Level` = replace_na(`Conflict Level`, "No Conflict"),
+         `Conflict Level` = factor(`Conflict Level`, levels = c("High Conflict", "Medium Conflict", "Low Conflict","No Conflict")))
+
+nfactor = length(levels(df$`2 Clusters`))
+df %>% 
+  filter(is.na(`2 Clusters`) == F) %>% 
+  mutate(test = as.numeric(`2 Clusters`)) %>% 
+
+  plot_ly(type='choropleth', 
+          locations=~`ISO Code`,
+          text=~paste0(`Country Name`, " is in cluster ", `2 Clusters`, " in the year ", `Year`, "."),
+          frame = ~Year,
+          hoverinfo = "text",
+          z = ~test,
+          colorscale =  "Viridis",
+          #colors = cols,
+          colorbar=list(title = "Cluster", tickvals=1:nfactor, ticktext=levels(df$`2 Clusters`)),
+          marker = list(line = list(color = toRGB("black"), 
+                                    width = 0.5))) %>% 
+  layout(annotations = list(x = 1, 
+                            y = -0.01, 
+                            text = "Source: Quality of Governance Standard Time-Series Dataset", 
+                            showarrow = F, 
+                            xref='paper', 
+                            yref='paper', 
+                            xanchor='right',
+                            yanchor='auto', 
+                            xshift=0, 
+                            yshift=0),
+         geo = list(showframe = FALSE, 
+                    showcoastlines = FALSE, 
+                    projection = list(type = 'Mercator')),
+         title = "Countries by 2 Clusters (1946-2019)") %>% 
+  animation_opts(transition = 0)
+
+nfactor = length(levels(df$`4 Clusters`))
+df %>% 
+  filter(is.na(`4 Clusters`) == F) %>% 
+  mutate(test = as.numeric(`4 Clusters`)) %>% 
+
+  plot_ly(type='choropleth', 
+          locations=~`ISO Code`,
+          text=~paste0(`Country Name`, " is in cluster ", `4 Clusters`, " in the year ", `Year`, "."),
+          frame = ~Year,
+          hoverinfo = "text",
+          z = ~test,
+          colorscale =  "Viridis",
+          #colors = cols,
+          colorbar=list(title = "Cluster", tickvals=1:nfactor, ticktext=levels(df$`4 Clusters`)),
+          marker = list(line = list(color = toRGB("black"), 
+                                    width = 0.5))) %>% 
+  layout(annotations = list(x = 1, 
+                            y = -0.01, 
+                            text = "Source: Quality of Governance Standard Time-Series Dataset", 
+                            showarrow = F, 
+                            xref='paper', 
+                            yref='paper', 
+                            xanchor='right',
+                            yanchor='auto', 
+                            xshift=0, 
+                            yshift=0),
+         geo = list(showframe = FALSE, 
+                    showcoastlines = FALSE, 
+                    projection = list(type = 'Mercator')),
+         title = "Countries by 4 Clusters (1946-2019)") %>% 
+  animation_opts(transition = 0)
+
+nfactor = length(levels(df$`6 Clusters`))
+df %>% 
+  filter(is.na(`6 Clusters`) == F) %>% 
+  mutate(test = as.numeric(`6 Clusters`)) %>% 
+
+  plot_ly(type='choropleth', 
+          locations=~`ISO Code`,
+          text=~paste0(`Country Name`, " is in cluster ", `6 Clusters`, " in the year ", `Year`, "."),
+          frame = ~Year,
+          hoverinfo = "text",
+          z = ~test,
+          colorscale =  "Viridis",
+          #colors = cols,
+          colorbar=list(title = "Cluster", tickvals=1:nfactor, ticktext=levels(df$`6 Clusters`)),
+          marker = list(line = list(color = toRGB("black"), 
+                                    width = 0.5))) %>% 
+  layout(annotations = list(x = 1, 
+                            y = -0.01, 
+                            text = "Source: Quality of Governance Standard Time-Series Dataset", 
+                            showarrow = F, 
+                            xref='paper', 
+                            yref='paper', 
+                            xanchor='right',
+                            yanchor='auto', 
+                            xshift=0, 
+                            yshift=0),
+         geo = list(showframe = FALSE, 
+                    showcoastlines = FALSE, 
+                    projection = list(type = 'Mercator')),
+         title = "Countries by 6 Clusters (1946-2019)") %>% 
+  animation_opts(transition = 0)
+```
+
