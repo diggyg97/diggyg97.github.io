@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+  
+
+  
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-149135167-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+  
+
+  <title>
+    
+    Analyzing Impact of Military State Interventions on Terrorism and thereby Predicting Attack Type | Digvijay Ghotane
+  </title>
+
+  <meta name="title" content="Analyzing Impact of Military State Interventions on Terrorism and thereby Predicting Attack Type | Digvijay Ghotane">
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="no-referrer-when-downgrade">
+  <base href="/">
+
+  
+    <meta name="description" content="Graduate student at Georgetown, leveraging data to answer policy questions, based in Washington D.C.">
+  
+
+  
+    <meta name="author" content="Digvijay Ghotane">
+  
+
+  
+
+  <meta property="og:title" content="Analyzing Impact of Military State Interventions on Terrorism and thereby Predicting Attack Type | Digvijay Ghotane">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="/">
+
+  
+    <meta property="og:image" content="//images/main_dg_small.png">
+  
+
+  
+    <meta property="og:description" content="Graduate student at Georgetown, leveraging data to answer policy questions, based in Washington D.C.">
+  
+
+  
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+    <meta name="theme-color" content="#FFF">
+  
+
+  <link rel="canonical" href="/blog/analyzing-impact-of-military-state-interventions-on-terrorism-and-thereby-predicting-attack-type/">
+  
+  
+
+  <link rel="stylesheet" href="/style.8a0f7d631e26a89cffeff0933468b668a339025cad33abaac917cd31b03083f3.css" type="text/css">
+
+  
+
+  
+    <style>.lazyload{opacity:.0001;}.logo .lazyload{min-width:10em;}</style>
+    <script src="/js/vendor/lazysizes.min.js" async></script>
+  
+
+  
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+    
+  
+</head>
+
+  <body>
+    
+
+
+
+<nav class="row middle-xs center-xs">
+  <div class="col-xs-6 col-sm-1 logo">
+    <a href="/#"><img data-src="/images/main_dg_small.png" class="lazyload" lazyload="on" alt="Digvijay Ghotane"></a>
+  </div>
+    
+      <div class="col-xs-3 col-sm-2">
+        <h3><a href="/#about">Hello</a></h3>
+      </div>
+    
+      <div class="col-xs-3 col-sm-2">
+        <h3><a href="/#work">Résumé</a></h3>
+      </div>
+    
+      <div class="col-xs-3 col-sm-2">
+        <h3><a href="/#blog">Blog</a></h3>
+      </div>
+    
+      <div class="col-xs-3 col-sm-2">
+        <h3><a href="/#contact">Contact</a></h3>
+      </div>
+    
+  <div class="col-xs-6 col-sm-1 nav-toggle">
+      <a href="" class="nav-icon" onclick="return false">
+        <img data-src="/images/icon-menu.png" class="lazyload" lazyload="on" alt="Open Menu">
+        <img data-src="/images/icon-x.png" class="lazyload" lazyload="on" alt="Close Menu" style="display: none;">
+      </a>
+  </div>
+</nav>
+
+<section class="nav-full row middle-xs center-xs">
+  <div class="col-xs-12">
+    <div class="row middle-xs center-xs">
+      
+        <div class="col-xs-12"><h1><a href="/#about">Hello</a></h1></div>
+      
+        <div class="col-xs-12"><h1><a href="/#work">Résumé</a></h1></div>
+      
+        <div class="col-xs-12"><h1><a href="/#blog">Blog</a></h1></div>
+      
+        <div class="col-xs-12"><h1><a href="/#contact">Contact</a></h1></div>
+      
+    </div>
+  </div>
+</section>
+
+    <main>
+
+      <section class="container">
+        <section class="content">
+          <h1> Analyzing Impact of Military State Interventions on Terrorism and thereby Predicting Attack Type </h1>
+
+            <div class="sub-header">
+              May 4, 2020 · 18 minutes read
+            </div>
+
+          <article class="entry-content">
+            <h1 id="executive-summary">Executive Summary</h1>
+<p>It is a rather important question, “what is the impact of military interventions on terrorism?” This is due to a multitude of concerns relating to security, may it be personal, social, or financial. It is, therefore, in my opinion, important to analyze the impact of military interventions on extremist activities. This paper tries to analyze that question quantitatively. This can become essential under a lot of situations, such as whether to conduct a military intervention or not, for starters. Another thing that can be questioned is the continued operation of a military operation, if it does not curb extremism, it may not be legal under International law. Thirdly, accountability of military actions and interventions can be assessed and the actors that have not been in conformity with International law can be held accountable for their actions.</p>
+<p>The second thing that I present is a prediction model that classifies the attack type. This is rather useful for countering attacks if intel is already available on certain parameters, the attack type can be known and evaded before a terrorist attack occurs. I did this for Syria since our findings showed a statistically significant effect of US-led intervention on Syria. This model predicts attack type and if the type of attack is known before it happens, it can be prevented in my opinion.</p>
+<p>All in all, I only found the intervention led by the United States of America in the Syrian Arab Republic in September 2014, and the intervention led by the Russian Federation in the autonomous regions of South Ossetia and Abkhazia of Georgia in August 2008 to be statistically significant with regard to the number of terrorist activities in the respective regions. They’ve been discussed in this report. I built as a terrorist activity predictor for Syria since I found that terrorist activity had gone up after intervention and in such a scenario, it is essential for the United States to combat terrorism by predicting it.</p>
+<h1 id="background">Background</h1>
+<p>In the past two decades, there have been a lot of military interventions worldwide. They have been under the pretext of either aiding failing states or for humanitarian causes. This project aims at analyzing military interventions by the United States of America and the Russian Federation, and to see their impact on terrorism. Although there is no universally accepted definition of terrorism (Schmid, 2008), for the purposes of this paper, I will be adhering to the definition applied by the National Consortium for the Study of Terrorism and Responses to Terrorism (START) at the University of Maryland, and to that end using their data (START, UMD, 2019). It also aims to provide a comparative study of the impact of interventions by the United States and Russia.</p>
+<p>Furthermore, this project aims at predicting attack type based on the city, target type, the name of the perpetrating group, and the day of the week. But, before jumping into the specifics about this project, it is necessary to understand why this project is important. Reuters in April 2019 reported that global military expenditure was the highest since the end of the Cold War. They also reported that the United States has the highest expenditure while Russia made it to the top ten, being in the sixth position. John R. Deni wrote an opinion in The Washington Post in January 2020 about how it was a bad idea for the North Atlantic Treaty Organization (NATO) to be more involved in the Middle-East, which came after President Donald Trump’s announcement for the same on January 8, 2020. The NATO Secretary-General also agreed with the opinion expressing that this would bring in peace and stability, and help counter-terrorism. The middle east is already torn by conflict, so keeping in mind the ‘peace-to-prosperity’ plan for the Israel-Palestine question drafted by the Trump administration, it is an important question to assess, “do military interventions counter-terrorism?” Depending on the answer to that question, special care needs to be taken while formulating such policies. The implications of previous interventions are also important to answer certain accountability questions that still float, such as the legality of the unilateral Iraqi intervention that Kofi Annan, a former United Nations Secretary-General held the opinion of being illegal (BBC, 2004). This paper partly tries to answer the question of the impact of military interventions on terrorist activities.</p>
+<p>Post-intervention, belligerents if recognized by the state become subjects of international law (Shaw, 2017). In such a situation, the country intervening should have a responsibility to assist the nation in combatting such belligerents, since it becomes well within their jurisdiction. The prediction of an attack can be used to counter the attack before it takes place given that there is some intel available. This is, in my opinion, a good capacity-building measure in such a situation. The United States has conducted numerous military interventions and has also been a part of NATO-led military interventions. The Russian Federation also has conducted military interventions. I will be analyzing the impact of United States intervention in Afghanistan and Iraq, and the impact of Russian intervention in South Ossetia and Abkhazia, the autonomous regions of Georgia and Crimea further in this paper. I will also provide a comparison between the impact on terrorism of the US-led and the Russian intervention in the Syrian Arab Republic. If an intervention does have a significant effect on terrorist activities, it is important for the country to aid the country in combatting terrorism after the intervention. Predicting the type of attack is usually essential since intel is usually available on terrorist-group activities in a city, the attack target of the group, the weapon type they use by analyzing the transportation of goods, etcetera. An attack can be then avoided if the type of attack is known. Thus, I further provide a model to predict an attack-type, as defined in the Global Terrorism Database codebook (START, UMD, 2019).</p>
+<h1 id="data">Data</h1>
+<p>The Global Terrorism Database (START, UMD, 2019) is the primary dataset of interest since I’m measuring terrorist activity. For the purpose of analyzing the events, I first cleaned the GTD data. I subsetted the data for the countries of the Syrian Arab Republic (Syria), Republic of Iraq (Iraq), Islamic Republic of Afghanistan (Afghanistan), Georgia, and Ukraine (Crimea). I then grouped the data by day and country to get a count of events per day in each country. This is the important data for the first part of my project, i.e. my analysis.</p>
+<p>I subsetted the data further into the five countries to analyze them separately. I also subsetted the data by date. For Afghanistan, I chose years between 1996 - 2006, for Iraq, between 1997 - 2008, for Crimea between 2009 - 2019, for Georgia between 2003 - 2014, and Syria between 2009 - 2019. This was to create ‘windows’ (Bailey, 2020) for the purposes of analysis.</p>
+<p><img src="/images/ppol565_obs1.png" alt=""></p>
+<p>I had the data points with the unit of analysis as no. of events per day, as depicted  above. Since the data points for Afghanistan and Georgia were rather low, I decided to also use the Georeferenced Event Dataset (GED) by the Uppsala Conflict Data Program (Sundberg &amp; Melander, 2013). I applied the same technique that I did for the GTD data, to clean the GED data. I finally had the following observations:</p>
+<p><img src="/images/ppol565_obs2.png" alt=""></p>
+<p>Even though Georgia seemed a little skeptical of Georgia due to less data, I decided to move on with my analysis. I also added the treatment variable labeled ‘invasion’ in all the datasets which were 0 for before intervention and 1 after. The dates are as follows:</p>
+<ol>
+<li>Afghanistan: October 7, 2001</li>
+<li>Iraq: March 19, 2003</li>
+<li>Syria:</li>
+</ol>
+<ul>
+<li>USA: September 22, 2014</li>
+<li>Russia: September 30, 2015</li>
+</ul>
+<ol start="4">
+<li>Ukraine: August 27, 2014</li>
+<li>Georgia: August 8, 2008</li>
+</ol>
+<p>To build a classification model to predict attack type, I chose the country of the Syrian Arab Republic. The reasons are discussed in the conclusion. After thoroughly cleaning the data to get rid of unknown data points, I chose the dependent variables to be categorical variables. The features were from the GTD, namely, city, weapon type 1, target type 1, the perpetrator group name, and the day of the week. I had a total of 1009 data points for my model.</p>
+<p>One of the problems of this dataset is that it undercounts the events from the 1900s (Staff, 2014), but this is not a huge concern for us, since we’re only interested in the last 2 decades and some a few years from the late 1900s are included.</p>
+<p>To that end, let’s look at the data that we have in Figure 1 below.</p>
+<table>
+<thead>
+<tr>
+<th align="center"><img src="/images/ppol565_fig1.png" alt="Figure 1: Distribution of Data Points by Country"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><em><strong>Figure 1: Distribution of Data Points by Country</strong></em></td>
+</tr>
+</tbody>
+</table>
+<h1 id="methodology">Methodology</h1>
+<p>For parametric analysis, I use using a method called ‘Regression Discontinuity.’ This is a method that allows us to see the significance and effect of a policy (treatment). As long as the treatment itself is not biased, i.e. not affected by something, and is completely random we can see a jump or a ‘discontinuity’ in the effect of the dependent variable, i.e. the variable one is trying to assess, at the treatment point and can infer that the jump may be due to the treatment effect. To put this into perspective, military interventions are usually covert operations until they’re carried out, in my belief so, we should see a decrease or even an increase, i.e. if the intervention had any effect, on the number of terrorist activities the day the interventions were applied. A paper by Lee and Lemieux (2010) talks more about how Regression Discontinuity can be applied to different settings. This technique is rather useful because we do not have to worry about other endogenous factors as long as we know that the treatment itself was random in nature for that day. This is a unique factor for an RD model. But, one needs to pay attention to how to interpret the model because, we can only surely say that the estimate on the treatment variable itself is unbiased, as long as the treatment is random and no endogeneity is creeping into the treatment, not the other variables that we include in the model (Bailey, 2020).</p>
+<p>The treatment effect is ‘invasion’ in the summary tables to come below. For classification, I employed K-nearest neighbors and a decision tree classifier.</p>
+<h2 id="linear-regression">Linear Regression</h2>
+<p>Ordinary Least Squares (OLS) is a regression method used for inference and prediction. OLS aims to reduce the mean square error along a line or curve that is fitted between the data points and can take on linear or non-linear relationships. The more features we include, we risk problems such as multi-collinearity.</p>
+<p>I use regression discontinuity for part one of my projects, hence we do not risk those problems since we only want to see the effect of the treatment.</p>
+<h2 id="k-nearest-neighbors-classifier">K-Nearest Neighbors Classifier</h2>
+<p>K-Nearest Neighbors or KNN algorithm is a supervised non-parametric lazy machine learning algorithm used for classification. Thus, the non-parametric nature of the model means that the structure of the model is determined by the data itself. One has to keep in mind also the number of neighbors in this or the data points used to assess a particular data point. Fewer neighbors mean computationally inexpensive, less flexible fit, i.e. low bias and high variance, while more neighbors mean computationally expensive, but more flexible fit, i.e. high bias and low variance.</p>
+<h3 id="advantages">Advantages:</h3>
+<ul>
+<li>Simple and Easy to implement.</li>
+<li>Can be used for either classification or regression.</li>
+<li>Results are easily interpretable by user and it is easy to explain the algorithms working - Easy Interpretation.</li>
+<li>Lazy learning i.e. no training time required for the algorithm, thus prediction speed depends on our dataset.</li>
+</ul>
+<h3 id="disadvantages">Disadvantages:</h3>
+<ul>
+<li>Does not work well with less observations.</li>
+<li>Does not work well with large number of features.</li>
+<li>Does not handle irrelevant features well, i.e. it does not separate the signal from the noise and also does not understand feature interaction (most important features cannot be distinguished).</li>
+<li>The features require scaling, i.e. quantitative measurement of features should always be around the same quantity. eg. If we have a feature with values in 100,000s and another feature with values in 100s, this will give us incorrect predictions and we should scale the features to all be in either 100,000s range or the 100s range.</li>
+<li>Computationally inefficient, since the each data point is assessed for prediction (lazy learning downside).</li>
+<li>Can be impacted by noise in the data.</li>
+<li>Does not work well with missing data.</li>
+</ul>
+<h2 id="decision-tree-classifier">Decision Tree Classifier</h2>
+<p>A decision tree classifier is like a flow-chart where the algorithm follows a tree-like structure (hence, the name), and each branch represents a decision rule, i.e. True or False for a particular decision. There are decision nodes until there is no decision to be made, where one reaches the leaf node or the classified label.</p>
+<h3 id="advantages-1">Advantages:</h3>
+<ul>
+<li>Very easy to visualize branches and understand the classification model - Easy Interpretation.</li>
+<li>No assumptions of the structure of the data since it is non-parametric.</li>
+<li>Handles irrelevant features okay.</li>
+<li>Does not require normalization or scaling.</li>
+<li>Missing data does not affect the model at large.</li>
+</ul>
+<h3 id="disadvantages-1">Disadvantages:</h3>
+<ul>
+<li>This has a training time period which can vary depending on model specification.</li>
+<li>Decision tree models can be very complex.</li>
+<li>Can overfit noisy data.</li>
+<li>May be biased with imbalance in data.</li>
+<li>Not a very flexible model since adding new data can change the tree entirely, but bagging and boosting algorithms can help overcome that.</li>
+</ul>
+<h1 id="analysis">Analysis</h1>
+<h2 id="parametric-analysis">Parametric Analysis</h2>
+<p>First, I wanted to see where the intervention was significant. After running the RD models on Afghanistan data, Iraq data, and Ukraine data, I found that none of the interventions had statistically significant effects. This can be seen below in Tables 1, 2, and 3 respectively for Afghanistan, Iraq, and Ukraine, for the treatment variable that is ‘invasion’.</p>
+<p>For the RD analysis, the dependent variable was ‘no_of_events’ which measured the number of terrorist events by day using the GTD dataset.</p>
+<p>The independent variables were:</p>
+<ol>
+<li>The treatment effect of Intervention (different for different countries) – dummy variable that takes on values 1 &amp; 0.</li>
+<li>The date normalized to zero, i.e. subtracting the intervention date from the actual event date.</li>
+<li>An interaction variable between the normalized date and treatment effect.</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th align="center"><img src="/images/ppol_565_table1.png" alt="Table 1 - Data for Afghanistan"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><em><strong>Table 1 - Data for Afghanistan</strong></em></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th align="center"><img src="/images/ppol_565_table2.png" alt="Table 2 - Data for Iraq"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><em><strong>Table 2 - Data for Iraq</strong></em></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th align="center"><img src="/images/ppol_565_table3.png" alt="Table 3 - Data for Ukraine"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><em><strong>Table 3 - Data for Ukraine</strong></em></td>
+</tr>
+</tbody>
+</table>
+<p>We have a different picture for Georgia and Syria though. In Georgia, we see that the Russian intervention hurt terrorist activities shown in Table 4.</p>
+<table>
+<thead>
+<tr>
+<th align="center"><img src="/images/ppol_565_table4.png" alt="Table 4 - Data for Georgia"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><em><strong>Table 4 - Data for Georgia</strong></em></td>
+</tr>
+</tbody>
+</table>
+<p>We see that the intervention by Russia in the autonomous regions of South Ossetia and Abkhazia had an overall negative impact on terrorist activities. I chose the entire country of Georgia since curbing terrorist activities may have the balloon effect where the extremist groups re-locate within the region. We see that with an absolute t-value of 2.385, we have a statistically significant impact on terrorism whose co-efficient is negative indicating that the activities reduced.</p>
+<table>
+<thead>
+<tr>
+<th align="center"><img src="/images/ppol_565_table5a.png" alt="Table 5(a) - Data for Syria - US Intervention"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><em><strong>Table 5(a) - Data for Syria - US Intervention</strong></em></td>
+</tr>
+</tbody>
+</table>
+<p>For Syria, I found that the United States intervention had a statistically significant (t-value = 3.404) positive effect on terrorist activity which can be seen from the coefficient ‘invasion_us’ shown in Table 5(a). The Russian Intervention on the other hand did not have any statistically significant impact, seen by the variable ‘invasion_ru’ in Table 5(b) below.</p>
+<p>As spoken before, since the intervention had a significant effect, the state would also aid in further capacity building, and hence, building a prediction model that predicts attack is necessary.</p>
+<table>
+<thead>
+<tr>
+<th align="center"><img src="/images/ppol_565_table5b.png" alt="Table 5(b) - Data for Syria - Russian Intervention"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><em><strong>Table 5(b) - Data for Syria - Russian Intervention</strong></em></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th align="center"><img src="/images/ppol_565_fig2a.png" alt="Figure 2(a) - US Intervention in Syria"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><em><strong>Figure 2(a) - US Intervention in Syria</strong></em></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th align="center"><img src="/images/ppol_565_fig2b.png" alt="Figure 2(b) - Russian Intervention in Georgia"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><em><strong>Figure 2(b) - Russian Intervention in Georgia</strong></em></td>
+</tr>
+</tbody>
+</table>
+<h2 id="non-parametric-analysis">Non-Parametric Analysis</h2>
+<p>For the non-parametric part of this project, my label array is the attack type, the different attack types are depicted in Figure 4 below.</p>
+<p>The feature matrix was built with 379 features all being dummy variables of different cities in Syria, the weapon type used, the type of target, and the name of the perpetrating group.</p>
+<p>I first began with K-nearest neighbors since it’s an easily implementable classifier. I set the number of neighbors equal to six since that was the best possible value I could choose as shown in Figure 3 below.</p>
+<table>
+<thead>
+<tr>
+<th align="center"><img src="/images/ppol_565_fig3.png" alt="Figure 3 - Validation Curve for KNN"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><em><strong>Figure 3 - Validation Curve for KNN</strong></em></td>
+</tr>
+</tbody>
+</table>
+<p>KNN performed horrendously with an accuracy calculated using 10 fold cross-validation at 2.63% for 6 nearest neighbors. This was probably because of the number of features. Before I move on to the decision tree, let’s understand why I didn’t employ Random Forest Classifier. First, let’s look at our outcome variable and its distribution, shown in Figure 4.</p>
+<table>
+<thead>
+<tr>
+<th align="center"><img src="/images/ppol_565_fig4.png" alt="Figure 4 - Distribution of Outcome Variable"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><em><strong>Figure 4 - Distribution of Outcome Variable</strong></em></td>
+</tr>
+</tbody>
+</table>
+<p>A decision tree algorithm is built on an entire dataset, using all the features, whereas a random forest algorithm randomly selects observations and specific features to build multiple decision trees from and then averages the results through each step. Since the distribution of Bombing/Explosion is the most, I felt that it was best to not use random sampling since that would end up in a way reducing the quality of our tree due to overpopulation of data within a category of the outcome variable.</p>
+<p>By using Decision Tree Classifier, we can easily see what’s going on. Figure 5 shows a basic example of a Decision Tree employed with a maximum depth of 3 levels.</p>
+<table>
+<thead>
+<tr>
+<th align="center"><img src="/images/ppol_565_fig5.png" alt="Figure 5 - Decision Tree (max. Depth = 3 levels)"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><em><strong>Figure 5 - Decision Tree (max. Depth = 3 levels)</strong></em></td>
+</tr>
+</tbody>
+</table>
+<p>We see from the tree above that if the probability of a weapon type being explosives is less than 0.5, then it goes to the right branch and if it’s not, it goes to the left branch. Thus, a decision tree makes a “decision” at each branch. Let us assess what is the depth that’s best for our model, shown in Figure 6 (a) and (b).</p>
+<table>
+<thead>
+<tr>
+<th align="center"><img src="/images/ppol_565_fig6a.png" alt="Figure 6(a)"></th>
+<th align="center"><img src="/images/ppol_565_fig6b.png" alt="Figure 6(b)"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><em><strong>Figure 6(a)</strong></em></td>
+<td align="center"><em><strong>Figure 6(b)</strong></em></td>
+</tr>
+</tbody>
+</table>
+<p>The best depth is at 5 in my opinion, so I set the max_depth to 5 in the decision tree classifier. With that I got an accuracy of 84.846% by using 10 fold cross-validation. This is a good prediction accuracy in my opinion. I further also found the most important variables and subsetted them by their importance proportion of 0.01 shown in Figure 7.</p>
+<table>
+<thead>
+<tr>
+<th align="center"><img src="/images/ppol_565_fig7.png" alt="Figure 7 - Variable Importance - Decision Trees"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><em><strong>Figure 7 - Variable Importance - Decision Trees</strong></em></td>
+</tr>
+</tbody>
+</table>
+<p>We see the most important variables in the figure above that have more than 0.01 importance proportion.
+All in all, the decision tree classifier performs the best.</p>
+<h1 id="conclusion">Conclusion</h1>
+<p>All in all, we could say the Russian Intervention in South Ossetia and Abkhazia in 2008, had a significant effect that led to a decrease in terrorism in the region, while the US-led Intervention in Syria in 2014 had a significant effect that led to an increase in terrorism in the region. This is rather important and has a lot of implications. Further research needs to be done with this regard to find the causality between the two factors, along-side someone who is an expert in Middle-Eastern and Eurasian affairs. Thus, scholars have argued that it is usually the responsibility of the state to build peace under customary international law (Shaw, 2017) when they are directly responsible for creating instability, and I believe this should hold. Thus, I further went to build an attack prediction model for Syria.</p>
+<p>For the model, I made use of the Decision Tree Classifier at a maximum depth of 5 levels and received an accuracy of about 85 percent. This was because other models did not perform as well as the Decision Tree Classifier. This project was instrumental in understanding interventions and also using preventive action as a capacity-building mechanism. Using quantitative analysis tools offered in Python, the question, “how do military interventions affect terrorism?” could be answered. In my opinion, military interventions affect terrorism differently. For example, the Russian intervention in the autonomous regions of Georgia may have worked to curb terrorism according to the preliminary analysis of course, but the US-led intervention in Syria not so much, again, preliminary analysis.</p>
+<p>There are so many ethical and legal questions that come to mind. A military intervention to combat extremism is not in violation of international law (Shaw, 2017), but if it does the exact opposite, there are many interesting questions to ponder upon, where the legality of the continued operation can be questioned. Other than that, accountability at a world forum such as the United Nations is another paradigm to look at by introducing such findings in the Security Council.</p>
+<p>The classifier can be found at <a href="https://github.com/diggyg97/ppol565_final_project_data_sci_2">https://github.com/diggyg97/ppol565_final_project_data_sci_2</a>.</p>
+<h1 id="references">References</h1>
+<p><em>Bailey, M. A. (2020). Real econometrics: The right tools to answer important questions (Second Edition). Oxford University Press.</em></p>
+<p><em>Deni, J. R. (2020, January 10). Why expanding NATO to the Middle East is a terrible idea. The Washington Post (Online), Washington, D.C.: WP Company LLC d/b/a The Washington Post.</em></p>
+<p><em>Francis, R. L. (2019). Searching for the voice of people with disabilities in peace and conflict research and practice. Peace &amp; Change, 44(3), 295–320. <a href="https://doi.org/10.1111/pech.12360">https://doi.org/10.1111/pech.12360</a></em></p>
+<p><em>Global military spending at new post-Cold War high, fueled by US, China—Think-tank. (2019, April 29). Reuters. <a href="https://in.reuters.com/article/world-defence-spending-idINKCN1S516U">https://in.reuters.com/article/world-defence-spending-idINKCN1S516U</a></em></p>
+<p><em>Iraq war illegal, says Annan. (2004, September 16). BBC. <a href="http://news.bbc.co.uk/2/hi/middle_east/3661134.stm">http://news.bbc.co.uk/2/hi/middle_east/3661134.stm</a></em></p>
+<p><em>Lee, D. S., &amp; Lemieux, T. (2010). Regression discontinuity designs in economics. Journal of Economic Literature, 48(2), 281–355. <a href="https://doi.org/10.1257/jel.48.2.281">https://doi.org/10.1257/jel.48.2.281</a></em></p>
+<p><em>National Consortium for the Study of Terrorism and Responses to Terrorism (START), University of Maryland. (2019). The Global Terrorism DatabaseTM. (n.d.).</em></p>
+<p><em>Peace to prosperity. (n.d.). The White House. Retrieved May 4, 2020, from <a href="https://www.whitehouse.gov/peacetoprosperity/">https://www.whitehouse.gov/peacetoprosperity/</a></em></p>
+<p><em>Remarks by president trump on iran. (n.d.). The White House. Retrieved May 4, 2020, from <a href="https://www.whitehouse.gov/briefings-statements/remarks-president-trump-iran/">https://www.whitehouse.gov/briefings-statements/remarks-president-trump-iran/</a></em></p>
+<p><em>Schmid, A. P. (2008). Introduction.</em></p>
+<p><em>Shaw, M. N. (2017). International law: (8th ed.). Cambridge University Press. <a href="https://doi.org/10.1017/9781316979815">https://doi.org/10.1017/9781316979815</a></em></p>
+<p><em>Staff, G. T. D. S. (n.d.). The challenges of collecting terrorism data. Washington Post. Retrieved May 5, 2020, from <a href="https://www.washingtonpost.com/news/monkey-cage/wp/2014/08/06/the-challenges-of-collecting-terrorism-data/">https://www.washingtonpost.com/news/monkey-cage/wp/2014/08/06/the-challenges-of-collecting-terrorism-data/</a></em></p>
+<p><em>Sundberg, R., &amp; Melander, E. (2013). Introducing the ucdp georeferenced event dataset. Journal of Peace Research, 50(4), 523–532. <a href="https://doi.org/10.1177/0022343313484347">https://doi.org/10.1177/0022343313484347</a></em></p>
+<p><em>Github Page for Code Replication of Classifier: <a href="https://github.com/diggyg97/ppol565_final_project_data_sci_2">https://github.com/diggyg97/ppol565_final_project_data_sci_2</a></em></p>
+
+          </article>
+
+          <div class="pagination">
+            
+              <a href="/blog/administrative-burdens-iraqi-translator-visa/">&laquo; Administrative Burdens: Iraqi Translator Visa</a>
+            
+            
+              <a href="/blog/ppol563_final_project_coronavirus_in_dc/">Coronavirus in the District of Columbia &raquo;</a>
+            
+          </div>
+        </section>
+        <br>
+        <section class="disqus">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+    (function() {
+      
+      
+      if (window.location.hostname == "localhost")
+        return;
+      var disqus_shortname = '';
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view comments powered by <a href="http://disqus.com/?ref_noscript">Disqus</a>.</noscript>
+</section>
+
+      </section>
+
+    </main>
+    <footer class="row middle-xs center-xs">
+
+  
+
+  
+    <div class="col-xs-3 col-md-2"><a target="_blank" rel="noopener" href="https://github.com/diggyg97">GitHub</a></div>
+  
+
+  
+    <div class="col-xs-3 col-md-2"><a target="_blank" rel="noopener" href="https://linkedin.com/in/digvijayghotane">LinkedIn</a></div>
+  
+
+  
+
+  
+
+</footer>
+
+    
+  
+
+  
+  
+
+  <div id="modal-5562" class="modal">
+
+    
+    <div class="modal-box">
+      <span class="close">&times;</span>
+      <div class="modal-container">
+
+        <div class="modal-header">
+          <div class="modal-header-img-container" style="background-color:#dbdbdb">
+            <img data-src="/images/resume.png" class="lazyload" alt="My Résumé">
+          </div>
+        </div>
+
+        <div class="modal-content">
+          <h2>Résumé</h2>
+
+          <article class="entry-content">
+            
+          </article>
+
+          <h3><a href="https://drive.google.com/file/d/1mITYwVxf4TXZPodTIe_zKPxjxn3exRxW/view?usp=sharing">View</a></h3>
+          
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+
+  <script src="/js/src/modal.min.5e82f7c4435115c6499c3d47f56553dbfc1d5f33a68d9918342a31bfd7734cc0.js" type="text/javascript"></script>
+
+
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  
+  <script>hljs.initHighlightingOnLoad();</script>
+
+
+
+  <script src="/js/src/main.min.cf082cf479a85d1d096f3ed98a5496d87df6907450b813efe7eb4431cc8b4bbc.js" type="text/javascript"></script>
+
+
+  </body>
+</html>
