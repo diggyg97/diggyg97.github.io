@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Digvijay Ghotane's Blog Post: Analyzing Impact of Military State Interventions on Terrorism and thereby
+        Predicting Attack Type</title>
+    <meta name="robots" content="noindex, follow" />
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" sizes="24x24" href="../assets/images/favicon.png">
+    <!-- CSS 
+    ============================================ -->
+    <link rel="stylesheet" href="../assets/css/vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/vendor/slick.css">
+    <link rel="stylesheet" href="../assets/css/vendor/slick-theme.css">
+    <link rel="stylesheet" href="../assets/css/vendor/aos.css">
+    <link rel="stylesheet" href="../assets/css/plugins/feature.css">
+    <!-- Style css -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+
+    <script type="application/javascript">
+        var doNotTrack = false;
+        if (!doNotTrack) {
+            window.ga = window.ga || function () { (ga.q = ga.q || []).push(arguments) }; ga.l = +new Date;
+            ga('create', 'UA-149135167-1', 'auto');
+
+            ga('send', 'pageview');
+        }
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+</head>
+
+<body class="template-color-1 spybody" data-spy="scroll" data-target=".navbar-example2" data-offset="70">
+
+    <!-- Start Header -->
+    <header class="rn-header header-default black-logo-version header--fixed header--sticky">
+        <div class="header-wrapper rn-popup-mobile-menu m--0 row align-items-center">
+            <!-- Start Header Left -->
+            <div class="col-lg-2 col-6">
+                <div class="header-left">
+                    <div class="logo">
+                        <a class="rn-btn align-items-center" target="_self" href="../index.html"><img
+                                src="../assets/images/main/03_Header_Image.png" alt="logo"></a>
+                    </div>
+                </div>
+            </div>
+            <!-- End Header Left -->
+            <!-- Start Header Center -->
+            <div class="col-lg-10 col-6">
+                <div class="header-center">
+                    <nav id="sideNav" class="mainmenu-nav navbar-example2 d-none d-xl-block onepagenav">
+                        <!-- Start Mainmanu Nav -->
+                        <ul class="primary-menu nav nav-pills">
+                            <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
+                            <li class="nav-item"><a class="nav-link" href="../#work">My Work</a></li>
+                            <li class="nav-item"><a class="nav-link" href="../#resume">Résumé</a></li>
+                            <li class="nav-item"><a class="nav-link" href="00_blog_home.html">Blog</a></li>
+                            <li class="nav-item"><a class="nav-link" href="../#contact">Contact</a></li>
+                        </ul>
+                        <!-- End Mainmanu Nav -->
+                    </nav>
+                    <!-- Start Header Right  -->
+                    <div class="header-right">
+                        <a class="rn-btn align-items-center" target="_blank"><span>Light Mode in the Works</span></a>
+                        <div class="hamberger-menu d-block d-xl-none">
+                            <i id="menuBtn" class="feather-menu humberger-menu"></i>
+                        </div>
+                        <div class="close-menu d-block">
+                            <span class="closeTrigger">
+                                <i data-feather="x"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <!-- End Header Right  -->
+
+                </div>
+            </div>
+            <!-- End Header Center -->
+        </div>
+    </header>
+    <!-- End Header Area -->
+    <!-- Start Popup Mobile Menu  -->
+    <div class="popup-mobile-menu">
+        <div class="inner">
+            <div class="menu-top">
+                <div class="menu-header">
+                    <a class="logo" href="../index.html">
+                        <img src="../assets/images/01main/01_Main_Logo.png" alt="Personal Portfolio" lazyload="on">
+                        <p class="description">Digvijay Ghotane's Blog Post: Analyzing Impact of Military State
+                            Interventions on Terrorism and thereby Predicting Attack Type</p>
+                    </a>
+                    <div class="close-button">
+                        <button class="close-menu-activation close"><i data-feather="x"></i></button>
+                    </div>
+                </div>
+                <p class="description">Navigation</p>
+            </div>
+            <div class="content">
+                <ul class="primary-menu nav nav-pills onepagenav">
+                    <li class="nav-item current"><a class="nav-link smoth-animation active"
+                            href="../index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link smoth-animation" href="../#work">My Work</a></li>
+                    <li class="nav-item"><a class="nav-link smoth-animation" href="../#resume">Résumé</a></li>
+                    <li class="nav-item"><a class="nav-link smoth-animation" href="00_blog_home.html">Blog</a></li>
+                    <li class="nav-item"><a class="nav-link smoth-animation" href="../#contact">Contact</a></li>
+                </ul>
+                <!-- social sharea area -->
+                <div class="social-share-style-1 mt--40">
+                    <span class="title">Links</span>
+                    <ul class="social-share d-flex liststyle">
+                        <li class="github"><a href="https://github.com/diggyg97"><svg xmlns="http://www.w3.org/2000/svg"
+                                    width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                                    class="feather feather-github">
+                                    <path
+                                        d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+                                    </path>
+                                </svg></a>
+                        </li>
+
+                        <li class="linkedin"><a href="https://www.linkedin.com/in/digvijayghotane/"><svg
+                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-linkedin">
+                                    <path
+                                        d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z">
+                                    </path>
+                                    <rect x="2" y="9" width="4" height="12"></rect>
+                                    <circle cx="4" cy="4" r="2"></circle>
+                                </svg></a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- end -->
+            </div>
+        </div>
+    </div>
+    <!-- End Popup Mobile Menu  -->
+
+    <main class="main-page-wrapper">
+        <div id="particles-js"></div>
+
+
+        <div class="rn-blog-area rn-section-gap section-separator">
+            <div class="container">
+
+                <div class="rn-service">
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="100" data-aos-once="true"
+                                class="section-title text-center">
+                                <span class="subtitle">May 4, 2020</span>
+                                <h2 class="title">Analyzing Impact of Military State Interventions on Terrorism and
+                                    thereby Predicting Attack Type</h2>
+
+                                <div id="readingTime"></div>(with references and footnotes)<br><br>
+
+                            </div>
+
+
+
+                            <div id="content" style="text-align: justify;">
+                                <!-- Your HTML content goes here -->
+
+                                <h4>Executive Summary</h4>
+                                <p>Understanding the impact of military interventions on terrorism is a crucial inquiry,
+                                    encompassing various dimensions of security: personal, social, and financial. Given
+                                    its significance, it is imperative to conduct a quantitative analysis of how
+                                    military interventions influence extremist activities. This analysis holds
+                                    particular relevance in decision-making processes regarding whether to engage in
+                                    military interventions and evaluating the legality and effectiveness of ongoing
+                                    operations under international law. Moreover, it facilitates accountability for
+                                    military actions, ensuring adherence to international legal frameworks.</p>
+
+                                <p>Additionally, this paper introduces a predictive model designed to classify attack
+                                    types, offering a proactive approach to counterterrorism efforts. By leveraging
+                                    available intelligence on specific parameters, such as those observed in Syria,
+                                    where our research identified a statistically significant impact of US-led
+                                    intervention, this model enables preemptive measures to thwart potential terrorist
+                                    attacks. Anticipating the type of attack before it occurs enhances preventive
+                                    strategies and mitigates security risks effectively.</p>
+
+                                <p>In our examination, we identified only two interventions—by the United States in
+                                    Syria in September 2014 and by the Russian Federation in the autonomous regions of
+                                    South Ossetia and Abkhazia of Georgia in August 2008—that exhibited statistically
+                                    significant correlations with terrorist activity levels in their respective regions.
+                                    These interventions and their ramifications are extensively discussed in this
+                                    report. Furthermore, recognizing the escalating terrorist activities
+                                    post-intervention in Syria, I developed a predictive model tailored to forecast
+                                    terrorist activity in the region, underscoring the critical need for proactive
+                                    counterterrorism measures by the United States and their allies.</p>
+
+                                <h4>Background</h4>
+
+                                <div style="text-align: center;">
+                                    <img src="../assets/images/06_ATTACK_PRED/ppol_565_fig2a.png" alt="Image description"
+                                        style="width: 90vh; margin: auto;">
+                                    <figcaption>Figure 1(a): US Intervention in the Syrian Arab Republic</figcaption><br>
+                                </div>
+
+                                <div style="text-align: center;">
+                                    <img src="../assets/images/06_ATTACK_PRED/ppol_565_fig2b.png" alt="Image description"
+                                        style="width: 90vh; margin: auto;">
+                                    <figcaption>Figure 1(b): Russian Intervention in Georgia</figcaption><br>
+                                </div>
+
+                                <p>Over the past two decades, global military interventions have surged, often justified
+                                    by the need to support failing states or address humanitarian crises. This project
+                                    focuses on analyzing military interventions by two key players, the United States of
+                                    America and the Russian Federation, and their impact on terrorism. While the
+                                    definition of terrorism lacks universal consensus, for this study, the definition
+                                    provided by the National Consortium for the Study of Terrorism and Responses to
+                                    Terrorism (START) at the University of Maryland will be utilized, leveraging their
+                                    comprehensive data. Additionally, the project aims to offer a comparative analysis
+                                    of interventions undertaken by these two nations.</p>
+
+                                <p>Moreover, the project endeavors to forecast attack types based on various parameters
+                                    such as city, target type, perpetrating group, and day of the week. However, before
+                                    delving into the specifics of this predictive model, it's vital to contextualize the
+                                    significance of this research. Reports from Reuters in April 2019 revealed a record
+                                    high in global military expenditures since the end of the Cold War, with the United
+                                    States leading the pack and Russia ranking among the top ten spenders. Furthermore,
+                                    amidst discussions spurred by President Donald Trump's proposal in January 2020 for
+                                    increased NATO involvement in the Middle East, articulated in an opinion piece by
+                                    John R. Deni in The Washington Post, there arises a pertinent question: Do military
+                                    interventions effectively counter terrorism? Given the ongoing conflicts in the
+                                    Middle East and recent geopolitical developments such as the Trump administration's
+                                    'peace-to-prosperity' plan for the Israel-Palestine issue, this question assumes
+                                    critical importance in policy formulation.</p>
+
+                                <p>Examining the implications of past interventions is equally crucial, especially
+                                    concerning accountability for actions deemed illegal under international law. For
+                                    instance, the unilateral intervention in Iraq, contested by former UN
+                                    Secretary-General Kofi Annan as illegal, underscores the necessity of evaluating the
+                                    legal and ethical dimensions of military interventions. Partly addressing this
+                                    inquiry, the paper seeks to ascertain the impact of military interventions on
+                                    terrorist activities.</p>
+
+                                <p>In the aftermath of interventions, recognized belligerents become subject to
+                                    international law, necessitating interventionist countries to assist affected
+                                    nations in combating these belligerents. Predicting attacks becomes paramount in
+                                    such scenarios, as proactive measures can be taken based on available intelligence.
+                                    The United States, alongside its NATO allies, and the Russian Federation have
+                                    conducted numerous interventions, forming the focus of analysis in this paper.
+                                    Specifically, the impacts of US interventions in Afghanistan and Iraq and Russian
+                                    interventions in South Ossetia, Abkhazia, and Crimea will be examined, along with a
+                                    comparative assessment of US-led and Russian interventions in Syria.</p>
+
+                                <p>Recognizing the potential efficacy of predictive models in preempting attacks, a
+                                    model will be presented to forecast attack types based on parameters outlined in the
+                                    Global Terrorism Database codebook. Such predictive capabilities can aid in averting
+                                    attacks by leveraging insights into terrorist group activities, target preferences,
+                                    and weapon usage patterns.</p>
+
+                                <h4>Data Analysis Overview</h4>
+
+                                <p>The analysis primarily revolves around the Global Terrorism Database (GTD), a crucial
+                                    dataset for measuring terrorist activities. Initially, the GTD data was cleaned and
+                                    subsetted to focus on countries such as Syria, Iraq, Afghanistan, Georgia, and
+                                    Crimea. This involved grouping the data by day and country to obtain a daily count
+                                    of events in each respective country, forming the foundation for the analysis.</p>
+
+                                <p>Further segmentation of the data was done to examine each country individually within
+                                    specific time frames known as 'windows'. For instance, the time frames selected were
+                                    1996-2006 for Afghanistan, 1997-2008 for Iraq, 2009-2019 for Crimea, 2003-2014 for
+                                    Georgia, and 2009-2019 for Syria. These windows facilitated a focused analysis
+                                    within defined temporal boundaries.</p>
+
+                                <p>Given the relatively low data points for Afghanistan and Georgia, additional data
+                                    from the Georeferenced Event Dataset (GED) by the Uppsala Conflict Data Program was
+                                    incorporated. Similar data cleaning procedures were applied to the GED data to
+                                    ensure consistency across datasets.</p>
+
+                                <p>The analysis also introduced a treatment variable denoted as 'invasion' in all
+                                    datasets, indicating the timing of military interventions. Notable intervention
+                                    dates include October 7, 2001, for Afghanistan (USA), March 19, 2003, for Iraq
+                                    (USA), September 22, 2014, for Syria (USA), September 30, 2015, for Syria (Russia),
+                                    August 27, 2014, for Crimea (Russia), and August 8, 2008, for Georgia (Russia).</p>
+
+                                <p>The thorough data preparation undertaken lays the groundwork for an in-depth analysis
+                                    of the correlation between military interventions and terrorist activities across
+                                    the designated countries. The final dataset comprises the following number of
+                                    observations for each country:<br><br>
+
+                                    • Syrian Arab Republic: 1,144 observations<br>
+                                    • Republic of Iraq: 1,048 observations<br>
+                                    • Ukraine: 585 observations<br>
+                                    • Afghanistan: 339 observations<br>
+                                    • Georgia: 71 observations<br><br>
+                                    These observations serve as the cornerstone for subsequent analyses, providing a
+                                    robust foundation for examining the impact of military interventions on terrorism
+                                    within each respective country.
+                                </p>
+
+                                <h4>Data Analysis Approach</h4>
+
+                                <p>For constructing a classification model to predict attack types in the Syrian Arab
+                                    Republic, meticulous data cleaning was conducted to eliminate unknown data points,
+                                    ensuring the reliability of the dataset. The selection of the Syrian Arab Republic
+                                    as the focus country is substantiated in the conclusion.</p>
+
+                                <p>The dataset was structured with categorical dependent variables and features sourced
+                                    from the Global Terrorism Database (GTD), encompassing parameters such as city,
+                                    weapon type, target type, perpetrator group name, and day of the week. With a total
+                                    of 1009 data points, the dataset provides a robust foundation for model development.
+                                </p>
+
+                                <p>It's worth noting a known issue with the dataset regarding undercounting events from
+                                    the 1900s, as highlighted by Staff (2014). However, given the study's focus on the
+                                    past two decades and partial inclusion of late 1900s data, this limitation is deemed
+                                    acceptable.</p>
+
+                                <p>Figure 2 below illustrates the distribution and characteristics of the dataset,
+                                    offering valuable insights into the variables under consideration.</p>
+
+                                <div style="text-align: center;">
+                                    <img src="../assets/images/06_ATTACK_PRED/ppol565_fig1.png" alt="Image description"
+                                        style="width: 50vh; margin: auto;">
+                                    <figcaption>Figure 2: Distribution of Data Points by Country</figcaption><br>
+                                </div>
+
+                                <h4>Methodology Overview</h4>
+
+                                <h5>Regression Discontinuity (RD) Analysis</h5>
+                                <p>
+                                    The RD method is utilized for parametric analysis to assess the significance and
+                                    effect of a policy or treatment. By observing a discontinuity or jump in the
+                                    dependent variable at the treatment point, the impact of the treatment can be
+                                    inferred. This technique is particularly useful for assessing the effect of military
+                                    interventions on terrorist activities, assuming the interventions are random and not
+                                    influenced by other factors. The treatment effect, labeled as 'invasion,' is
+                                    analyzed in the subsequent summary tables.
+                                </p>
+
+                                <h5>Linear Regression</h5>
+                                <p>
+                                    Ordinary Least Squares (OLS) regression is employed for inference and prediction.
+                                    OLS aims to minimize the mean square error between observed and predicted values
+                                    along a fitted line or curve. This method is suitable for part one of the project,
+                                    focusing on regression discontinuity analysis, as it allows for the examination of
+                                    the treatment effect without risking problems such as multicollinearity.
+                                </p>
+
+                                <h5>K-Nearest Neighbors (KNN) Classifier</h>
+                                    <p>
+                                        KNN is a supervised non-parametric lazy machine learning algorithm used for
+                                        classification. It determines the class of a data point by considering the
+                                        majority class among its nearest neighbors. While simple and easy to implement,
+                                        KNN may struggle with less observations, large numbers of features, and noisy or
+                                        missing data.
+                                    </p>
+
+                                    <h5>Decision Tree Classifier</h5>
+                                    <p>
+                                        The decision tree classifier follows a tree-like structure where each branch
+                                        represents a decision rule, ultimately leading to a classified label at the leaf
+                                        node. Despite being easy to visualize and interpret, decision trees can be
+                                        complex and prone to overfitting noisy data. However, they are robust to
+                                        irrelevant features and missing data.
+                                    </p>
+
+                                    <h5>Advantages and Disadvantages of Models</h5>
+                                    <p>
+                                        KNN offers simplicity and ease of interpretation but may struggle with certain
+                                        data characteristics, such as large feature sets and noisy data. Decision trees
+                                        provide easy visualization and handle irrelevant features well but may be biased
+                                        with imbalanced data and can overfit noisy datasets. Understanding the
+                                        trade-offs between these methods is crucial for selecting the most suitable
+                                        approach for the classification task at hand.
+                                    </p>
+
+                                    <h4>Analysis Overview</h4>
+
+                                    <h5>Parametric Analysis</h5>
+
+                                    <p>The first phase of the analysis focused on determining the significance of military interventions using Regression Discontinuity (RD) models. RD models were applied to Afghanistan, Iraq, and Ukraine data to assess the impact of interventions, with the dependent variable being the number of terrorist events per day from the Global Terrorism Database (GTD).</p>
+
+                                    <p>For each country, the treatment effect of intervention, date normalized to zero, and an interaction variable between the normalized date and treatment effect were considered as independent variables. However, the interventions in Afghanistan, Iraq, and Ukraine did not exhibit statistically significant effects, as indicated in Tables 1, 2, and 3.</p>
+
+                                    <div style="text-align: center;">
+                                        <img src="../assets/images/06_ATTACK_PRED/ppol_565_table1.png" alt="Image description"
+                                            style="width: 35vh; margin: auto;">
+                                        <figcaption>Table 1 - Data for Afghanistan</figcaption><br>
+                                    </div>
+
+                                    <div style="text-align: center;">
+                                        <img src="../assets/images/06_ATTACK_PRED/ppol_565_table2.png" alt="Image description"
+                                            style="width: 35vh; margin: auto;">
+                                        <figcaption>Table 2 - Data for Iraq</figcaption><br>
+                                    </div>
+
+                                    <div style="text-align: center;">
+                                        <img src="../assets/images/06_ATTACK_PRED/ppol_565_table3.png" alt="Image description"
+                                            style="width: 35vh; margin: auto;">
+                                        <figcaption>Table 3 - Data for Ukraine</figcaption><br>
+                                    </div>
+
+                                    <p>Distinct findings emerged for Georgia and Syria. In Georgia, the Russian intervention in the autonomous regions of South Ossetia and Abkhazia demonstrated a significant decrease in terrorist activities, suggesting a negative impact on terrorism (Table 4).</p>
+
+                                    <div style="text-align: center;">
+                                        <img src="../assets/images/06_ATTACK_PRED/ppol_565_table4.png" alt="Image description"
+                                            style="width: 35vh; margin: auto;">
+                                        <figcaption>Table 4 - Data for Georgia</figcaption><br>
+                                    </div>
+
+                                    <p>Conversely, in Syria, the United States intervention showed a statistically significant increase in terrorist activity, while the Russian intervention did not yield significant effects (Tables 5(a) and 5(b)).</p>
+
+                                    <div style="text-align: center;">
+                                        <img src="../assets/images/06_ATTACK_PRED/ppol_565_table5a.png" alt="Image description"
+                                            style="width: 35vh; margin: auto;">
+                                        <figcaption>Table 5(a) - Data for Syria - US Intervention</figcaption><br>
+                                    </div>
+
+                                    <div style="text-align: center;">
+                                        <img src="../assets/images/06_ATTACK_PRED/ppol_565_table5b.png" alt="Image description"
+                                            style="width: 35vh; margin: auto;">
+                                        <figcaption>Table 5(b) - Data for Syria - Russian Intervention</figcaption><br>
+                                    </div>
+
+                                    <p>The significant impact of interventions in Georgia and Syria underscores the importance of further capacity-building efforts by the state. Therefore, the development of a prediction model to anticipate attacks becomes imperative, given the observed effects of interventions on terrorist activities.</p>
+
+
+                                    <h5>Non-Parametric Analysis</h5>
+
+                                    <p>For the non-parametric aspect of the project, the analysis focused on classifying attack types using K-nearest neighbors (KNN) and decision tree classifiers.</p>
+
+                                    <p>K-nearest neighbors (KNN) algorithm was initially employed due to its simplicity. However, it yielded poor results with an accuracy of only 2.63% using 10-fold cross-validation, likely due to the high dimensionality of the feature matrix, which consisted of 379 dummy variables representing different cities, weapon types, target types, and perpetrator groups in Syria.</p>
+
+                                    <div style="text-align: center;">
+                                        <img src="../assets/images/06_ATTACK_PRED/ppol_565_fig3.png" alt="Image description"
+                                            style="width: 40vh; margin: auto;">
+                                        <figcaption>Figure 3 - Validation Curve for KNN</figcaption><br>
+                                    </div>
+
+                                    <div style="text-align: center;">
+                                        <img src="../assets/images/06_ATTACK_PRED/ppol_565_fig4.png" alt="Image description"
+                                            style="width: 40vh; margin: auto;">
+                                        <figcaption>Figure 4 - Distribution of Outcome Variable</figcaption><br>
+                                    </div>
+
+                                    <p>Given the unsatisfactory performance of KNN and concerns about the distribution of the outcome variable (attack type), the decision was made not to employ the Random Forest Classifier. Instead, a decision tree classifier was chosen for its interpretability and ease of visualization.</p>
+
+                                    <p>The decision tree classifier was trained on the entire dataset, with a maximum depth determined through evaluation of different depths. The optimal depth was found to be 5, resulting in an accuracy of 84.846% using 10-fold cross-validation, which is considered good prediction accuracy.</p>
+
+                                    <div style="text-align: center;">
+                                        <img src="../assets/images/06_ATTACK_PRED/ppol_565_fig5.png" alt="Image description"
+                                            style="width: 100vh; margin: auto;">
+                                        <figcaption>Figure 5 - Decision Tree (max. Depth = 3 levels)</figcaption><br>
+                                    </div>
+
+                                    <div style="text-align: center;">
+                                        <img src="../assets/images/06_ATTACK_PRED/ppol_565_fig6a.png" alt="Image description"
+                                            style="width: 40vh; margin: auto;">
+                                            <img src="../assets/images/06_ATTACK_PRED/ppol_565_fig6b.png" alt="Image description"
+                                            style="width: 40vh; margin: auto;">
+                                            <figcaption>Figure 6(a) and Figure 6(b) - Depth Analysis of Decision Tree</figcaption>
+                                        <br>
+                                    </div>
+
+                                    <p>Additionally, the most important variables were identified using the decision tree classifier, with those having an importance proportion greater than 0.01 being selected. These variables provide insights into the factors influencing attack types in Syria.</p>
+
+                                    <p>Overall, the decision tree classifier outperformed KNN in classifying attack types, demonstrating its effectiveness in this context.</p>
+
+                                    <h4>Conclusion</h4>
+
+                                    <p>In summary, the analysis reveals contrasting effects of military interventions on terrorism in different regions. The Russian intervention in South Ossetia and Abkhazia in 2008 led to a significant decrease in terrorism, while the US-led intervention in Syria in 2014 resulted in a significant increase in terrorism. These findings underscore the complexity of the relationship between interventions and terrorism, warranting further research and collaboration with experts in Middle Eastern and Eurasian affairs to establish causality.</p>
+
+                                    <p>Moreover, the responsibility of states in building peace following interventions, as prescribed by customary international law, is emphasized. Building upon this premise, an attack prediction model was developed for Syria using a Decision Tree Classifier, achieving an accuracy of approximately 85%. This underscores the potential of quantitative analysis tools in understanding and addressing the impact of military interventions on terrorism.</p>
+
+                                    <p>Ethical and legal considerations arise regarding the effectiveness and repercussions of military interventions. While interventions aimed at combating extremism may not violate international law, instances where interventions exacerbate terrorism prompt critical questions regarding legality and accountability on the global stage, such as in the United Nations Security Council.</p>
+
+                                    <p>The classifier model developed as part of this project can be accessed at the provided <a
+                                        href="https://github.com/diggyg97/ppol565_final_project_data_sci_2">GitHub repository</a>, facilitating further exploration and utilization of the findings presented in this analysis.</p>
+
+
+                                        <h4>References</h4>
+                                        <ol>
+                                            <li>
+                                                <a>Bailey, M. A. (2020). Real econometrics: The right tools to answer important questions (Second Edition). Oxford University Press.
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a>Deni, J. R. (2020, January 10). Why expanding NATO to the Middle East is a terrible idea. The Washington Post (Online), Washington, D.C.: WP Company LLC d/b/a The Washington Post.
+                                                </a>
+                                            </li>
+    
+                                            <li>Francis, R. L. (2019). Searching for the voice of people with disabilities in peace and conflict research and practice. Peace & Change, 44(3), 295–320. <a
+                                                    href="https://doi.org/10.1111/pech.12360">https://doi.org/10.1111/pech.12360</a>
+                                            </li>
+    
+                                            <li>Global military spending at new post-Cold War high, fueled by US, China—Think-tank. (2019, April 29). Reuters. <a
+                                                href="https://in.reuters.com/article/world-defence-spending-idINKCN1S516U">https://in.reuters.com/article/world-defence-spending-idINKCN1S516U</a>
+                                            </li>
+    
+                                            <li>Iraq war illegal, says Annan. (2004, September 16). BBC. <a
+                                                href="http://news.bbc.co.uk/2/hi/middle_east/3661134.stm">http://news.bbc.co.uk/2/hi/middle_east/3661134.stm</a>
+                                            </li>
+    
+                                            <li>Lee, D. S., & Lemieux, T. (2010). Regression discontinuity designs in economics. Journal of Economic Literature, 48(2), 281–355. <a
+                                                href="https://doi.org/10.1257/jel.48.2.281">https://doi.org/10.1257/jel.48.2.281</a>
+                                            </li>
+    
+                                            <li>
+                                                <a>National Consortium for the Study of Terrorism and Responses to Terrorism (START), University of Maryland. (2019). The Global Terrorism DatabaseTM. (n.d.).
+                                                </a>
+                                            </li>
+    
+                                            <li>Peace to prosperity. (n.d.). The White House. Retrieved May 4, 2020, from <a
+                                                href="https://www.whitehouse.gov/peacetoprosperity/">https://www.whitehouse.gov/peacetoprosperity/</a>
+                                            </li>
+    
+                                            <li>Remarks by president trump on iran. (n.d.). The White House. Retrieved May 4, 2020, from <a
+                                                href="https://www.whitehouse.gov/briefings-statements/remarks-president-trump-iran/">https://www.whitehouse.gov/briefings-statements/remarks-president-trump-iran/</a>
+                                            </li>
+    
+                                            <li>
+                                                <a>Schmid, A. P. (2008). Introduction.
+                                                </a>
+                                            </li>
+    
+                                            <li>Shaw, M. N. (2017). International law: (8th ed.). Cambridge University Press. <a
+                                                href="https://doi.org/10.1017/9781316979815">https://doi.org/10.1017/9781316979815</a>
+                                            </li>
+    
+                                            <li>Staff, G. T. D. S. (n.d.). The challenges of collecting terrorism data. Washington Post. Retrieved May 5, 2020, from <a
+                                                href="https://www.washingtonpost.com/news/monkey-cage/wp/2014/08/06/the-challenges-of-collecting-terrorism-data/">https://www.washingtonpost.com/news/monkey-cage/wp/2014/08/06/the-challenges-of-collecting-terrorism-data/</a>
+                                            </li>
+    
+                                            <li>Sundberg, R., & Melander, E. (2013). Introducing the ucdp georeferenced event dataset. Journal of Peace Research, 50(4), 523–532.<a
+                                                href="https://doi.org/10.1177/0022343313484347">https://doi.org/10.1177/0022343313484347</a>
+                                            </li>
+                                        </ol>
+    
+                                        <h4>Footnotes</h4>
+                                        <ol>
+                                            <li>The GTD defines a terrorist attack as the threatened or actual use of illegal force and violence by a non- state actor to attain a political, economic, religious, or social goal through fear, coercion, or intimidation. In practice this means in order to consider an incident for inclusion in the GTD, all three of the following attributes must be present:<br>
+                                                <strong>1.</strong> The incident must be intentional – the result of a conscious calculation on the part of a perpetrator.<br>
+                                                <strong>2.</strong> The incident must entail some level of violence or immediate threat of violence - including property violence, as well as violence against people.<br>
+                                                <strong>3.</strong> The perpetrators of the incidents must be sub-national actors. The database does not include acts of state terrorism.<br>
+                                                In addition, at least two of the following three criteria must be present for an incident to be included in the GTD:<br>
+                                                <strong>Criterion 1:</strong> The act must be aimed at attaining a political, economic, religious, or social goal. In terms of economic goals, the exclusive pursuit of profit does not satisfy this criterion. It must involve the pursuit of more profound, systemic economic change.<br>
+                                                <strong>Criterion 2:</strong> There must be evidence of an intention to coerce, intimidate, or convey some other message to a larger audience (or audiences) than the immediate victims. It is the act taken as a totality that is considered, irrespective if every individual involved in carrying out the act was aware of this intention. As long as any of the planners or decision-makers behind the attack intended to coerce, intimidate or publicize, the intentionality criterion is met.<br>
+                                                <strong>Criterion 3:</strong> The action must be outside the context of legitimate warfare activities. That is, the act must be outside the parameters permitted by international humanitarian law, insofar as it targets non-combatants.
+                                            </li>
+                                            <li>Please note that for the purposes of this project, I am not assessing the legality of the intervention under international law and is out of the scope of this project.</li>
+                                            <li>Please note that the variable is only named for naming purposes and the interpretation whether the intervention was an invasion is out of the scope of this project.</li>
+                                            <li><img src="../assets/images/06_ATTACK_PRED/ppol565_footnote_fig.png" alt="Image description"
+                                                style="width: 100vh; margin: auto;"></li>
+                                        </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-12 text-center">
+                <br>
+                <a class="rn-btn align-items-center"
+                    href="../blog/07_can-indicators-of-quality-of-governance-realte-to-conflict-the-correlates-of-governance-and-conflict.html">
+                    <i data-feather="arrow-left"></i><span>Previous Post: Can Indicators of Quality of Governance
+                        relate<br>to Conflict? The Correlates of Governance and Conflict</span>
+                </a>
+                <a class="rn-btn align-items-center"
+                    href="../blog/05_blog_administrative-burdens-iraqi-translator-visa.html">
+                    <span>Next Post: Administrative<br>Burdens: Iraqi Translator Visa</span>
+                    <i data-feather="arrow-right"></i>
+                </a>
+            </div>
+        </div>
+
+    </main>
+
+    <div class="rn-footer-area rn-section-gap section-separator">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="footer-area text-center">
+
+                        <div class="logo">
+                            <a href="../index.html">
+                                <img src="../assets/images/main/01_Main_Logo.ico" alt="logo" lazyload="on">
+                            </a>
+                        </div>
+
+                        <p class="description mt--30">© 2024. All contents of this website have been meticulously
+                            developed by Digvijay Ghotane. All rights are reserved.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Footer Area -->
+    <!-- JS ============================================ -->
+    <script src="../assets/js/vendor/jquery.js"></script>
+    <script src="../assets/js/vendor/modernizer.min.js"></script>
+    <script src="../assets/js/vendor/feather.min.js"></script>
+    <script src="../assets/js/vendor/slick.min.js"></script>
+    <script src="../assets/js/vendor/bootstrap.js"></script>
+    <script src="../assets/js/vendor/text-type.js"></script>
+    <script src="../assets/js/vendor/wow.js"></script>
+    <script src="../assets/js/vendor/aos.js"></script>
+    <script src="../assets/js/vendor/particles.js"></script>
+    <script src="../assets/js/vendor/jquery-one-page-nav.js"></script>
+    <!-- main JS -->
+    <script src="../assets/js/main.js"></script>
+
+    <script>
+        particlesJS('particles-js',
+
+            {
+                "particles": {
+                    "number": {
+                        "value": 30,
+                        "density": {
+                            "enable": true,
+                            "value_area": 800
+                        }
+                    },
+                    "color": {
+                        "value": ["#ff014f",]
+                    },
+                    "shape": {
+                        "type": "circle",
+                        "stroke": {
+                            "width": 0,
+                            "color": "#000000"
+                        },
+                        "polygon": {
+                            "nb_sides": 4
+                        },
+                        "image": {
+                            "src": "img/github.svg",
+                            "width": 100,
+                            "height": 100
+                        }
+                    },
+                    "opacity": {
+                        "value": 0.8,
+                        "random": true,
+                        "anim": {
+                            "enable": true,
+                            "speed": 0.5,
+                            "opacity_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "size": {
+                        "value": 4,
+                        "random": true,
+                        "anim": {
+                            "enable": false,
+                            "speed": 40,
+                            "size_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "line_linked": {
+                        "enable": true,
+                        "distance": 150,
+                        "color": "#ffffff",
+                        "opacity": 0.4,
+                        "width": 1
+                    },
+                    "move": {
+                        "enable": true,
+                        "speed": 6,
+                        "direction": "none",
+                        "random": true,
+                        "straight": false,
+                        "out_mode": "out",
+                        "attract": {
+                            "enable": false,
+                            "rotateX": 600,
+                            "rotateY": 1200
+                        }
+                    }
+                },
+                "interactivity": {
+                    "detect_on": "canvas",
+                    "events": {
+                        "onhover": {
+                            "enable": true,
+                            "mode": "repulse"
+                        },
+                        "onclick": {
+                            "enable": true,
+                            "mode": "push"
+                        },
+                        "resize": true
+                    },
+                    "modes": {
+                        "grab": {
+                            "distance": 400,
+                            "line_linked": {
+                                "opacity": 1
+                            }
+                        },
+                        "bubble": {
+                            "distance": 800,
+                            "size": 40,
+                            "duration": 2,
+                            "opacity": 8,
+                            "speed": 3
+                        },
+                        "repulse": {
+                            "distance": 1200
+                        },
+                        "push": {
+                            "particles_nb": 4
+                        },
+                        "remove": {
+                            "particles_nb": 2
+                        }
+                    }
+                },
+                "retina_detect": true,
+                "config_demo": {
+                    "hide_card": false,
+                    "background_color": "#b61924",
+                    "background_image": "",
+                    "background_position": "50% 50%",
+                    "background_repeat": "no-repeat",
+                    "background_size": "cover"
+                }
+            }
+
+        );
+    </script>
+
+    <script>
+        window.onload = function () {
+            var content = document.getElementById('content').innerText;
+            var wordCount = content.split(/\s+/).length;
+            var averageReadingSpeed = 200; // Adjust as needed
+            var readingTime = Math.ceil(wordCount / averageReadingSpeed);
+            var readingTimeElement = document.getElementById('readingTime');
+            if (readingTime === 1) {
+                readingTimeElement.innerHTML = readingTime + ' minute read';
+            } else {
+                readingTimeElement.innerHTML = readingTime + ' minutes read';
+            }
+        };
+    </script>
+</body>
+
+</html>
