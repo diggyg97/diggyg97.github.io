@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Digvijay Ghotane's Blog Post: Analyzing the Sentiment & Modeling Topics for the UN General Debate Corpus</title>
+    <meta name="robots" content="noindex, follow" />
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" sizes="24x24" href="../assets/images/favicon.png">
+    <!-- CSS 
+    ============================================ -->
+    <link rel="stylesheet" href="../assets/css/vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/vendor/slick.css">
+    <link rel="stylesheet" href="../assets/css/vendor/slick-theme.css">
+    <link rel="stylesheet" href="../assets/css/vendor/aos.css">
+    <link rel="stylesheet" href="../assets/css/plugins/feature.css">
+    <!-- Style css -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+
+    <script type="application/javascript">
+        var doNotTrack = false;
+        if (!doNotTrack) {
+            window.ga = window.ga || function () { (ga.q = ga.q || []).push(arguments) }; ga.l = +new Date;
+            ga('create', 'UA-149135167-1', 'auto');
+
+            ga('send', 'pageview');
+        }
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+</head>
+
+<body class="template-color-1 spybody" data-spy="scroll" data-target=".navbar-example2" data-offset="70">
+
+    <!-- Start Header -->
+    <header class="rn-header header-default black-logo-version header--fixed header--sticky">
+        <div class="header-wrapper rn-popup-mobile-menu m--0 row align-items-center">
+            <!-- Start Header Left -->
+            <div class="col-lg-2 col-6">
+                <div class="header-left">
+                    <div class="logo">
+                        <a class="rn-btn align-items-center" target="_self" href="../index.html"><img
+                                src="../assets/images/main/03_Header_Image.png" alt="logo"></a>
+                    </div>
+                </div>
+            </div>
+            <!-- End Header Left -->
+            <!-- Start Header Center -->
+            <div class="col-lg-10 col-6">
+                <div class="header-center">
+                    <nav id="sideNav" class="mainmenu-nav navbar-example2 d-none d-xl-block onepagenav">
+                        <!-- Start Mainmanu Nav -->
+                        <ul class="primary-menu nav nav-pills">
+                            <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
+                            <li class="nav-item"><a class="nav-link" href="../#work">My Work</a></li>
+                            <li class="nav-item"><a class="nav-link" href="../#resume">Résumé</a></li>
+                            <li class="nav-item"><a class="nav-link" href="00_blog_home.html">Blog</a></li>
+                            <li class="nav-item"><a class="nav-link" href="../#contact">Contact</a></li>
+                        </ul>
+                        <!-- End Mainmanu Nav -->
+                    </nav>
+                    <!-- Start Header Right  -->
+                    <div class="header-right">
+                        <a class="rn-btn align-items-center" target="_blank"><span>Light Mode in the Works</span></a>
+                        <div class="hamberger-menu d-block d-xl-none">
+                            <i id="menuBtn" class="feather-menu humberger-menu"></i>
+                        </div>
+                        <div class="close-menu d-block">
+                            <span class="closeTrigger">
+                                <i data-feather="x"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <!-- End Header Right  -->
+
+                </div>
+            </div>
+            <!-- End Header Center -->
+        </div>
+    </header>
+    <!-- End Header Area -->
+    <!-- Start Popup Mobile Menu  -->
+    <div class="popup-mobile-menu">
+        <div class="inner">
+            <div class="menu-top">
+                <div class="menu-header">
+                    <a class="logo" href="../index.html">
+                        <img src="../assets/images/01main/01_Main_Logo.png" alt="Personal Portfolio" lazyload="on">
+                        <p class="description">Digvijay Ghotane's Blog Post: Analyzing the Sentiment & Modeling Topics for the UN General Debate Corpus</p>
+                    </a>
+                    <div class="close-button">
+                        <button class="close-menu-activation close"><i data-feather="x"></i></button>
+                    </div>
+                </div>
+                <p class="description">Navigation</p>
+            </div>
+            <div class="content">
+                <ul class="primary-menu nav nav-pills onepagenav">
+                    <li class="nav-item current"><a class="nav-link smoth-animation active"
+                            href="../index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link smoth-animation" href="../#work">My Work</a></li>
+                    <li class="nav-item"><a class="nav-link smoth-animation" href="../#resume">Résumé</a></li>
+                    <li class="nav-item"><a class="nav-link smoth-animation" href="00_blog_home.html">Blog</a></li>
+                    <li class="nav-item"><a class="nav-link smoth-animation" href="../#contact">Contact</a></li>
+                </ul>
+                <!-- social sharea area -->
+                <div class="social-share-style-1 mt--40">
+                    <span class="title">Links</span>
+                    <ul class="social-share d-flex liststyle">
+                        <li class="github"><a href="https://github.com/diggyg97"><svg xmlns="http://www.w3.org/2000/svg"
+                                    width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                                    class="feather feather-github">
+                                    <path
+                                        d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+                                    </path>
+                                </svg></a>
+                        </li>
+
+                        <li class="linkedin"><a href="https://www.linkedin.com/in/digvijayghotane/"><svg
+                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-linkedin">
+                                    <path
+                                        d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z">
+                                    </path>
+                                    <rect x="2" y="9" width="4" height="12"></rect>
+                                    <circle cx="4" cy="4" r="2"></circle>
+                                </svg></a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- end -->
+            </div>
+        </div>
+    </div>
+    <!-- End Popup Mobile Menu  -->
+
+    <main class="main-page-wrapper">
+        <div id="particles-js"></div>
+
+
+        <div class="rn-blog-area rn-section-gap section-separator">
+            <div class="container">
+
+                <div class="rn-service">
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="100" data-aos-once="true"
+                                class="section-title text-center">
+                                <span class="subtitle">May 17, 2021</span>
+                                <h2 class="title">Analyzing the Sentiment & Modeling Topics for the UN General Debate Corpus</h2>
+
+                                <div id="readingTime"></div>(with bibliography)<br><br>
+
+                            </div>
+
+
+
+                            <div id="content" style="text-align: justify;">
+                                <!-- Your HTML content goes here -->
+
+                                <h4>Introduction</h4>
+                                <p>The United Nations (UN) stands as a pivotal international organization, tasked with promoting peace, upholding international law, and fostering global socio-economic progress. The annual General Debate (GD) of the United Nations General Assembly (UNGA) serves as a crucial forum for member states to address pressing issues and outline their priorities. These speeches, delivered by heads of state or government, provide valuable insights into each nation's stance on global affairs.</p>
+
+                                <p>The United Nations General Debate Corpus (UNGDC), compiled by Jankin Mikhaylov et al. (2019), offers a comprehensive collection of these speeches in English from 1970 to 2018. In this study, I analyze this corpus to explore variations in sentiment across countries and over time. Building on prior research by Baturo & Dasandi (2017), I focus specifically on the speeches of the P5 member nations: the United States, Russia, the United Kingdom, China, and France.</p>
+
+                                <p>Following an overview of the dataset and preprocessing steps, I employ sentiment analysis to assess the overall tone of the speeches. Additionally, I utilize structured topic modeling techniques to identify distinct themes discussed by the P5 nations. These analyses reveal prevalent topics such as millennium development goals and the principle of self-determination.</p>
+
+                                <p>Furthermore, I propose a classification model to differentiate between speeches of the P5 member nations based on their linguistic characteristics. By examining the choice of words used in these speeches, we gain insights into the diplomatic priorities and communication strategies of these influential countries.</p>
+
+                                <p>In summary, this study offers a comprehensive analysis of the United Nations General Debate, shedding light on sentiment trends, thematic focuses, and linguistic patterns among member nations, particularly the P5. Through these insights, we deepen our understanding of international discourse and diplomatic dynamics within the UN.</p>
+
+                                <h4>The Data</h4>
+
+                                <div style="text-align: center;">
+                                    <img src="../assets/images/08_TextAsData/no_of_speeches_by_country.png" alt="Image description"
+                                        style="width: 90vh; margin: auto;">
+                                    <figcaption>Figure 1: Frequency of Speeches by Representatives at the United Nations General Debate</figcaption><br>
+                                </div>
+
+                                <p>The United Nations General Debate Corpus (UNGDC) encompasses speeches delivered by representatives from 200 member nations at the General Debate sessions of the United Nations General Assembly (UNGA) spanning from 1970 to 2018, all presented in English. Figure 1 illustrates the distribution of speeches by country, revealing variations in participation over time. The dataset comprises 8,093 observations, each corresponding to a country-year pair.</p>
+
+                                <div style="text-align: center;">
+                                    <img src="../assets/images/08_TextAsData/ungdc_table.png" alt="Image description"
+                                        style="width: 60vh; margin: auto;">
+                                    <figcaption>Table 1: First 3 Rows of the UNGDC</figcaption><br>
+                                </div>
+
+                                <p>Table 1 displays a sample of the dataset, featuring columns such as 'doc_id' (file name), 'text' (speech content), 'Country' (ISO 3-letter country code), 'Session' (UNGA session), and 'Year' (year of session). Notably, 'Country' is treated as a categorical variable, while 'Session' and 'Year' are continuous variables.</p>
+
+                                <h4>Preprocessing</h4>
+
+                                <div style="text-align: center;">
+                                    <img src="../assets/images/08_TextAsData/word_cloud_ungdc.png" alt="Image description"
+                                        style="width: 60vh; margin: auto;">
+                                    <figcaption>Figures 2(a) and 2(b)</figcaption><br>
+                                </div>
+
+                                <p>In preprocessing the text data from the UNGDC, a bag-of-words approach is utilized, representing each document with a set of words and phrases up to 4-grams, without considering grammar or word order. Tokenization is performed using a simple approach, as shown in Figures 2(a) and 2(b), where both methods yield similar results. Punctuation, symbols, numbers, and URLs are removed, and tokens are converted into up to 4-gram tokens.</p>
+
+                                <p>Subsequently, the tokens are transformed into a document term matrix by lowercasing all letters and removing separators, with the removal of stop words to address issues encountered in previous analyses with the dataset. Lemmatization is then applied using the lexicon hash lemma. The resulting document term matrix includes only the P5 nations, comprising 243 documents with 508,877 features and 99.33% sparsity.</p>
+
+                                <p>To optimize the matrix, a minimum document frequency of 20 and a maximum document frequency of 170 are applied, resulting in a sparse matrix with 2,640 features and 77.58% sparsity. The minimum row sum value is 287, with a median of 958 and a mean of 1,062.</p>
+
+                                <h4>Sentiment Differences Across Nations & Years</h4>
+
+                                <p>The sentiment analysis was conducted using the Lexicoder Sentiment Dictionary (Young & Soroka, 2012) in R. Initially, the overall positive and negative sentiments were calculated by summing the 'negative & neg_positive' columns for negative sentiment and the 'positive & neg_negative' columns for positive sentiment. Subsequently, an average sentiment was computed by subtracting negative sentiment from positive sentiment, aggregated at both country and year levels.</p>
+
+                                <div style="text-align: center;">
+                                    <img src="../assets/images/08_TextAsData/sentiment_average_by_region.png" alt="Image description"
+                                        style="width: 90vh; margin: auto;">
+                                    <figcaption>Figure 3 (a): Overall Sentiment Aggregated to Country</figcaption><br>
+                                </div>
+
+                                <p>Figure 3(a) illustrates the overall sentiment of countries categorized by regions, revealing a predominance of positive sentiment across the General Debate (GD) sessions. Notably, Japan exhibits consistently positive sentiment over the years, followed by Nepal, Romania, and Egypt. Among the P5 member nations, the United States displays the highest aggregate positive sentiment. Conversely, countries such as Israel, Eritrea, and Cuba express lower positive sentiments over the years.</p>
+
+                                <div style="text-align: center;">
+                                    <img src="../assets/images/08_TextAsData/sentiment_average_by_year.png" alt="Image description"
+                                        style="width: 90vh; margin: auto;">
+                                    <figcaption>Figure 3 (b): Overall Sentiment Aggregated to Year</figcaption><br>
+                                </div>
+
+                                <p>Figure 3(b) depicts the sentiment variation across GD sessions. The most positive sentiment is observed in 1975, whereas the lowest positive sentiment occurs in 2001, shortly after the 9/11 attacks. Despite fluctuations, an overall positive sentiment prevails throughout the UN General Debate, indicating a positive atmosphere within the international community.</p>
+
+                                <h4>Structured Topic Modeling for P5 Member States</h4>
+
+                                <div style="text-align: center;">
+                                    <img src="../assets/images/08_TextAsData/Topic_Summaries.png" alt="Image description"
+                                        style="width: 90vh; margin: auto;">
+                                    <figcaption>Figure 4: 16-topic Topic Modeling</figcaption><br>
+                                </div>
+
+                                <p>The structured topic modeling, following the approach outlined by Baturo & Dasandi (2017), resulted in a 16-topic model, each representing distinct thematic areas discussed by the P5 member nations—United States, Russia, China, France, and the United Kingdom—during the United Nations General Debate sessions.</p>
+
+                                <p>Topic 1 focuses on Economic Development, with discussions revolving around global trade, privatization, and economic growth initiatives.</p>
+                                <p>Topic 2 centers on Millennium Development Goals, addressing strategies for stability, international crime, and drug trafficking, among other development priorities.</p>
+                                <p>Topic 3 pertains to Europe, covering issues such as regional cooperation, racism, and historical conflicts.</p>
+                                <p>Topic 4 explores Weapons of Mass Destruction, including concerns about proliferation, disarmament, and regional tensions.</p>
+                                <p>Topic 5 addresses Post-World War Rebuilding efforts, reflecting on past mistakes, coexistence, and global peace initiatives.</p>
+                                <p>Topic 6 discusses International Peace & Security, encompassing peacekeeping operations, arms control, and regional conflicts.</p>
+                                <p>Topic 7 relates to the Cold War era, addressing ideological conflicts, nuclear warfare, and non-interference principles.</p>
+                                <p>Topic 8 focuses on Peacekeeping Operations, highlighting United Nations peacekeeping efforts and consensus-building.</p>
+                                <p>Topic 9 examines Terrorism, discussing counterterrorism measures, attacks, and global security threats.</p>
+                                <p>Topic 10 centers on Self-Determination, covering the struggles for independence and sovereignty in various regions.</p>
+                                <p>Topic 11 explores Developing Economies, addressing issues such as industrialization, poverty alleviation, and economic disparities.</p>
+                                <p>Topic 12 pertains to the Middle East & Northern Africa, discussing regional conflicts, Arab-Israeli relations, and humanitarian crises.</p>
+                                <p>Topic 13 delves into Al-Qaeda and related terrorist organizations, addressing their activities and global implications.</p>
+                                <p>Topic 14 discusses Decolonization efforts, reflecting on post-colonial challenges, international cooperation, and regional stability.</p>
+                                <p>Topic 15 focuses on Post-Conflict Development, addressing reconstruction efforts, peace processes, and sustainable development initiatives.</p>
+                                <p>Topic 16 centers on Sustainable Development, discussing climate change, infrastructure development, and global cooperation for sustainability.</p>
+
+                                <div style="text-align: center;">
+                                    <img src="../assets/images/08_TextAsData/correlation_structured_topic_modelling_topics.png" alt="Image description"
+                                        style="width: 40vh; margin: auto;">
+                                    <figcaption>Figure 5: Correlation between Topics</figcaption><br>
+                                </div>
+
+                                <p>These topics offer a comprehensive view of the diverse range of issues addressed by the P5 member nations in their speeches at the United Nations General Debate sessions. Furthermore, the analysis reveals notable differences in topic prevalence among the P5 countries, with each nation emphasizing certain topics more than others.</p>
+
+                                <div style="text-align: center;">
+                                    <img src="../assets/images/08_TextAsData/Cosponsor_Estimates_by_country_topic_2.png" alt="Image description"
+                                        style="width: 90vh; margin: auto;">
+                                        <img src="../assets/images/08_TextAsData/Cosponsor_Estimates_by_country_topic_15.png" alt="Image description"
+                                        style="width: 90vh; margin: auto;">
+                                        <img src="../assets/images/08_TextAsData/Cosponsor_Estimates_by_country_topic_10.png" alt="Image description"
+                                        style="width: 90vh; margin: auto;">
+                                        <img src="../assets/images/08_TextAsData/Cosponsor_Estimates_by_country_topic_7.png" alt="Image description"
+                                        style="width: 90vh; margin: auto;">
+                                    <figcaption>Figure 6: Topics 2, 15, 10 & 7 by Country Proportion</figcaption><br>
+                                </div>
+
+                                <p>Additionally, Figure 6 illustrates the distribution of the first four topics across the P5 nations, highlighting variations in topic emphasis among these key players in international diplomacy. Notably, the Russian Federation and the United States exhibit distinct patterns of emphasis on topics related to the Cold War and millennium development goals, respectively.</p>
+
+                                <div style="text-align: center;">
+                                    <img src="../assets/images/08_TextAsData/Cosponsor_Estimates.png" alt="Image description"
+                                        style="width: 60vh; margin: auto;">
+                                    <figcaption>Figure 7: Topic Proportion by Year</figcaption><br>
+                                </div>
+
+                                <p>Figure 7 presents the top four discussed topics over the years, indicating evolving priorities in the discourse among the P5 nations. While topics related to the Cold War show a decline, discussions on millennium development goals and post-conflict development witness increasing attention, reflecting shifting global dynamics and priorities.</p>
+
+                                <h4>Classifying Speeches based on Choice of Words</h4>
+
+                                <p>I developed a classification model using XGBoost in R to predict the country of origin based on the content of speeches, treating the choice of words as predictive features. The outcome variable is a multinomial categorical variable representing five countries: the United States (0), the United Kingdom (1), France (2), China (3), and Russia (4). By employing the 'multi:softmax' objective for multinomial classification, the model learns to classify speeches into these five classes.</p>
+
+                                <p>The model performed impressively well during both training and testing phases. Training on a dataset comprising 197 documents, the model demonstrated high accuracy, with only a few instances of misclassification. In the test set of 46 documents, the algorithm achieved an outstanding accuracy rate of 93.48%, with a narrow 95% confidence interval ranging from 82.21% to 98.63%.</p>
+
+                                <div style="text-align: center;">
+                                    <img src="../assets/images/08_TextAsData/table_speech_classify.png" alt="Image description"
+                                        style="width: 60vh; margin: auto;">
+                                    <figcaption>Table 2: Classification Matrix</figcaption><br>
+                                </div>
+                                
+                                <p>Table 2 provides a visualization of the model's performance, illustrating its ability to correctly classify the majority of documents with minimal errors. Notably, the algorithm exhibited only one misclassification in the test set, underscoring its robustness and reliability.</p>
+                                
+                                
+
+                                <div style="text-align: center;">
+                                    <img src="../assets/images/08_TextAsData/summary_stats_speech_classify.png" alt="Image description"
+                                        style="width: 60vh; margin: auto;">
+                                    <figcaption>Figure 8: Classification Statistics</figcaption><br>
+                                </div>
+
+                                <p>Moreover, Figure 8 presents comprehensive statistics summarizing the model's overall performance, including accuracy metrics and confidence intervals. These results reaffirm the effectiveness of the classification model in accurately predicting the country of origin based on speech content.</p>
+
+                                <div style="text-align: center;">
+                                    <img src="../assets/images/08_TextAsData/Multiclass_Feature_Importance.png" alt="Image description"
+                                        style="width: 60vh; margin: auto;">
+                                    <figcaption>Figure 9: Feature Importance</figcaption><br>
+                                </div>
+
+                                <p>Finally, Figure 9 highlights the most important features used by the model to distinguish between documents, shedding light on the key words and phrases that contribute significantly to the classification process. This insight can further enhance our understanding of the linguistic characteristics that differentiate speeches from different countries.</p>
+
+                                <h4>Conclusion</h4>
+
+                                <p>In conclusion, this study provides valuable insights into the sentiment, topics, and linguistic characteristics of speeches made at the United Nations General Debate. Despite the challenges and limitations inherent in analyzing textual data, the techniques employed in this research have yielded promising results.</p>
+
+                                <p>The analysis reveals an overall positive sentiment prevailing within the General Debate, reflecting a collaborative spirit among nations in addressing global challenges. This positive outlook bodes well for international cooperation and the pursuit of collective goals.</p>
+
+                                <p>Furthermore, the structured topic modeling approach has identified key themes discussed at the General Debate, shedding light on the priorities and concerns of member nations. Variations in topic prevalence among countries underscore the importance of understanding the unique perspectives and foreign policy priorities of different nations.</p>
+
+                                <p>The classification model developed in this study demonstrates the potential of supervised learning techniques in predicting the country of origin based on speech content. The high accuracy achieved by the model suggests that the choice of words in speeches may indeed be influenced by the country, opening avenues for further investigation into the data generation process.</p>
+
+                                <p>Moving forward, future research could delve deeper into understanding the underlying factors driving sentiment and topic prevalence in General Debate speeches. Additionally, exploring the relationship between speech content and foreign policy objectives could provide valuable insights into the diplomatic strategies of member nations.</p>
+
+                                <p>Overall, this study contributes to the growing body of literature on text analysis in international relations and offers a framework for leveraging computational techniques to analyze diplomatic discourse at the United Nations.</p>
+
+                                
+                                <h4>Bibliography</h4>
+                                <ol>
+                                    <li id="ref1">Baturo, A., & Dasandi, N. (2017). What drives the international development agenda? An NLP analysis of the united nations general debate 1970–2016. 2017 International Conference on the Frontiers and Advances in Data Science (FADS), 171–176. <a
+                                        href="https://doi.org/10.1109/FADS.2017.8253221">https://doi.org/10.1109/FADS.2017.8253221</a>
+                                      </li>
+
+                                      <li id="ref1">Charter of the United Nations. (2015, August 10). <a
+                                        href="https://www.un.org/en/charter-united-nations/index.html">https://www.un.org/en/charter-united-nations/index.html</a>
+                                      </li>
+
+                                      <li id="ref1">General Assembly of the United Nations. (n.d.). United Nations. Retrieved February 11, 2021, from <a
+                                        href="https://www.un.org/en/ga/about/ropga/sessions.shtml">https://www.un.org/en/ga/about/ropga/sessions.shtml</a>
+                                      </li>
+
+                                      <li id="ref1">Jankin Mikhaylov, S., Baturo, A., & Dasandi, N. (2019). United Nations General Debate Corpus [Data set]. Harvard Dataverse. <a
+                                        href="https://doi.org/10.7910/DVN/0TJX8Y">https://doi.org/10.7910/DVN/0TJX8Y</a>
+                                      </li>
+
+                                      <li id="ref1">Lexicoder Sentiment Dictionary (2015)—Data_dictionary_LSD2015. (n.d.). Retrieved May 15, 2021, from <a
+                                        href="https://quanteda.io/reference/data_dictionary_LSD2015.html">https://quanteda.io/reference/data_dictionary_LSD2015.html</a>
+                                      </li>
+
+                                      <li id="ref1">lexicon package—RDocumentation. (n.d.). Retrieved May 15, 2021, from <a
+                                        href="https://www.rdocumentation.org/packages/lexicon/versions/1.2.1">https://www.rdocumentation.org/packages/lexicon/versions/1.2.1</a>
+                                      </li>
+
+                                      <li id="ref1">Monroe, B. L., Colaresi, M. P., & Quinn, K. M. (2008). Fightin’ Words: Lexical Feature Selection and Evaluation for Identifying the Content of Political Conflict. Political Analysis, 16(4), 372–403. <a
+                                        href="https://doi.org/10.1093/pan/mpn018">https://doi.org/10.1093/pan/mpn018</a>
+                                      </li>
+
+                                      <li id="ref1">Quinn, K. M., Monroe, B. L., Colaresi, M., Crespin, M. H., & Radev, D. R. (2010). How to Analyze Political Attention with Minimal Assumptions and Costs. American Journal of Political Science, 54(1), 209–228. <a
+                                        href="https://doi.org/10.1111/j.1540-5907.2009.00427.x">https://doi.org/10.1111/j.1540-5907.2009.00427.x</a>
+                                      </li>
+
+                                      <li id="ref1">UN General Assembly begins annual high-level debate. (2001, November 10). UN News. <a
+                                        href="https://news.un.org/en/story/2001/11/20112-un-general-assembly-begins-annual-high-level-debate">https://news.un.org/en/story/2001/11/20112-un-general-assembly-begins-annual-high-level-debate</a>
+                                      </li>
+
+                                      <li id="ref1">Young, L., & Soroka, S. (2012). Affective News: The Automated Coding of Sentiment in Political Texts. Political Communication, 29(2), 205–231. <a
+                                        href="https://doi.org/10.1080/10584609.2012.671234">https://doi.org/10.1080/10584609.2012.671234</a>
+                                      </li>
+                                </ol>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-12 text-center">
+                <br>
+                <a class="rn-btn align-items-center" href="../blog/09_unveiling-indias-cpi-journey-a-decade-of-cp-trends.html">
+                    <i data-feather="arrow-left"></i><span>Previous Post: Unveiling India's CPI Journey:<br>A Decade of Consumer Price Trends</span>
+                </a>
+                <a class="rn-btn align-items-center" href="../blog/07_can-indicators-of-quality-of-governance-realte-to-conflict-the-correlates-of-governance-and-conflict.html">
+                    <span>Next Post: Can Indicators of Quality of Governance relate<br>to Conflict? The Correlates of Governance and Conflict</span>
+                    <i data-feather="arrow-right"></i>
+                </a>
+            </div>
+        </div>
+
+    </main>
+
+    <div class="rn-footer-area rn-section-gap section-separator">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="footer-area text-center">
+
+                        <div class="logo">
+                            <a href="../index.html">
+                                <img src="../assets/images/main/01_Main_Logo.ico" alt="logo" lazyload="on">
+                            </a>
+                        </div>
+
+                        <p class="description mt--30">© 2024. All contents of this website have been meticulously
+                            developed by Digvijay Ghotane. All rights are reserved.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Footer Area -->
+    <!-- JS ============================================ -->
+    <script src="../assets/js/vendor/jquery.js"></script>
+    <script src="../assets/js/vendor/modernizer.min.js"></script>
+    <script src="../assets/js/vendor/feather.min.js"></script>
+    <script src="../assets/js/vendor/slick.min.js"></script>
+    <script src="../assets/js/vendor/bootstrap.js"></script>
+    <script src="../assets/js/vendor/text-type.js"></script>
+    <script src="../assets/js/vendor/wow.js"></script>
+    <script src="../assets/js/vendor/aos.js"></script>
+    <script src="../assets/js/vendor/particles.js"></script>
+    <script src="../assets/js/vendor/jquery-one-page-nav.js"></script>
+    <!-- main JS -->
+    <script src="../assets/js/main.js"></script>
+
+    <script>
+        particlesJS('particles-js',
+
+            {
+                "particles": {
+                    "number": {
+                        "value": 30,
+                        "density": {
+                            "enable": true,
+                            "value_area": 800
+                        }
+                    },
+                    "color": {
+                        "value": ["#ff014f",]
+                    },
+                    "shape": {
+                        "type": "circle",
+                        "stroke": {
+                            "width": 0,
+                            "color": "#000000"
+                        },
+                        "polygon": {
+                            "nb_sides": 4
+                        },
+                        "image": {
+                            "src": "img/github.svg",
+                            "width": 100,
+                            "height": 100
+                        }
+                    },
+                    "opacity": {
+                        "value": 0.8,
+                        "random": true,
+                        "anim": {
+                            "enable": true,
+                            "speed": 0.5,
+                            "opacity_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "size": {
+                        "value": 4,
+                        "random": true,
+                        "anim": {
+                            "enable": false,
+                            "speed": 40,
+                            "size_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "line_linked": {
+                        "enable": true,
+                        "distance": 150,
+                        "color": "#ffffff",
+                        "opacity": 0.4,
+                        "width": 1
+                    },
+                    "move": {
+                        "enable": true,
+                        "speed": 6,
+                        "direction": "none",
+                        "random": true,
+                        "straight": false,
+                        "out_mode": "out",
+                        "attract": {
+                            "enable": false,
+                            "rotateX": 600,
+                            "rotateY": 1200
+                        }
+                    }
+                },
+                "interactivity": {
+                    "detect_on": "canvas",
+                    "events": {
+                        "onhover": {
+                            "enable": true,
+                            "mode": "repulse"
+                        },
+                        "onclick": {
+                            "enable": true,
+                            "mode": "push"
+                        },
+                        "resize": true
+                    },
+                    "modes": {
+                        "grab": {
+                            "distance": 400,
+                            "line_linked": {
+                                "opacity": 1
+                            }
+                        },
+                        "bubble": {
+                            "distance": 800,
+                            "size": 40,
+                            "duration": 2,
+                            "opacity": 8,
+                            "speed": 3
+                        },
+                        "repulse": {
+                            "distance": 1200
+                        },
+                        "push": {
+                            "particles_nb": 4
+                        },
+                        "remove": {
+                            "particles_nb": 2
+                        }
+                    }
+                },
+                "retina_detect": true,
+                "config_demo": {
+                    "hide_card": false,
+                    "background_color": "#b61924",
+                    "background_image": "",
+                    "background_position": "50% 50%",
+                    "background_repeat": "no-repeat",
+                    "background_size": "cover"
+                }
+            }
+
+        );
+    </script>
+
+    <script>
+        window.onload = function () {
+            var content = document.getElementById('content').innerText;
+            var wordCount = content.split(/\s+/).length;
+            var averageReadingSpeed = 200; // Adjust as needed
+            var readingTime = Math.ceil(wordCount / averageReadingSpeed);
+            var readingTimeElement = document.getElementById('readingTime');
+            if (readingTime === 1) {
+                readingTimeElement.innerHTML = readingTime + ' minute read';
+            } else {
+                readingTimeElement.innerHTML = readingTime + ' minutes read';
+            }
+        };
+    </script>
+</body>
+
+</html>
