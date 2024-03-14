@@ -505,4 +505,31 @@
 			yearsSince_exp + "+ years of hands-on experience"
 		);
 	});
+
+	// Get reference to the body element
+	const bodyElement = document.body;
+
+	// Get reference to the toggle button
+	const toggleButton = document.getElementById("toggleButton");
+
+	// Add event listener to the button
+	toggleButton.addEventListener("click", function () {
+		// Check if the body element has the class "white-version"
+		const hasWhiteVersionClass =
+			bodyElement.classList.contains("white-version");
+
+		// Toggle the presence of the "white-version" class
+		if (hasWhiteVersionClass) {
+			// If body has "white-version" class, remove it
+			bodyElement.classList.remove("white-version");
+			// Change button text to "Light Mode"
+			toggleButton.querySelector("mode").innerText = "Dark Mode";
+		} else {
+			// If body does not have "white-version" class, add it
+			bodyElement.classList.add("white-version");
+			// Change button text to "Dark Mode"
+			toggleButton.querySelector("mode").innerText = "Light Mode";
+		}
+	});
+	
 })(jQuery, window);
