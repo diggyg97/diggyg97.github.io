@@ -523,12 +523,12 @@
 			// If body has "white-version" class, remove it
 			bodyElement.classList.remove("white-version");
 			// Change button text to "Light Mode"
-			toggleButton.querySelector("mode").innerText = "‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎Dark Mode";
+			toggleButton.querySelector("mode").innerText = "Dark Mode";
 		} else {
 			// If body does not have "white-version" class, add it
 			bodyElement.classList.add("white-version");
 			// Change button text to "Dark Mode"
-			toggleButton.querySelector("mode").innerText = "‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎Light Mode";
+			toggleButton.querySelector("mode").innerText = "Light Mode";
 		}
 	});
 	
