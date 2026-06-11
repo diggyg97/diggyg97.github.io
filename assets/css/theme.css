@@ -926,3 +926,58 @@ a:hover { color: var(--lux-gold); }
 }
 .success-msg br + *, .success-msg p { color: var(--lux-ink) !important; }
 .success-msg, .success-msg * { color: var(--lux-ink) !important; }
+
+/* =====================================================================
+   Unify ALL social tiles (contact card · mobile menu · hero billing) to ONE
+   identical themed treatment: glass + visible gold rim, cream icon → gold.
+   ===================================================================== */
+.contact-about-area .social-area .social-icone a,
+.social-share-style-1 .social-share li a,
+.hero-theatre .bill-links a {
+  display: inline-flex !important; align-items: center; justify-content: center;
+  background: var(--lux-glass-2) !important;
+  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  border: 1px solid rgba(201, 162, 75, 0.35) !important;   /* visible gold rim, identical everywhere */
+  box-shadow: none !important;
+  border-radius: 9px !important;
+  color: var(--lux-ink) !important;
+  transition: transform .3s ease, border-color .3s ease, background-color .3s ease, color .3s ease, box-shadow .3s ease;
+}
+.contact-about-area .social-area .social-icone a::before,
+.social-share-style-1 .social-share li a::before,
+.hero-theatre .bill-links a::before { display: none !important; content: none !important; }
+/* size per spot — treatment identical, scale fits the layout */
+.contact-about-area .social-area .social-icone a,
+.social-share-style-1 .social-share li a { width: 56px !important; height: 56px !important; }
+.hero-theatre .bill-links a { width: 40px !important; height: 40px !important; margin-right: 8px; }
+/* icons: cream by default */
+.contact-about-area .social-area .social-icone a svg,
+.social-share-style-1 .social-share li a svg,
+.hero-theatre .bill-links a svg {
+  color: var(--lux-ink) !important; stroke: currentColor !important; width: 20px !important; height: 20px !important;
+}
+.hero-theatre .bill-links a svg { width: 17px !important; height: 17px !important; }
+/* hover: rim + icon → gold, subtle lift, restrained gold glow */
+.contact-about-area .social-area .social-icone a:hover,
+.social-share-style-1 .social-share li a:hover,
+.hero-theatre .bill-links a:hover {
+  transform: translateY(-3px);
+  border-color: var(--lux-gold) !important;
+  background: rgba(201, 162, 75, 0.10) !important;
+  box-shadow: 0 5px 18px rgba(201, 162, 75, 0.18) !important;
+}
+.contact-about-area .social-area .social-icone a:hover svg,
+.social-share-style-1 .social-share li a:hover svg,
+.hero-theatre .bill-links a:hover svg { color: var(--lux-gold) !important; }
+
+/* mobile popup-menu: nav-link default ink, ACTIVE gold (match the desktop nav) */
+.popup-mobile-menu .primary-menu .nav-link { color: var(--lux-ink-soft) !important; }
+.popup-mobile-menu .primary-menu .nav-link:hover,
+.popup-mobile-menu .primary-menu .nav-item.current .nav-link,
+.popup-mobile-menu .primary-menu .nav-link.active { color: var(--lux-gold) !important; }
+
+/* hero billing 'Links' — keep the two themed tiles side-by-side under the label */
+.hero-theatre .bill-group.bill-links { flex-wrap: wrap; align-items: center; gap: 9px; min-width: 92px; }
+.hero-theatre .bill-group.bill-links .bill-label { flex-basis: 100%; margin-bottom: 2px; }
+.hero-theatre .bill-links a { width: 36px !important; height: 36px !important; margin-right: 0 !important; }
+.hero-theatre .bill-links a svg { width: 16px !important; height: 16px !important; }
