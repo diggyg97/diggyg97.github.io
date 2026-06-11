@@ -43,13 +43,13 @@
     var scene = document.querySelector(".scene");
     if (!scene) return null;
 
-    function compactYear(s) {            // "2021 — 2023" → "2021–2023"; ongoing → start year
-      var ys = (s.match(/\b(?:19|20)\d{2}\b/g) || []).map(Number);
+    function compactYear(s) {            // "Aug 2021 — Sep 2023" → "2021–2023"; same year twice → "2021"; ongoing → start year
+      var ys = (s.match(/\b(?:19|20)\d{2}\b/g) || []).map(Number)
+                 .filter(function (v, i, a) { return a.indexOf(v) === i; });   // dedupe matched years up front
       if (!ys.length) return "";
-      var uniq = ys.filter(function (v, i) { return ys.indexOf(v) === i; });
-      if (/present|now|current|ongoing/i.test(s)) return String(Math.min.apply(null, uniq));
-      if (uniq.length === 1) return String(uniq[0]);
-      return Math.min.apply(null, uniq) + "–" + Math.max.apply(null, uniq);
+      if (/present|now|current|ongoing/i.test(s)) return String(Math.min.apply(null, ys));
+      if (ys.length === 1) return String(ys[0]);
+      return Math.min.apply(null, ys) + "–" + Math.max.apply(null, ys);
     }
 
     var rail = document.createElement("div");
