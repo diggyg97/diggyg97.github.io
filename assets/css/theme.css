@@ -1,0 +1,928 @@
+/* =====================================================================
+   DARK LUXURY + GLASS  —  layered over style.css (vendor template).
+   Loaded AFTER style.css so it overrides.  One token set drives the
+   homepage and (Phase 5) the blog.
+
+   Palette: near-black base · off-white ink · muted metallic gold accent ·
+   deep crimson, used sparingly for emphasis / links / CTA.
+   ===================================================================== */
+
+:root,
+body.template-color-1,
+body.white-version {
+  /* --- luxury palette --- */
+  --lux-bg:         #08080a;
+  --lux-ink:        #ECE7DC;            /* off-white headings */
+  --lux-ink-soft:   #b6b1a6;            /* body text */
+  --lux-gold:       #c9a24b;            /* muted metallic gold */
+  --lux-gold-soft:  rgba(201, 162, 75, 0.30);
+  --lux-gold-line:  rgba(201, 162, 75, 0.18);   /* hairline borders */
+  --lux-crimson:    #9b2d38;
+  --lux-crimson-hi: #b8353f;            /* sparing highlight */
+  --lux-glass:      rgba(18, 18, 24, 0.55);
+  --lux-glass-2:    rgba(26, 26, 33, 0.45);
+  --lux-glass-brd:  rgba(201, 162, 75, 0.22);
+
+  /* --- remap the template's own tokens onto the palette --- */
+  --color-primary:    #b8353f;
+  --color-subtitle:   #c9a24b;
+  --color-heading:    #ECE7DC;
+  --color-heading-wv: #ECE7DC;
+  --color-body:       #b6b1a6;
+  --color-body-white: #b6b1a6;
+  --color-lightn:     #d8d3c7;
+  --background-color-1: linear-gradient(145deg, #141418, #0d0d11);
+  --background-color-2: #0d0d11;
+  --gradient-red-hover: linear-gradient(145deg, #b8353f, #7c1f29);
+
+  /* recolor the template's cool neumorphic glow → SUBTLE warm gold, site-wide.
+     (template's #262a2e / #ffffff highlights read cool-white on the near-black bg) */
+  --shadow-1: 7px 7px 22px rgba(0, 0, 0, 0.42), -6px -6px 18px rgba(201, 162, 75, 0.07);
+  --shadow-white-3: 5px 5px 16px rgba(0, 0, 0, 0.40), -5px -5px 16px rgba(201, 162, 75, 0.08);
+  /* form inputs use this inset token — its white inner highlight reads cool; warm it */
+  --inner-shadow: 1px 4px 2px -3px rgba(0, 0, 0, 0.7) inset, -1px -3px 3px -2px rgba(201, 162, 75, 0.16) inset;
+
+  /* --- type pairing: serif display + clean sans --- */
+  --font-primary:   'Inter', sans-serif;
+  --font-secondary: 'Inter', sans-serif;
+  --font-body:      'Inter', sans-serif;
+  --font-display:   'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+}
+
+/* ---------- base + layered depth background (so glass reads) ---------- */
+html { scroll-behavior: auto; overflow-x: hidden; background: var(--lux-bg); }
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+body,
+body.template-color-1,
+body.white-version {
+  background: transparent !important;
+  color: var(--lux-ink-soft);
+  font-family: var(--font-body);
+  letter-spacing: 0.01em;
+  overflow-x: clip;          /* clip (not hidden) so body is NOT a scroll container → position:sticky works */
+  overflow-y: visible;
+}
+/* the template forces body overflow:hidden at these widths — Lenis + sticky need it open */
+@media only screen and (min-width: 768px) and (max-width: 1199px) { body { overflow: visible; } }
+@media only screen and (max-width: 767px) { body { overflow: visible; } }
+
+body::before {        /* soft gold + crimson glows over a near-black gradient */
+  content: "";
+  position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(58vw 58vw at 80% 8%,  rgba(201, 162, 75, 0.10), transparent 60%),
+    radial-gradient(52vw 52vw at 8%  92%, rgba(155, 45, 56, 0.13), transparent 62%),
+    linear-gradient(160deg, #0c0c10 0%, #08080a 55%, #0b0b0f 100%);
+}
+body::after {         /* gentle vignette for depth */
+  content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background: radial-gradient(120vw 90vh at 50% 28%, transparent 55%, rgba(0, 0, 0, 0.55) 100%);
+}
+
+/* ---------- typography ---------- */
+h1, h2, h3, .title, .maintitle { color: var(--lux-ink); }
+.section-title .title,
+.rn-slider-area .title,
+.story-card .card-title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: 0.005em;
+}
+.section-title .subtitle,
+.subtitle {
+  color: var(--lux-gold) !important;
+  font-family: var(--font-body);
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+  font-weight: 500;
+  font-size: 13px;
+}
+
+a { color: var(--lux-ink-soft); transition: color .3s ease, border-color .3s ease; }
+a:hover { color: var(--lux-gold); }
+.description a, p a {
+  color: var(--lux-crimson-hi);
+  text-decoration: none;
+  border-bottom: 1px solid var(--lux-gold-line);
+}
+.description a:hover, p a:hover { color: var(--lux-gold); border-color: var(--lux-gold); }
+
+.section-separator { border-top: 1px solid var(--lux-gold-line) !important; }
+
+/* ---------- header / nav glass ---------- */
+.rn-header,
+.header--sticky.sticky {
+  background: rgba(8, 8, 12, 0.55) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(120%);
+  backdrop-filter: blur(14px) saturate(120%);
+  border-bottom: 1px solid var(--lux-gold-line);
+}
+.mainmenu-nav .primary-menu .nav-link { color: var(--lux-ink-soft) !important; letter-spacing: .04em; }
+.mainmenu-nav .primary-menu .nav-link:hover,
+.mainmenu-nav .primary-menu .nav-item.current .nav-link,
+.mainmenu-nav .primary-menu .nav-link.active { color: var(--lux-gold) !important; }
+#toggleButton mode { display: none; }     /* hide dark/light toggle label — site is dark-only */
+
+.popup-mobile-menu .inner {
+  background: rgba(8, 8, 12, 0.92);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  border-right: 1px solid var(--lux-gold-line);
+}
+
+/* ---------- hero ---------- */
+/* ===== HERO — dark-theatre stage (first beat of the spotlit scene) ===== */
+/* ===== SHARED SCENE — hero + story share ONE sticky beam (no seam, no second beam) ===== */
+.scene { position: relative; z-index: 0; background: #070709; }
+/* the single beam: sticky → stays header-anchored across the whole hero+story descent,
+   then releases when the scene ends (it does not bleed into later sections) */
+.scene-stage {
+  position: sticky; top: 0;
+  height: 100vh;
+  margin-bottom: -100vh;            /* take no flow space; hero/story overlap it */
+  z-index: 0; pointer-events: none;
+  overflow: hidden;                 /* clip the beam's top overshoot under the header */
+}
+.scene-stage .glow {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(52vw 44vh at 50% 0%, rgba(201, 162, 75, 0.18), transparent 62%),
+    radial-gradient(42vw 34vw at 14% 98%, rgba(155, 45, 56, 0.10), transparent 66%);
+}
+.scene-stage .beam {
+  position: absolute; top: -12%; left: 50%; transform: translateX(-50%);
+  width: 60%; height: 124%;
+  background: linear-gradient(180deg, rgba(201, 162, 75, 0.30) 0%, rgba(201, 162, 75, 0.08) 50%, transparent 100%);
+  clip-path: polygon(42% 0, 58% 0, 100% 100%, 0 100%);
+  filter: blur(30px);
+  animation: hero-beam-breathe 7s ease-in-out infinite;   /* subtle opacity-only breathe */
+}
+.scene-stage .floor {
+  position: absolute; left: 50%; bottom: 9%; transform: translateX(-50%);
+  width: 44%; height: 90px;
+  background: radial-gradient(ellipse at center, rgba(201, 162, 75, 0.16), transparent 70%);
+  filter: blur(12px);
+}
+@keyframes hero-beam-breathe { 0%, 100% { opacity: 0.88; } 50% { opacity: 1; } }
+
+/* hero sits transparently over the shared beam */
+.hero-theatre {
+  position: relative;
+  z-index: 1;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;                 /* contain the hero-only pool */
+  background: transparent;
+}
+/* hero-only warm pool on the portrait (scrolls + fades out with the hero) */
+.hero-theatre .hero-pool {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background: radial-gradient(34% 52% at 78% 44%, rgba(201, 162, 75, 0.16), transparent 70%);
+}
+
+/* layout: text LEFT (cooler penumbra), portrait RIGHT (in the light); left gutter for the rail */
+.hero-theatre .hero-inner {
+  position: relative; z-index: 2;
+  flex: 1 1 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.82fr);
+  align-items: center;
+  column-gap: 3vw;
+  width: 100%; max-width: 1500px; margin: 0 auto;
+  padding: clamp(120px, 16vh, 180px) 6vw 2vh 9vw;
+}
+
+.hero-theatre .hero-text { max-width: 560px; }
+.hero-theatre .hero-kicker {
+  display: block; margin-bottom: 22px; color: var(--lux-gold);
+  text-transform: uppercase; letter-spacing: 0.26em; font-size: 12px; font-weight: 600;
+}
+.hero-theatre .hero-hi { margin: 0 0 6px; color: var(--lux-ink-soft); font-size: 16px; letter-spacing: 0.02em; }
+.hero-theatre .hero-name {
+  margin: 0 0 18px; color: var(--lux-ink);
+  font-family: var(--font-display); font-weight: 500; line-height: 1.0;
+  font-size: clamp(44px, 6.4vw, 82px);
+}
+.hero-theatre .hero-role { margin: 0 0 22px; }
+.hero-theatre .hero-role .cd-headline {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace) !important;
+  font-size: clamp(18px, 2.2vw, 24px) !important;
+  font-weight: 500 !important; line-height: 1.3 !important;
+  color: var(--lux-gold);
+}
+.hero-theatre .hero-role .cd-words-wrapper b { color: var(--lux-gold); font-weight: 500; }
+.hero-theatre .hero-role .cd-headline.clip .cd-words-wrapper::after { background-color: var(--lux-gold); }  /* gold caret */
+.hero-theatre .hero-intro {
+  margin: 0; max-width: 470px; color: var(--lux-ink-soft);
+  font-size: clamp(15px, 1.5vw, 17px); line-height: 1.6;
+}
+
+/* portrait — warm duotone figure emerging from black, no frame */
+.hero-theatre .hero-portrait { position: relative; justify-self: end; width: 100%; max-width: 460px; }
+.hero-theatre .hero-portrait img {
+  display: block; width: 100%; height: auto;
+  filter: grayscale(1) sepia(0.55) saturate(1.5) hue-rotate(-10deg) brightness(1.03) contrast(1.06);
+  /* feather EVERY edge that meets the dark so he emerges from shadow, not pasted on:
+     1) existing shadow-side diagonal  2) generous bottom (torso/jacket)  3) right  4) top.
+     Intersected → each edge fades independently; the lit centre/face stays solid. */
+  -webkit-mask-image:
+    linear-gradient(158deg, #000 33%, transparent 90%),
+    linear-gradient(to top, transparent 0%, #000 48%),
+    linear-gradient(to left, transparent 0%, #000 11%),
+    linear-gradient(to bottom, transparent 0%, #000 7%);
+          mask-image:
+    linear-gradient(158deg, #000 33%, transparent 90%),
+    linear-gradient(to top, transparent 0%, #000 48%),
+    linear-gradient(to left, transparent 0%, #000 11%),
+    linear-gradient(to bottom, transparent 0%, #000 7%);
+  -webkit-mask-composite: source-in;
+          mask-composite: intersect;
+}
+
+/* scroll cue */
+.hero-theatre .hero-cue {
+  position: absolute; left: 50%; bottom: 104px; transform: translateX(-50%); z-index: 2;
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+}
+.hero-theatre .cue-label { text-transform: uppercase; letter-spacing: 0.24em; font-size: 10px; color: var(--lux-gold); }
+.hero-theatre .cue-chevron { width: 18px; height: 18px; color: var(--lux-gold); animation: hero-cue-bob 1.8s ease-in-out infinite; }
+@keyframes hero-cue-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
+
+/* billing — playbill row, hairline top */
+.hero-theatre .hero-billing {
+  position: relative; z-index: 2;
+  display: flex; justify-content: space-between; align-items: flex-start; gap: 3vw;
+  padding: 16px 9vw 24px;        /* no top border — it formed the hard seam */
+}
+.hero-theatre .bill-group { display: flex; align-items: center; flex-wrap: wrap; gap: 14px; }
+.hero-theatre .bill-work { gap: 22px; }
+.hero-theatre .bill-label {
+  text-transform: uppercase; letter-spacing: 0.2em; font-size: 10px; font-weight: 600; color: var(--lux-gold);
+}
+.hero-theatre .bill-links a { display: inline-flex; color: var(--lux-ink-soft); }
+.hero-theatre .bill-links a:hover { color: var(--lux-gold); }
+.hero-theatre .bill-links svg { width: 19px; height: 19px; }
+.hero-theatre .bill-work a {
+  color: var(--lux-ink-soft); font-size: 12.5px; text-decoration: none;
+  border-bottom: 1px solid var(--lux-gold-line); padding-bottom: 2px;
+}
+.hero-theatre .bill-work a:hover { color: var(--lux-gold); border-color: var(--lux-gold); }
+
+/* reduced motion: kill all hero animation */
+@media (prefers-reduced-motion: reduce) {
+  .scene-stage .beam, .hero-theatre .cue-chevron { animation: none; }
+}
+/* mobile (<768px): static, portrait ABOVE text, billing wraps */
+@media only screen and (max-width: 767px) {
+  .scene-stage .beam, .hero-theatre .cue-chevron { animation: none; }
+  .hero-theatre .hero-inner {
+    grid-template-columns: 1fr; row-gap: 4vh; text-align: center;
+    padding: 110px 7vw 2vh;
+  }
+  .hero-theatre .hero-portrait { order: -1; justify-self: center; max-width: 280px; }
+  .hero-theatre .hero-text { max-width: none; }
+  .hero-theatre .hero-intro { margin: 0 auto; }
+  .hero-theatre .hero-cue { display: none; }
+  .hero-theatre .hero-billing { flex-direction: column; gap: 16px; padding: 16px 7vw 24px; }
+}
+.rn-slider-area .subtitle { color: var(--lux-gold) !important; }
+.rn-slider-area .title { color: var(--lux-ink); }
+.rn-slider-area .title span,
+.rn-slider-area .cd-words-wrapper b { color: var(--lux-gold); }
+.social-share li a { color: var(--lux-ink-soft); }
+.social-share li a:hover { color: var(--lux-gold); }
+.social-share-inner-left .title, .social-share-style-1 .title { color: var(--lux-gold); }
+
+/* =====================================================================
+   STORY — per-entry stacking SHARD cards on a fixed spotlit STAGE
+   • The stage (spotlight + glows) is a fixed background layer inside the
+     pinned section — it never moves.  Cards are the only moving layer.
+   • Each card is a flat rounded-rectangle glass panel (no 3D tilt), lit from
+     above, with a static translucent fill (no backdrop-filter) so it composites
+     cheaply while translating.
+   • Pin + timeline live in story.js (GSAP ScrollTrigger + Lenis).
+   ===================================================================== */
+.story-stack {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  background: transparent;     /* the shared scene beam shows through behind the cards */
+  z-index: 1;
+}
+
+/* ---- each entry = an absolutely-stacked card over the shared beam ---- */
+.story-card {
+  position: absolute; inset: 0; z-index: 1;
+  display: flex; align-items: center; justify-content: center;
+  padding: 8vh 5vw;
+  will-change: transform, opacity;
+}
+
+/* ---- flat glass panel (faces the viewer straight on, no 3D tilt) ----
+   No perspective / rotate / extrude. Glass is a STATIC translucent gradient
+   (NOT backdrop-filter) so the moving card is a cheap GPU-composited layer. */
+.shard-3d {
+  position: relative;
+  width: min(840px, 92vw);
+}
+.shard { position: relative; }
+.shard-extrude { display: none; }                        /* no extruded thickness */
+
+.shard-face {
+  position: relative;
+  border-radius: 18px;
+  padding: clamp(26px, 2.8vw, 44px) clamp(34px, 4.2vw, 64px);
+  text-align: center;
+  border: 1px solid rgba(201, 162, 75, 0.30);            /* thin gold rim */
+  background:
+    linear-gradient(180deg, rgba(40, 42, 52, 0.55) 0%, rgba(12, 13, 20, 0.62) 100%),
+    radial-gradient(120% 58% at 50% 0%, rgba(255, 246, 228, 0.07), transparent 55%);   /* soft top sheen */
+  box-shadow:
+    0 30px 70px rgba(0, 0, 0, 0.50),                     /* soft drop shadow (static) */
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),             /* top specular */
+    inset 2px 2px 7px -5px rgba(201, 162, 75, 0.50),     /* gold lit edge */
+    inset -2px -2px 7px -5px rgba(184, 53, 63, 0.30),    /* crimson edge */
+    inset 0 -28px 46px rgba(0, 0, 0, 0.28);              /* base depth */
+}
+.shard-face::before, .shard-face::after { content: none; }
+
+/* faint static iridescent fringe on the lit edges (no blend-mode → cheap) */
+.shard-edge {
+  position: absolute; inset: 0; pointer-events: none;
+  border-radius: 18px;
+  background:
+    linear-gradient(125deg, rgba(150, 210, 255, 0.05), transparent 16%),
+    linear-gradient(125deg, transparent 84%, rgba(255, 150, 195, 0.045));
+}
+
+/* faint floor anchor (soft radial, no filter) */
+.shard-cast {
+  position: absolute; left: 50%; bottom: -3%; transform: translateX(-50%);
+  width: 74%; height: 38px; z-index: -1;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.45), transparent 72%);
+}
+
+/* ---- shard content ---- */
+.story-card .kicker {
+  display: inline-block; margin-bottom: 14px;
+  color: var(--lux-gold); text-transform: uppercase;
+  letter-spacing: 0.28em; font-size: 11px; font-weight: 600;
+}
+.story-card .card-dates {
+  display: block; color: var(--lux-ink-soft);
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  letter-spacing: 0.1em; font-size: 12px;
+}
+.story-card .card-title {
+  color: var(--lux-ink);
+  font-size: clamp(28px, 4.4vw, 50px);
+  line-height: 1.04; margin: 6px 0 12px;
+}
+.story-card .card-meta {
+  display: block; margin-bottom: 18px;
+  color: var(--lux-gold); font-size: 13px; letter-spacing: 0.02em;
+}
+.story-card .card-body {
+  color: var(--lux-ink-soft);
+  font-size: clamp(13.5px, 1.35vw, 15.5px);
+  line-height: 1.52;
+  max-width: 680px;
+  margin-left: auto;
+  margin-right: auto;
+}
+/* denser bulleted cards (DIA, UVA, Fair RA): keep the block centred, left-align the lines */
+.story-card .card-body.is-list { text-align: left; }
+.story-card .card-body p { margin: 0 0 9px; }
+.story-card .card-body p:last-child { margin-bottom: 0; }
+.story-card .card-body b { color: var(--lux-ink); }
+.story-card .card-body em { color: var(--lux-ink); font-style: italic; }
+.story-card .card-body a { color: var(--lux-crimson-hi); border-bottom: 1px solid var(--lux-gold-line); }
+.story-card .card-body a:hover { color: var(--lux-gold); border-color: var(--lux-gold); }
+.story-card .card-avail b { color: var(--lux-gold); }
+.story-card .card-rewind { margin-top: 16px; color: var(--lux-ink-soft); font-style: italic; font-size: 12.5px; opacity: 0.85; }
+
+/* ---------- competencies (normal section, glass tiles) ---------- */
+#competencies .content {
+  height: 100%;
+  background: var(--lux-glass-2);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--lux-glass-brd);
+  border-radius: 14px;
+  padding: 26px 28px;
+}
+#competencies .maintitle {
+  color: var(--lux-gold);
+  font-family: var(--font-body);
+  text-transform: uppercase;
+  letter-spacing: .16em;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+#competencies .description { color: var(--lux-ink-soft); line-height: 1.8; }
+
+/* ---------- blog cards ---------- */
+/* uniform, neutral treatment on every blog card — no gold trim/accent.
+   Every card fills its column and every grey inner box is the SAME size,
+   regardless of title length (applies to homepage + the full blog index). */
+.rn-blog { height: 100%; }
+.rn-blog .inner {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--lux-glass-2);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(201, 162, 75, 0.12);     /* warm hairline rim (was cool white) */
+  border-radius: 14px;
+  overflow: hidden;
+}
+.rn-blog .thumbnail { flex: 0 0 auto; }
+.rn-blog .content {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  padding: 22px 24px 26px;
+  min-height: 152px;            /* constant content height across all cards */
+}
+.rn-blog .content .title { margin-top: 12px; }
+/* 4-class specificity to beat the template's own .rn-blog .inner .content .title a */
+.rn-blog .inner .content .title a {
+  color: var(--lux-ink);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;        /* clamp long titles so every box stays equal */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.rn-blog .inner .content .title a:hover { color: var(--lux-ink); }
+.rn-blog .category-list a { color: var(--lux-ink-soft); }
+.rn-blog .meta span { color: var(--lux-ink-soft); }
+/* keep the whole grid row's cards equal height */
+.rn-blog-area .row { align-items: stretch; }
+
+/* ---------- contact ---------- */
+.contact-about-area,
+.contact-form-wrapper {
+  background: var(--lux-glass-2);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--lux-glass-brd);
+  border-radius: 16px;
+  padding: 30px;
+}
+.contact-about-area .title-area .title { color: var(--lux-ink); }
+.contact-input input,
+.contact-input textarea,
+.form-group input,
+.form-group textarea {
+  background: rgba(255, 255, 255, 0.03) !important;
+  color: var(--lux-ink) !important;
+  border: 1px solid var(--lux-gold-line) !important;
+  border-radius: 6px !important;
+}
+.form-group input:focus,
+.form-group textarea:focus { border-color: var(--lux-gold) !important; }
+.form-group label { color: var(--lux-ink-soft); }
+.contact-about-area .mail a { color: var(--lux-crimson-hi); }
+/* contact-card LINKS tiles (GitHub · LinkedIn) — these are .social-icone a, NOT
+   .social-share-style-1. Glass + a clearly VISIBLE gold rim, cream icon → gold. */
+.contact-about-area .social-area .social-icone a {
+  background: var(--lux-glass-2) !important;             /* glass fill */
+  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  border: 1px solid rgba(201, 162, 75, 0.35) !important; /* visible gold rim */
+  box-shadow: none !important;                           /* no white bloom */
+  border-radius: 8px;
+  transition: transform .3s ease, border-color .3s ease, background-color .3s ease, box-shadow .3s ease;
+}
+.contact-about-area .social-area .social-icone a::before { display: none !important; content: none !important; }
+.contact-about-area .social-area .social-icone a svg,
+.contact-about-area .social-area .social-icone a i { color: var(--lux-ink) !important; stroke: currentColor; }   /* cream icon */
+.contact-about-area .social-area .social-icone a:hover {
+  transform: translateY(-3px);                           /* subtle lift */
+  border-color: var(--lux-gold) !important;              /* rim → solid gold */
+  background: rgba(201, 162, 75, 0.10) !important;       /* faint gold tint */
+  box-shadow: 0 5px 18px rgba(201, 162, 75, 0.18) !important;   /* restrained gold glow */
+}
+.contact-about-area .social-area .social-icone a:hover svg,
+.contact-about-area .social-area .social-icone a:hover i { color: var(--lux-gold) !important; }   /* icon → gold */
+
+/* ---------- buttons ---------- */
+.rn-btn {
+  background: rgba(201, 162, 75, 0.06);
+  border: 1px solid var(--lux-gold-line);
+  color: var(--lux-ink) !important;
+  border-radius: 6px;
+  transition: border-color .3s ease, color .3s ease, background .3s ease;
+}
+.rn-btn:hover { border-color: var(--lux-gold); color: var(--lux-gold) !important; background: rgba(201, 162, 75, 0.10); }
+.rn-btn span { color: inherit; }
+
+/* ---------- footer ---------- */
+.rn-footer-area .description { color: var(--lux-ink-soft); }
+
+/* ---------- pre-JS guard: keep stacked cards hidden so they don't pile ---------- */
+/* (no pre-JS transform guard — GSAP positions the cards on init, and the stack
+    sits below the hero so there is no visible flash. A CSS transform here would
+    compose with GSAP's own transform and break the timeline.) */
+
+/* ---------- FLAT fallback (mobile / reduced-motion / no-GSAP) ----------
+   story.js adds .story-flat to the stack; cards become plain stacked
+   glass panels — no stage, no 3D, no transforms. */
+.story-flat {
+  height: auto;
+  overflow: visible;
+  background: transparent;
+}
+.story-flat .story-card {
+  position: relative;
+  inset: auto;
+  padding: 6vh 5vw;
+  transform: none !important;
+  opacity: 1 !important;
+}
+.story-flat .shard { transform: none; transform-style: flat; }
+.story-flat .shard-extrude,
+.story-flat .shard-edge,
+.story-flat .shard-cast { display: none; }
+.story-flat .shard-face {
+  clip-path: none;
+  border-radius: 16px;
+  border: 1px solid var(--lux-glass-brd);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+}
+.story-flat .shard-face::after { display: none; }
+
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+/* =====================================================================
+   Review-pass fixes
+   ===================================================================== */
+
+/* ---- #5 competency chips ---- */
+#competencies ul.chips {
+  list-style: none; margin: 6px 0 0; padding: 0;
+  display: flex; flex-wrap: wrap; gap: 8px;
+}
+#competencies ul.chips li {
+  font-size: 12.5px; line-height: 1; letter-spacing: 0.015em;
+  color: var(--lux-ink);
+  padding: 8px 13px; border-radius: 999px;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid var(--lux-gold-line);
+  box-shadow: inset 0 0 0 1px rgba(201, 162, 75, 0.04);
+  transition: border-color .3s ease, color .3s ease;
+}
+#competencies ul.chips li:hover { border-color: var(--lux-gold-soft); color: var(--lux-gold); }
+
+/* ---- #6 uniform blog thumbnails (applies to homepage + blog index in Phase 5) ---- */
+.rn-blog .square-image-container {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 10px;
+}
+.rn-blog .square-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* ---- #4 remove leftover neumorphic gray/white panels ---- */
+.social-share li a {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: 1px solid var(--lux-gold-line);
+}
+.social-share li a:hover {
+  border-color: var(--lux-gold);
+  background: rgba(201, 162, 75, 0.06) !important;
+}
+.slide .thumbnail::before { background: transparent !important; box-shadow: none !important; }
+.header-left .logo a,
+.header-left .logo a.rn-btn {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  padding: 0 !important;
+}
+
+/* =====================================================================
+   LEFT TIMELINE RAIL — a real chronology: per-node year (the scale), a
+   traveled-line fill (top→active), and an active label (section + org +
+   date range). Driven from the existing pin ScrollTrigger (story.js).
+   Sticky inside .scene; present across hero+story, released after.
+   ===================================================================== */
+.story-rail {
+  position: sticky; top: 0;
+  height: 100vh; margin-bottom: -100vh;     /* no flow space — overlaps hero/story */
+  z-index: 3; pointer-events: none;
+}
+.rail-track {
+  position: absolute; left: 2.6vw; top: 50%; transform: translateY(-50%);
+  display: flex; flex-direction: column; gap: 22px;
+}
+.rail-line, .rail-fill {                      /* both span first dot-centre → last dot-centre */
+  position: absolute; left: 4px; top: 4.5px; bottom: 4.5px; width: 1.5px; border-radius: 1px;
+}
+.rail-line {                                  /* base = thin gold, fading downward (upcoming) */
+  background: linear-gradient(180deg, var(--lux-gold-soft) 0%, rgba(201, 162, 75, 0.05) 100%);
+}
+.rail-fill {                                  /* traveled segment: top (NOW) → active node, lit gold */
+  background: linear-gradient(180deg, var(--lux-gold) 0%, rgba(201, 162, 75, 0.6) 100%);
+  transform-origin: top; transform: scaleY(0);
+  transition: transform .45s ease;
+}
+.rail-node { position: relative; display: flex; align-items: center; min-height: 9px; }
+.rail-dot {                                   /* upcoming = faint outline */
+  width: 9px; height: 9px; border-radius: 50%; flex: 0 0 auto;
+  background: transparent; border: 1px solid var(--lux-gold-line);
+  transition: transform .35s ease, background-color .35s ease, border-color .35s ease, box-shadow .35s ease;
+}
+.rail-node.is-passed .rail-dot {              /* traveled = gold-tinted, filled */
+  background: rgba(201, 162, 75, 0.6); border-color: rgba(201, 162, 75, 0.6);
+}
+.rail-node.is-active .rail-dot {              /* active = gold, enlarged, soft glow */
+  background: var(--lux-gold); border-color: var(--lux-gold);
+  transform: scale(2);
+  box-shadow: 0 0 0 4px rgba(201, 162, 75, 0.16), 0 0 12px 3px rgba(201, 162, 75, 0.5);
+}
+/* per-node YEAR — the timeline scale. INSTANT show/hide on active-change (no
+   scrubbed fade) so two labels / a year+label can never coexist mid-transition. */
+.rail-year {
+  position: absolute; left: 20px; top: 50%; transform: translateY(-50%);
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 10px; letter-spacing: 0.03em; white-space: nowrap;
+  color: var(--lux-ink-soft); opacity: 0;
+}
+/* active LABEL — section overline (1 line) + org (serif, ≤2 lines) + range (1 line) */
+.rail-label {
+  position: absolute; left: 20px; top: 50%; transform: translateY(-50%);
+  display: flex; flex-direction: column; width: max-content; max-width: 155px;
+  opacity: 0;                                    /* instant — exactly one expanded label at a time */
+}
+.rail-era {
+  color: var(--lux-gold); text-transform: uppercase; white-space: nowrap;   /* overline, one line */
+  letter-spacing: 0.14em; font-size: 8.5px; font-weight: 600; line-height: 1.2;
+}
+.rail-name {
+  color: var(--lux-ink); font-family: var(--font-display); font-weight: 500;
+  font-size: 15px; line-height: 1.14; margin-top: 2px;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; /* ≤2 lines, no mid-word cut */
+}
+.rail-range {
+  margin-top: 3px; color: var(--lux-gold); opacity: 0.82; white-space: nowrap;   /* range, one line */
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 10px; letter-spacing: 0.04em;
+}
+/* years visible in story-mode (short → slightly wider gate) */
+@media (min-width: 1120px) {
+  .story-rail.rail-live .rail-node .rail-year { opacity: 0.42; }                                  /* upcoming = dim */
+  .story-rail.rail-live .rail-node.is-passed .rail-year { opacity: 0.9; color: var(--lux-ink); }  /* passed = brighter cream */
+  .story-rail.rail-live .rail-node.is-active .rail-year { opacity: 0.9; color: var(--lux-ink); }  /* active cream (no label yet) */
+}
+/* active label only where the left gutter has room; it REPLACES the bare year and
+   its neighbours' years clear so the taller block has space */
+@media (min-width: 1280px) {
+  .story-rail.rail-live .rail-node.is-active .rail-label { opacity: 1; }
+  .story-rail.rail-live .rail-node.is-active .rail-year { opacity: 0; }        /* no year+label stack */
+  .story-rail.rail-live .rail-node.is-adjacent .rail-year { opacity: 0; }      /* clearance above & below */
+}
+/* ---- clickable rail: generous hit zone + hover preview (desktop, story-mode) ---- */
+.story-rail { pointer-events: none; }          /* layer never blocks clicks */
+.rail-node { pointer-events: none; }           /* off by default (hero / narrow) */
+.rail-node::before {                           /* invisible generous hit zone — the whole row */
+  content: ""; position: absolute; top: 50%; left: -8px; transform: translateY(-50%);
+  width: 185px; height: 26px;                  /* sits left of the card; card has higher z so its links win */
+}
+@media (min-width: 1280px) {
+  .story-rail.rail-live .rail-node { pointer-events: auto; cursor: pointer; }
+  /* hover: dot brightens/enlarges (subtle) */
+  .story-rail.rail-live .rail-node.is-preview .rail-dot {
+    background: var(--lux-gold); border-color: var(--lux-gold); transform: scale(1.6);
+  }
+  /* hover a NON-active node → preview its label, LIGHTER than the always-on active label */
+  .story-rail.rail-live .rail-node.is-preview .rail-label { opacity: 0.62; }
+  .story-rail.rail-live .rail-node.is-preview .rail-year { opacity: 0; }            /* no year+label stack */
+  .story-rail.rail-live .rail-node.is-preview-adj .rail-year { opacity: 0; }        /* clear neighbours' years */
+  /* if the preview is adjacent to the active node, drop the active label so they can't collide */
+  .story-rail.rail-live.preview-near-active .rail-node.is-active .rail-label { opacity: 0; }
+}
+
+/* fallback: hide the rail on mobile / reduced-motion (story is a flat stack) */
+@media (max-width: 767px) { .story-rail { display: none; } }
+@media (prefers-reduced-motion: reduce) { .story-rail { display: none; } }
+
+/* =====================================================================
+   TASK 2 — recolor the last red nav controls (hamburger bars + close X)
+   to theme gold, in every state. Other nav styling untouched.
+   ===================================================================== */
+.hamberger-menu i, .humberger-menu, #menuBtn,
+.header-right .feather-menu,
+.header-style-2 .header-right .hamberger-menu i,
+.hamberger-menu i:hover, #menuBtn:hover, #menuBtn:focus, #menuBtn:active {
+  color: var(--lux-gold) !important;
+}
+.close-menu, .close-menu .closeTrigger, .close-menu .closeTrigger i, .close-menu .closeTrigger svg,
+.header-wrapper.menu-open .close-menu,
+.home-sticky .rn-header .header-wrapper.menu-open .close-menu,
+.popup-mobile-menu .close-button .close, .popup-mobile-menu .close-button .close svg,
+.close-menu-activation, .close-menu-activation i, .close-menu-activation svg,
+.close-menu:hover, .close-menu:focus, .closeTrigger i:hover, .closeTrigger svg,
+.close-menu-activation:hover, .close-menu-activation:focus, .close-menu-activation:active {
+  color: var(--lux-gold) !important;
+}
+
+/* =====================================================================
+   Hero dust motes — slow gold specks drifting in the spotlight beam.
+   Hero only, behind the content; pure CSS keyframes (transform/opacity);
+   fades out via the existing hero-fade (story.js adds .hero-motes to it).
+   ===================================================================== */
+.hero-theatre .hero-motes {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none; overflow: hidden;
+}
+.hero-theatre .mote {
+  position: absolute; border-radius: 50%; opacity: 0;
+  background: radial-gradient(circle at 50% 50%,
+              rgba(255, 244, 222, 0.95), rgba(201, 162, 75, 0.35) 55%, transparent 72%);
+  will-change: transform, opacity;
+  animation-name: hero-mote;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+@keyframes hero-mote {                              /* fade in → drift up w/ slight sway → fade out */
+  0%   { transform: translate3d(0, 8px, 0);     opacity: 0; }
+  20%  { opacity: var(--mote-op, 0.5); }
+  50%  { transform: translate3d(7px, -26px, 0); }
+  80%  { opacity: var(--mote-op, 0.5); }
+  100% { transform: translate3d(-3px, -58px, 0); opacity: 0; }
+}
+/* off on mobile / reduced-motion — consistent with the existing hero fallback */
+@media (max-width: 767px) { .hero-theatre .hero-motes { display: none; } }
+@media (prefers-reduced-motion: reduce) { .hero-theatre .hero-motes { display: none; } }
+
+/* =====================================================================
+   PHASE 5 — BLOG: article-body typography (post pages) + cleanup.
+   Dark-luxury, readable. Homepage .rn-blog card rules already cover the index.
+   ===================================================================== */
+#particles-js { display: none !important; }            /* kill leftover template particles on blog */
+
+/* the post wrapper is the article container, not a raised template card */
+.rn-blog-area .rn-service { background: transparent; box-shadow: none; border: 0; padding: 0; }
+
+/* comfortable measure, centred, readable on dark */
+.rn-blog-area #content {
+  max-width: 720px; margin: 0 auto; text-align: left !important;   /* override inline justify */
+  color: var(--lux-ink-soft);
+  font-size: 17px; line-height: 1.75; letter-spacing: 0.005em;
+}
+.rn-blog-area #content p { margin: 0 0 1.4em; }
+.rn-blog-area #content > h2:first-child,
+.rn-blog-area #content > h4:first-child { margin-top: 0; }
+.rn-blog-area #content h2,
+.rn-blog-area #content h3,
+.rn-blog-area #content h4,
+.rn-blog-area #content h5 {
+  color: var(--lux-ink); font-family: var(--font-display); font-weight: 500;
+  line-height: 1.18; margin: 1.9em 0 0.55em; letter-spacing: 0.005em;
+}
+.rn-blog-area #content h2 { font-size: 33px; }
+.rn-blog-area #content h3 { font-size: 28px; }
+.rn-blog-area #content h4 { font-size: 25px; }
+.rn-blog-area #content h5 { font-size: 21px; }
+.rn-blog-area #content h6 {     /* smallest → gold overline */
+  color: var(--lux-gold); font-family: var(--font-body); font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.14em; font-size: 13px;
+  margin: 2em 0 0.6em;
+}
+.rn-blog-area #content a {       /* links in gold */
+  color: var(--lux-gold); text-decoration: none;
+  border-bottom: 1px solid var(--lux-gold-line); transition: color .25s ease, border-color .25s ease;
+}
+.rn-blog-area #content a:hover { color: var(--lux-ink); border-color: var(--lux-gold); }
+.rn-blog-area #content strong, .rn-blog-area #content b { color: var(--lux-ink); font-weight: 600; }
+.rn-blog-area #content ul, .rn-blog-area #content ol { margin: 0 0 1.4em; padding-left: 1.4em; }
+.rn-blog-area #content li { margin: 0 0 0.5em; }
+.rn-blog-area #content li::marker { color: var(--lux-gold); }
+.rn-blog-area #content blockquote {
+  margin: 1.7em 0; padding: 0.3em 0 0.3em 1.2em; border-left: 2px solid var(--lux-gold);
+  color: var(--lux-ink); font-family: var(--font-display); font-size: 22px; font-style: italic;
+}
+/* images — rounded, subtle gold border, centred + captions */
+.rn-blog-area #content img {
+  display: block; max-width: 100%; height: auto; margin: 1.6em auto;
+  border-radius: 10px; border: 1px solid var(--lux-gold-line);
+}
+.rn-blog-area #content figure { margin: 1.8em 0; }
+.rn-blog-area #content figcaption {
+  margin-top: 0.7em; text-align: center; font-style: italic;
+  color: var(--lux-ink-soft); opacity: 0.85; font-size: 13.5px;
+}
+/* tables — dark, hairline */
+.rn-blog-area #content table { width: 100%; border-collapse: collapse; margin: 1.6em 0; font-size: 14px; }
+.rn-blog-area #content th, .rn-blog-area #content td { border: 1px solid var(--lux-gold-line); padding: 8px 12px; text-align: left; }
+.rn-blog-area #content th { color: var(--lux-gold); background: rgba(201, 162, 75, 0.06); font-weight: 600; }
+/* code (rare) */
+.rn-blog-area #content code {
+  font-family: var(--font-mono, monospace); font-size: 0.9em; color: var(--lux-ink);
+  background: rgba(255, 255, 255, 0.05); padding: 2px 6px; border-radius: 4px;
+}
+.rn-blog-area #content pre {
+  background: rgba(255, 255, 255, 0.04); border: 1px solid var(--lux-gold-line);
+  border-radius: 10px; padding: 16px; overflow: auto; margin: 1.6em 0;
+}
+.rn-blog-area #content pre code { background: none; padding: 0; }
+/* video iframes — rounded */
+.rn-blog-area #content iframe { border-radius: 10px; max-width: 100%; }
+
+/* blog card meta — the template colours the date link red (--color-primary); flip to gold */
+.rn-blog .category-list a { color: var(--lux-gold) !important; }
+.rn-blog .category-list a:hover { color: var(--lux-ink) !important; }
+.rn-blog .meta span { color: var(--lux-ink-soft); }
+.rn-blog .meta span i { color: var(--lux-gold); }
+/* post header reading-time subtitle → soft cream */
+.rn-blog-area #readingTime, .rn-blog-area .section-title #readingTime { color: var(--lux-ink-soft); }
+
+/* =====================================================================
+   BLOG POST FIXES — kill the wrapper hover box + theme the post-nav buttons
+   ===================================================================== */
+/* FIX 1 — the template's .rn-service::before paints a box on :hover. Never paint it. */
+.rn-blog-area .rn-service::before,
+.rn-blog-area .rn-service:hover::before { display: none !important; content: none !important; }
+.rn-blog-area .rn-service,
+.rn-blog-area .rn-service:hover {
+  background: transparent !important; box-shadow: none !important; border: 0 !important;
+}
+
+/* FIX 2 — post-nav buttons (← Back to the Blog / Next Post: … →): dark-luxury glass */
+.rn-blog-area a.rn-btn {
+  display: inline-flex; align-items: center; gap: 9px;
+  vertical-align: middle; min-height: 58px; margin: 6px;
+  background: var(--lux-glass-2) !important;            /* translucent dark fill */
+  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  border: 1px solid var(--lux-gold-line) !important;   /* thin gold hairline rim */
+  box-shadow: none !important;                          /* remove the neumorphic white bloom */
+  color: var(--lux-ink) !important;                     /* cream text */
+  border-radius: 10px;
+  transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease, color .3s ease;
+}
+.rn-blog-area a.rn-btn::before { display: none !important; content: none !important; }  /* no hover gradient box */
+.rn-blog-area a.rn-btn span { color: var(--lux-ink) !important; }                        /* cream text */
+.rn-blog-area a.rn-btn i,
+.rn-blog-area a.rn-btn svg { color: var(--lux-gold) !important; stroke: var(--lux-gold) !important; }  /* gold arrows */
+.rn-blog-area a.rn-btn:hover {
+  transform: translateY(-4px);                          /* subtle lift */
+  border-color: var(--lux-gold) !important;             /* rim brightens to gold */
+  box-shadow: 0 6px 22px rgba(201, 162, 75, 0.18) !important;   /* faint GOLD glow, never white */
+  color: var(--lux-ink) !important;
+}
+.rn-blog-area a.rn-btn:hover i,
+.rn-blog-area a.rn-btn:hover svg { color: var(--lux-gold) !important; stroke: var(--lux-gold) !important; }
+
+/* =====================================================================
+   Contact / popup "Links" social buttons (GitHub · LinkedIn) → dark-luxury glass
+   ===================================================================== */
+.social-share-style-1 .social-share li a {
+  background: var(--lux-glass-2) !important;            /* glass fill */
+  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  border: 1px solid var(--lux-gold-line) !important;   /* thin gold hairline rim */
+  box-shadow: none !important;                          /* no white bloom */
+  color: var(--lux-ink) !important;                     /* icon cream (SVG = currentColor) */
+  transition: transform .3s ease, border-color .3s ease, color .3s ease, box-shadow .3s ease, background-color .3s ease;
+}
+.social-share-style-1 .social-share li a::before { display: none !important; content: none !important; }
+.social-share-style-1 .social-share li a svg { stroke: currentColor; color: inherit; }
+.social-share-style-1 .social-share li a:hover {
+  transform: translateY(-3px);                          /* subtle lift */
+  border-color: var(--lux-gold) !important;             /* rim → gold */
+  color: var(--lux-gold) !important;                    /* icon → gold */
+  background: rgba(201, 162, 75, 0.08) !important;      /* faint gold tint */
+  box-shadow: 0 5px 18px rgba(201, 162, 75, 0.16) !important;   /* restrained gold glow, never white */
+}
+
+/* =====================================================================
+   Contact success message — themed (was template green, tucked in a corner)
+   ===================================================================== */
+.success-msg {
+  position: static !important;                /* flow in place of the hidden form, not floating */
+  top: auto !important; left: auto !important; transform: none !important;
+  margin: 26px auto 0 !important; max-width: 480px;
+  padding: 34px 40px !important;
+  background: var(--lux-glass) !important;
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+  border: 1px solid var(--lux-gold-line) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5) !important;
+  text-align: center !important;
+  color: var(--lux-ink) !important;           /* cream body (no green) */
+  font-family: var(--font-body) !important;
+  font-weight: 600; letter-spacing: 0.06em; line-height: 1.5;
+  text-transform: uppercase;
+}
+.success-msg br + *, .success-msg p { color: var(--lux-ink) !important; }
+.success-msg, .success-msg * { color: var(--lux-ink) !important; }

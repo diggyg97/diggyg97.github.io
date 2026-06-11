@@ -19,8 +19,6 @@
 			imJs.mobileMenuActive();
 			imJs.vedioActivation();
 			imJs.stickyHeader();
-			imJs.smothScroll();
-			imJs.smothScroll_Two();
 			imJs.stickyAdjust();
 			imJs.testimonialActivation();
 			imJs.contactForm();
@@ -28,7 +26,6 @@
 			imJs.awsActivation();
 			imJs.demoActive();
 			imJs.activePopupDemo();
-			imJs.onePageNav();
 		},
 
 		activePopupDemo: function (e) {
@@ -91,29 +88,10 @@
 			new WOW().init();
 		},
 
-		smothScroll: function () {
-			$(document).on("click", ".smoth-animation", function (event) {
-				event.preventDefault();
-				$("html, body").animate(
-					{
-						scrollTop: $($.attr(this, "href")).offset().top - 50,
-					},
-					300
-				);
-			});
-		},
-		// two scroll spy
-		smothScroll_Two: function () {
-			$(document).on("click", ".smoth-animation-two", function (event) {
-				event.preventDefault();
-				$("html, body").animate(
-					{
-						scrollTop: $($.attr(this, "href")).offset().top - 0,
-					},
-					300
-				);
-			});
-		},
+		// jQuery smooth-scroll removed — Lenis owns scrolling; nav clicks are
+		// intercepted and routed through Lenis in story.js.
+		smothScroll: function () {},
+		smothScroll_Two: function () {},
 
 		stickyAdjust: function (e) {
 			// Sticky Top Adjust..,
@@ -402,7 +380,7 @@
 			$(
 				".close-menu-activation, .popup-mobile-menu .primary-menu .nav-item a"
 			).on("click", function (e) {
-				e.preventDefault();
+				// no preventDefault: let nav-link hrefs navigate (cross-page on the blog)
 				$(".popup-mobile-menu").removeClass("menu-open");
 				$(".popup-mobile-menu .has-droupdown > a")
 					.removeClass("open")
@@ -449,19 +427,9 @@
 			AOS.init();
 		},
 
-		onePageNav: function () {
-			$(".onepagenav").onePageNav({
-				currentClass: "current",
-				changeHash: true,
-				scrollSpeed: 500,
-				scrollThreshold: 0.2,
-				filter: ":not(.external)",
-				easing: "swing",
-				scrollChange: function ($currentListItem) {
-					console.log(this);
-				},
-			});
-		},
+		// onePageNav (jQuery scroll-spy) removed: changeHash rewrote location.hash on
+		// every scroll, fighting Lenis + GSAP ScrollTrigger. Nav is handled in story.js.
+		onePageNav: function () {},
 	};
 	imJs.m();
 
@@ -506,30 +474,6 @@
 		);
 	});
 
-	// Get reference to the body element
-	const bodyElement = document.body;
+	// Dark/light toggle removed — the site is dark-only.
 
-	// Get reference to the toggle button
-	const toggleButton = document.getElementById("toggleButton");
-
-	// Add event listener to the button
-	toggleButton.addEventListener("click", function () {
-		// Check if the body element has the class "white-version"
-		const hasWhiteVersionClass =
-			bodyElement.classList.contains("white-version");
-
-		// Toggle the presence of the "white-version" class
-		if (hasWhiteVersionClass) {
-			// If body has "white-version" class, remove it
-			bodyElement.classList.remove("white-version");
-			// Change button text to "Light Mode"
-			toggleButton.querySelector("mode").innerText = "Dark Mode";
-		} else {
-			// If body does not have "white-version" class, add it
-			bodyElement.classList.add("white-version");
-			// Change button text to "Dark Mode"
-			toggleButton.querySelector("mode").innerText = "Light Mode";
-		}
-	});
-	
 })(jQuery, window);
