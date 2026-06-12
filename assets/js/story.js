@@ -218,7 +218,7 @@
       var at = i;
 
       tl.to(cur, { yPercent: 0, ease: "power2.out", duration: 0.7 }, at);             // rise to centre
-      tl.fromTo(cur, { opacity: 0 }, { opacity: 1, duration: 0.4 }, at + 0.3);        // fade in (second half only)
+      tl.fromTo(cur, { opacity: 0 }, { opacity: 1, duration: 0.5 }, at + 0.15);       // fade in earlier — brief faint cross-dissolve, never an empty stage
       tl.to(prev, { yPercent: -32, ease: "power1.in", duration: 0.7 }, at);          // drift up
       tl.to(prev, { opacity: 0, ease: "power1.in", duration: 0.34 }, at);            // fade out fast
     }
