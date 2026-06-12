@@ -299,6 +299,19 @@ a:hover { color: var(--lux-gold); }
     padding: 110px 7vw 2vh;
   }
   .hero-theatre .hero-portrait { order: -1; justify-self: center; max-width: 280px; }
+  /* the desktop diagonal mask dissolves most of the small centred portrait —
+     replace with a single bottom fade and lift brightness a touch */
+  .hero-theatre .hero-portrait img {
+    filter: grayscale(1) sepia(0.55) saturate(1.5) hue-rotate(-10deg) brightness(1.1) contrast(1.06);
+    -webkit-mask-image: linear-gradient(to top, transparent 2%, #000 42%);
+            mask-image: linear-gradient(to top, transparent 2%, #000 42%);
+  }
+  /* static role line — the type/delete cycle leaves orphaned word fragments on
+     small screens; pin the first phrase, hide the rest and the caret */
+  .hero-theatre .cd-words-wrapper { width: auto !important; }
+  .hero-theatre .cd-words-wrapper b { opacity: 0 !important; position: absolute !important; }
+  .hero-theatre .cd-words-wrapper b:first-child { opacity: 1 !important; position: relative !important; }
+  .hero-theatre .cd-headline.clip .cd-words-wrapper::after { display: none; }
   .hero-theatre .hero-text { max-width: none; }
   .hero-theatre .hero-intro { margin: 0 auto; }
   .hero-theatre .hero-cue { display: none; }
@@ -382,6 +395,12 @@ a:hover { color: var(--lux-gold); }
 }
 
 /* ---- shard content ---- */
+.story-card .card-folio {
+  display: block; margin-bottom: 10px;
+  color: var(--lux-gold); opacity: 0.7;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 11px; letter-spacing: 0.18em;
+}
 .story-card .kicker {
   display: inline-block; margin-bottom: 14px;
   color: var(--lux-gold); text-transform: uppercase;
@@ -394,8 +413,8 @@ a:hover { color: var(--lux-gold); }
 }
 .story-card .card-title {
   color: var(--lux-ink);
-  font-size: clamp(28px, 4.4vw, 50px);
-  line-height: 1.04; margin: 6px 0 12px;
+  font-size: clamp(28px, 3.2vw, 40px);
+  line-height: 1.08; margin: 6px 0 12px;
 }
 .story-card .card-meta {
   display: block; margin-bottom: 18px;
@@ -403,13 +422,13 @@ a:hover { color: var(--lux-gold); }
 }
 .story-card .card-body {
   color: var(--lux-ink-soft);
-  font-size: clamp(13.5px, 1.35vw, 15.5px);
-  line-height: 1.52;
-  max-width: 680px;
+  font-size: clamp(15px, 1.4vw, 16px);
+  line-height: 1.65;
+  max-width: 700px;
   margin-left: auto;
   margin-right: auto;
+  text-align: left;          /* centred multi-line paragraphs are the hardest read — header block stays centred */
 }
-/* denser bulleted cards (DIA, UVA, Fair RA): keep the block centred, left-align the lines */
 .story-card .card-body.is-list { text-align: left; }
 .story-card .card-body p { margin: 0 0 9px; }
 .story-card .card-body p:last-child { margin-bottom: 0; }
@@ -439,6 +458,17 @@ a:hover { color: var(--lux-gold); }
   margin-bottom: 12px;
 }
 #competencies .description { color: var(--lux-ink-soft); line-height: 1.8; }
+/* quieter merged row: Spoken Languages + Working Style as plain labelled text, no chips */
+#competencies .competency-aside {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px 56px;
+  padding: 20px 28px;
+}
+#competencies .competency-aside .aside-group { display: flex; align-items: baseline; gap: 14px; }
+#competencies .competency-aside .aside-label {
+  color: var(--lux-gold); text-transform: uppercase;
+  letter-spacing: 0.16em; font-size: 11px; font-weight: 600; white-space: nowrap;
+}
+#competencies .competency-aside .aside-items { color: var(--lux-ink-soft); font-size: 14px; letter-spacing: 0.02em; }
 
 /* ---------- blog cards ---------- */
 /* uniform, neutral treatment on every blog card — no gold trim/accent.
@@ -490,6 +520,13 @@ a:hover { color: var(--lux-gold); }
   padding: 30px;
 }
 .contact-about-area .title-area .title { color: var(--lux-ink); }
+/* contact portrait = the hero portrait asset with the SAME warm duotone, emerging
+   from the card's dark base via a simple bottom fade (one portrait style, used twice) */
+.contact-about-area .thumbnail img {
+  filter: grayscale(1) sepia(0.55) saturate(1.5) hue-rotate(-10deg) brightness(1.05) contrast(1.06);
+  -webkit-mask-image: linear-gradient(to top, transparent 0%, #000 36%);
+          mask-image: linear-gradient(to top, transparent 0%, #000 36%);
+}
 .contact-input input,
 .contact-input textarea,
 .form-group input,

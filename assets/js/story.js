@@ -194,7 +194,7 @@
       scrollTrigger: {
         trigger: stack,
         start: "top top",
-        end: function () { return "+=" + (n - 1) * window.innerHeight; },
+        end: function () { return "+=" + Math.round((n - 1) * window.innerHeight * 0.75); },   /* 0.75vh per chapter — same drama, less thumb */
         pin: true,
         pinSpacing: true,
         scrub: 0.6,                 // no anticipatePin — it causes the reverse-scroll jump
