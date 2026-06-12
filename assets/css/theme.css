@@ -42,11 +42,12 @@ body.white-version {
   /* form inputs use this inset token — its white inner highlight reads cool; warm it */
   --inner-shadow: 1px 4px 2px -3px rgba(0, 0, 0, 0.7) inset, -1px -3px 3px -2px rgba(201, 162, 75, 0.16) inset;
 
-  /* --- type pairing: serif display + clean sans --- */
+  /* --- type pairing: serif display + clean sans + precision mono --- */
   --font-primary:   'Inter', sans-serif;
   --font-secondary: 'Inter', sans-serif;
   --font-body:      'Inter', sans-serif;
   --font-display:   'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --font-mono:      'JetBrains Mono', ui-monospace, monospace;
 }
 
 /* ---------- base + layered depth background (so glass reads) ---------- */
@@ -120,6 +121,20 @@ a:hover { color: var(--lux-gold); }
   backdrop-filter: blur(14px) saturate(120%);
   border-bottom: 1px solid var(--lux-gold-line);
 }
+/* live-type wordmark — replaces the old raster logo (header · popup menu · footer) */
+.wordmark {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(15px, 1.25vw, 18px);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--lux-ink) !important;
+  white-space: nowrap;
+  transition: color .3s ease;
+}
+.wordmark:hover { color: var(--lux-gold) !important; }
+.popup-mobile-menu .menu-header .logo .wordmark { display: block; margin-bottom: 4px; }
+
 .mainmenu-nav .primary-menu .nav-link { color: var(--lux-ink-soft) !important; letter-spacing: .04em; }
 .mainmenu-nav .primary-menu .nav-link:hover,
 .mainmenu-nav .primary-menu .nav-item.current .nav-link,
@@ -400,8 +415,8 @@ a:hover { color: var(--lux-gold); }
 .story-card .card-body p:last-child { margin-bottom: 0; }
 .story-card .card-body b { color: var(--lux-ink); }
 .story-card .card-body em { color: var(--lux-ink); font-style: italic; }
-.story-card .card-body a { color: var(--lux-crimson-hi); border-bottom: 1px solid var(--lux-gold-line); }
-.story-card .card-body a:hover { color: var(--lux-gold); border-color: var(--lux-gold); }
+.story-card .card-body a { color: var(--lux-gold); border-bottom: 1px solid var(--lux-gold-line); }
+.story-card .card-body a:hover { color: var(--lux-ink); border-color: var(--lux-gold); }
 .story-card .card-avail b { color: var(--lux-gold); }
 .story-card .card-rewind { margin-top: 16px; color: var(--lux-ink-soft); font-style: italic; font-size: 12.5px; opacity: 0.85; }
 
@@ -580,6 +595,7 @@ a:hover { color: var(--lux-gold); }
 
 /* ---- #6 uniform blog thumbnails (applies to homepage + blog index in Phase 5) ---- */
 .rn-blog .square-image-container {
+  position: relative;             /* anchors the dimming scrim */
   aspect-ratio: 16 / 9;
   width: 100%;
   overflow: hidden;
@@ -591,6 +607,13 @@ a:hover { color: var(--lux-gold); }
   object-fit: cover;
   object-position: center;
   display: block;
+  /* warm-dim the bright white chart covers so they sit in the dark set
+     without losing legibility */
+  filter: brightness(0.84) contrast(0.96) sepia(0.14);
+}
+.rn-blog .square-image-container::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(180deg, rgba(10, 10, 14, 0.08), rgba(10, 10, 14, 0.20));
 }
 
 /* ---- #4 remove leftover neumorphic gray/white panels ---- */
@@ -657,13 +680,13 @@ a:hover { color: var(--lux-gold); }
 .rail-year {
   position: absolute; left: 20px; top: 50%; transform: translateY(-50%);
   font-family: var(--font-mono, 'JetBrains Mono', monospace);
-  font-size: 10px; letter-spacing: 0.03em; white-space: nowrap;
+  font-size: 11px; letter-spacing: 0.03em; white-space: nowrap;
   color: var(--lux-ink-soft); opacity: 0;
 }
 /* active LABEL — section overline (1 line) + org (serif, ≤2 lines) + range (1 line) */
 .rail-label {
   position: absolute; left: 20px; top: 50%; transform: translateY(-50%);
-  display: flex; flex-direction: column; width: max-content; max-width: 155px;
+  display: flex; flex-direction: column; width: max-content; max-width: 200px;
   opacity: 0;                                    /* instant — exactly one expanded label at a time */
 }
 .rail-era {
@@ -672,7 +695,7 @@ a:hover { color: var(--lux-gold); }
 }
 .rail-name {
   color: var(--lux-ink); font-family: var(--font-display); font-weight: 500;
-  font-size: 15px; line-height: 1.14; margin-top: 2px;
+  font-size: 16px; line-height: 1.14; margin-top: 2px;
   display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; /* ≤2 lines, no mid-word cut */
 }
 .rail-range {
@@ -682,7 +705,7 @@ a:hover { color: var(--lux-gold); }
 }
 /* years visible in story-mode (short → slightly wider gate) */
 @media (min-width: 1120px) {
-  .story-rail.rail-live .rail-node .rail-year { opacity: 0.42; }                                  /* upcoming = dim */
+  .story-rail.rail-live .rail-node .rail-year { opacity: 0.55; }                                  /* upcoming = dim */
   .story-rail.rail-live .rail-node.is-passed .rail-year { opacity: 0.9; color: var(--lux-ink); }  /* passed = brighter cream */
   .story-rail.rail-live .rail-node.is-active .rail-year { opacity: 0.9; color: var(--lux-ink); }  /* active cream (no label yet) */
 }

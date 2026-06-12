@@ -187,6 +187,10 @@
 
     var tl = gsap.timeline({
       defaults: { ease: "none" },
+      // sync the rail from the TIMELINE too: the ScrollTrigger's onUpdate stops
+      // firing when scrolling stops, but the scrub keeps animating ~0.6s longer —
+      // without this the rail highlights a stale chapter after fast jumps.
+      onUpdate: function () { if (rail) rail.sync(); },
       scrollTrigger: {
         trigger: stack,
         start: "top top",
