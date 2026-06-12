@@ -682,7 +682,11 @@ a:hover { color: var(--lux-gold); }
   position: sticky; top: 0;
   height: 100vh; margin-bottom: -100vh;     /* no flow space — overlaps hero/story */
   z-index: 3; pointer-events: none;
+  transition: opacity .45s ease;
 }
+/* pin released at the scene's END — the sticky rail would otherwise overlay one
+   extra viewport of the next section (its negative margin extends its sticky range) */
+.story-rail.rail-done { opacity: 0; }
 .rail-track {
   position: absolute; left: 2.6vw; top: 50%; transform: translateY(-50%);
   display: flex; flex-direction: column; gap: 22px;

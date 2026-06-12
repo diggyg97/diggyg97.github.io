@@ -107,6 +107,10 @@
         apply(active);
       },
       setLive: function (on) { rail.classList.toggle("rail-live", !!on); },
+      // past the scene (pin released at the END): fade the whole rail out so its
+      // dots can't bleed over the next section. Distinct from the hero (progress 0),
+      // where the rail is part of the set.
+      setDone: function (on) { rail.classList.toggle("rail-done", !!on); },
 
       // click → jump to that chapter via the SAME pin ScrollTrigger + Lenis;
       // hover (non-active) → preview that chapter's label. Desktop / story-mode
@@ -201,7 +205,7 @@
         invalidateOnRefresh: true,
         // drive the rail off the SAME ScrollTrigger — no second timeline, no re-pin
         onUpdate: function () { if (rail) rail.sync(); },
-        onToggle: function (self) { if (rail) rail.setLive(self.isActive); }
+        onToggle: function () { syncRailState(); }
       }
     });
 
@@ -221,6 +225,19 @@
 
     // tail: hold the last card before the pin releases
     tl.to(cards[n - 1], { yPercent: 0, duration: 0.4 });
+
+    // live = pin active; done = released at the scene's END (not the hero, where the
+    // rail is part of the set). onToggle alone misses instant jumps that cross the
+    // whole pin range in one scroll event (deep links, scripted scrolls) — scrollEnd
+    // and refresh always fire, so the state can never strand.
+    function syncRailState() {
+      if (!rail) return;
+      var st = tl.scrollTrigger;
+      rail.setLive(st.isActive);
+      rail.setDone(!st.isActive && st.progress === 1);
+    }
+    ScrollTrigger.addEventListener("scrollEnd", syncRailState);
+    ScrollTrigger.addEventListener("refresh", syncRailState);
 
     // Dissolve the seam: the hero's billing / cue / pool fade + lift away as you
     // scroll the hero out into the story (transform + opacity only).
