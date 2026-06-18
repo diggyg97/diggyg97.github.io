@@ -294,6 +294,11 @@ a:hover { color: var(--lux-gold); }
 /* mobile (<768px): static, portrait ABOVE text, billing wraps */
 @media only screen and (max-width: 767px) {
   .scene-stage .beam, .hero-theatre .cue-chevron { animation: none; }
+  /* align the wordmark with the body gutter: the template shrinks header
+     padding to 3px/0 below 575px so it hugs the edge — match the 7vw inset
+     the hero/links/story content uses (equal on both sides → hamburger stays
+     balanced) for one consistent vertical line down the page */
+  .rn-header .header-wrapper { padding-left: 7vw; padding-right: 7vw; }
   .hero-theatre .hero-inner {
     grid-template-columns: 1fr; row-gap: 4vh; text-align: center;
     padding: 110px 7vw 2vh;
