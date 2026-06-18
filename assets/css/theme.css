@@ -825,8 +825,11 @@ a:hover { color: var(--lux-gold); }
   .story-card .card-dates { font-size: 10.5px; }
   .story-card .card-title { font-size: 22px; line-height: 1.14; margin: 4px 0 8px; }
   .story-card .card-meta { font-size: 11.5px; margin-bottom: 10px; }
-  .story-card .card-body { font-size: 14px; line-height: 1.5; }
-  .story-card .card-body p { margin-bottom: 6px; }
+  .story-card .card-body { font-size: 12.5px; line-height: 1.55; }
+  /* the template's base `p { font-size: var(--font-size-b2) }` sets an explicit
+     size on every paragraph, overriding the container font-size — so size the
+     paragraphs directly (this is the actual body/bullet text). */
+  .story-card .card-body p { font-size: 12.5px; line-height: 1.55; margin-bottom: 6px; }
   .story-card .card-rewind { font-size: 11px; margin-top: 10px; }
 
   /* A card too tall for the phone viewport (e.g. #experience) scrolls its BODY
