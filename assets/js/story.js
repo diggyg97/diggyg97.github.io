@@ -267,6 +267,28 @@
     return st.start + Math.min(ct / dur, 1) * (st.end - st.start);
   }
 
+  /* ---- MOBILE-ONLY scroll-reveal: fade + rise each flat card as it enters the
+         viewport. IntersectionObserver (no pin, no ScrollTrigger). Reveals once
+         — we unobserve on first intersection so scrolling back up never re-hides.
+         Strictly mobile (matches the <768px flat fallback) and skipped under
+         reduced-motion; desktop never enters here. CSS does the actual motion. ---- */
+  function initMobileReveal() {
+    if (!stack || prefersReduce || isDesktop) return;
+    if (typeof IntersectionObserver === "undefined") return;   // no observer → cards stay plainly visible
+    var cards = Array.prototype.slice.call(stack.querySelectorAll(".story-card"));
+    if (!cards.length) return;
+
+    stack.classList.add("story-reveal");                       // arms the hidden initial state in CSS
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-revealed");
+        io.unobserve(entry.target);                            // reveal-once
+      });
+    }, { threshold: 0.18, rootMargin: "0px 0px -8% 0px" });    // trigger as the card nears centre
+    cards.forEach(function (card) { io.observe(card); });
+  }
+
   /* ---- in-page nav (route through Lenis; map era anchors to pin offsets) ---- */
   function initNav(lenis, st) {
     var cards = stack ? Array.prototype.slice.call(stack.querySelectorAll(".story-card")) : [];
@@ -331,6 +353,7 @@
       st = initStory(lenis);
     } else if (stack) {
       stack.classList.add("story-flat");      // mobile / reduced-motion / no-GSAP
+      initMobileReveal();                     // mobile-only fade+rise as cards enter view
     }
 
     initNav(lenis, st);

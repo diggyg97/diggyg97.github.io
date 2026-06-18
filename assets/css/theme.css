@@ -316,6 +316,29 @@ a:hover { color: var(--lux-gold); }
   .hero-theatre .hero-intro { margin: 0 auto; }
   .hero-theatre .hero-cue { display: none; }
   .hero-theatre .hero-billing { flex-direction: column; gap: 16px; padding: 16px 7vw 24px; }
+
+  /* mobile-only scroll-reveal: each flat card fades + rises as it enters view.
+     Armed by story.js adding .story-reveal (IntersectionObserver, reveal-once).
+     Overrides the flat fallback's opacity/transform !important locks. Skipped
+     under reduced-motion (the @media block below restores instant visibility). */
+  .story-flat.story-reveal .story-card {
+    opacity: 0 !important;
+    transform: translateY(24px) !important;
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    will-change: opacity, transform;
+  }
+  .story-flat.story-reveal .story-card.is-revealed {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+}
+/* reduced-motion: never hide cards waiting on the observer — show them at rest */
+@media only screen and (max-width: 767px) and (prefers-reduced-motion: reduce) {
+  .story-flat.story-reveal .story-card {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none;
+  }
 }
 .rn-slider-area .subtitle { color: var(--lux-gold) !important; }
 .rn-slider-area .title { color: var(--lux-ink); }
