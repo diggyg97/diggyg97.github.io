@@ -306,12 +306,8 @@ a:hover { color: var(--lux-gold); }
     -webkit-mask-image: linear-gradient(to top, transparent 2%, #000 42%);
             mask-image: linear-gradient(to top, transparent 2%, #000 42%);
   }
-  /* static role line — the type/delete cycle leaves orphaned word fragments on
-     small screens; pin the first phrase, hide the rest and the caret */
-  .hero-theatre .cd-words-wrapper { width: auto !important; }
-  .hero-theatre .cd-words-wrapper b { opacity: 0 !important; position: absolute !important; }
-  .hero-theatre .cd-words-wrapper b:first-child { opacity: 1 !important; position: relative !important; }
-  .hero-theatre .cd-headline.clip .cd-words-wrapper::after { display: none; }
+  /* role line: inherit the desktop typewriter (types/deletes all three phrases
+     with the caret) — no mobile-static override */
   .hero-theatre .hero-text { max-width: none; }
   .hero-theatre .hero-intro { margin: 0 auto; }
   .hero-theatre .hero-cue { display: none; }
