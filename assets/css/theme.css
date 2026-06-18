@@ -139,6 +139,11 @@ a:hover { color: var(--lux-gold); }
 .mainmenu-nav .primary-menu .nav-link:hover,
 .mainmenu-nav .primary-menu .nav-item.current .nav-link,
 .mainmenu-nav .primary-menu .nav-link.active { color: var(--lux-gold) !important; }
+/* active-section highlight (same gold as hover) — driven by story.js .is-current,
+   for the section currently on screen / the active pinned chapter. Hover still
+   wins while hovering; on mouse-leave it returns to this current-section state. */
+.mainmenu-nav .primary-menu .nav-link.is-current,
+.popup-mobile-menu .primary-menu .nav-link.is-current { color: var(--lux-gold) !important; }
 #toggleButton mode { display: none; }     /* hide dark/light toggle label — site is dark-only */
 
 .popup-mobile-menu .inner {
@@ -683,11 +688,21 @@ a:hover { color: var(--lux-gold); }
   position: sticky; top: 0;
   height: 100vh; margin-bottom: -100vh;     /* no flow space — overlaps hero/story */
   z-index: 3; pointer-events: none;
-  transition: opacity .45s ease;
+  /* hidden on the hero (no cards yet) — both mobile + desktop. Visibility (not
+     display) keeps the desktop gutter reserved, so no layout shift. Delay the
+     visibility flip until after the opacity fade when HIDING; flip immediately
+     when showing. */
+  opacity: 0; visibility: hidden;
+  transition: opacity .45s ease, visibility 0s linear .45s;
+}
+/* visible only once the story is pinned (rail-live); fades back out on the hero */
+.story-rail.rail-live {
+  opacity: 1; visibility: visible;
+  transition: opacity .45s ease, visibility 0s linear 0s;
 }
 /* pin released at the scene's END — the sticky rail would otherwise overlay one
    extra viewport of the next section (its negative margin extends its sticky range) */
-.story-rail.rail-done { opacity: 0; }
+.story-rail.rail-done { opacity: 0; visibility: hidden; }
 .rail-track {
   position: absolute; left: 2.6vw; top: 50%; transform: translateY(-50%);
   display: flex; flex-direction: column; gap: 22px;

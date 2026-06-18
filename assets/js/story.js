@@ -115,6 +115,8 @@
         }
         apply(active);
       },
+      // the active chapter index (most-centred card) — reused to drive the nav highlight
+      getActive: function () { return last; },
       setLive: function (on) { rail.classList.toggle("rail-live", !!on); },
       // past the scene (pin released at the END): fade the whole rail out so its
       // dots can't bleed over the next section. Distinct from the hero (progress 0),
@@ -210,6 +212,7 @@
     });
 
     var rail = buildRail(cards);   // left chronology rail, generated from the cards
+    var navHi = null;              // nav highlighter — created once st exists, used in the scrub callbacks below
 
     // MOBILE: a card whose body is taller than its CSS cap (max-height) scrolls
     // internally so it never clips the viewport. Lenis syncTouch otherwise eats
@@ -230,7 +233,7 @@
       // sync the rail from the TIMELINE too: the ScrollTrigger's onUpdate stops
       // firing when scrolling stops, but the scrub keeps animating ~0.6s longer —
       // without this the rail highlights a stale chapter after fast jumps.
-      onUpdate: function () { if (rail) rail.sync(); },
+      onUpdate: function () { if (rail) rail.sync(); if (navHi) navHi.update(); },
       scrollTrigger: {
         trigger: stack,
         start: "top top",
@@ -239,8 +242,8 @@
         pinSpacing: true,
         scrub: 0.6,                 // no anticipatePin — it causes the reverse-scroll jump
         invalidateOnRefresh: true,
-        // drive the rail off the SAME ScrollTrigger — no second timeline, no re-pin
-        onUpdate: function () { if (rail) rail.sync(); },
+        // drive the rail + nav highlight off the SAME ScrollTrigger — no second trigger
+        onUpdate: function () { if (rail) rail.sync(); if (navHi) navHi.update(); },
         onToggle: function () { syncRailState(); }
       }
     });
@@ -271,6 +274,7 @@
       var st = tl.scrollTrigger;
       rail.setLive(st.isActive);
       rail.setDone(!st.isActive && st.progress === 1);
+      if (navHi) navHi.update();   // hero ↔ story ↔ contact transitions also move the nav highlight
     }
     ScrollTrigger.addEventListener("scrollEnd", syncRailState);
     ScrollTrigger.addEventListener("refresh", syncRailState);
@@ -298,6 +302,14 @@
 
     if (rail) rail.enableInteraction(tl, lenis);   // make the rail clickable
 
+    // active-section nav highlight, driven by the rail's active chapter (pinned)
+    // and section position (hero/contact). Updated on the pin scrub (callbacks
+    // above) AND on every scroll outside the pin (hero/contact) via Lenis.
+    navHi = buildNavHighlight(tl.scrollTrigger, rail, cards);
+    if (lenis && lenis.on) lenis.on("scroll", navHi.update);
+    else window.addEventListener("scroll", navHi.update, { passive: true });
+    navHi.update();
+
     return tl.scrollTrigger;
   }
 
@@ -308,6 +320,94 @@
     var dur = (st.animation && st.animation.duration) ? st.animation.duration() : (n - 1 + 0.1);
     var ct = idx === 0 ? 0 : idx + 0.85;
     return st.start + Math.min(ct / dur, 1) * (st.end - st.start);
+  }
+
+  /* ---- active-section nav highlight ----
+     Keeps exactly ONE nav item gold (.is-current), in BOTH the desktop nav and
+     the mobile-menu overlay, matching what's on screen. The homepage is a pinned,
+     scrub-driven timeline, so a raw scroll-position spy is wrong — instead we
+     REUSE the rail's active-chapter signal (rail.getActive(), the same centred
+     card the rail highlights) while the story is pinned, and fall back to the
+     hero / contact section by position outside the pin. The map below mirrors
+     initNav's anchor↔chapter mapping.
+
+       HOME  → hero (top, pre-pin)
+       NOW   → #now              (card "now")
+       EXP.  → #experience       (card "experience" / DIA)
+       RES.  → #research         (ANY research-cluster card → stays gold across all)
+       EDU.  → #education         (#education / #education-mumbai)
+       CONT. → #contact          (the "Let's Work Together" section, post-story)
+       BLOG  → blog pages only (separate dir) — never the homepage #blog teaser ---- */
+  function buildNavHighlight(st, rail, cards) {
+    var onBlogPage = /\/blog\//.test(location.pathname);
+    var links = Array.prototype.slice.call(document.querySelectorAll(
+      ".mainmenu-nav .primary-menu a.nav-link, .popup-mobile-menu .primary-menu a.nav-link"));
+    if (!links.length) return { update: function () {} };
+
+    // The template's bootstrap scroll-spy (data-spy) toggles .active by raw
+    // scroll offset — wrong under the pin and would fight us. Dispose it so the
+    // highlight has a single authority.
+    try {
+      if (window.jQuery && window.jQuery.fn && window.jQuery.fn.scrollspy) {
+        window.jQuery('[data-spy="scroll"]').scrollspy("dispose");
+      }
+    } catch (e) {}
+
+    function hrefForCard(idx) {
+      var card = cards && cards[idx];
+      var id = card ? (card.id || "") : "";
+      if (id === "experience") return "#experience";
+      if (id.indexOf("research") === 0) return "#research";   // whole research cluster → RESEARCH
+      if (id.indexOf("education") === 0) return "#education";
+      return "#" + (id || "home");                            // #now (and any future single chapter)
+    }
+
+    function inView(el, topFrac, botFrac) {
+      if (!el) return false;
+      var r = el.getBoundingClientRect(), vh = window.innerHeight;
+      return r.top < vh * topFrac && r.bottom > vh * botFrac;
+    }
+
+    var contact = document.getElementById("contact");
+    var heroEl = document.querySelector(".hero-theatre");
+
+    function currentHref() {
+      if (onBlogPage) return "#blog";
+      // pinned story is live → the active chapter (rail's centred card)
+      if (st && st.isActive) return hrefForCard(rail ? rail.getActive() : 0);
+      // contact section on screen → CONTACT
+      if (inView(contact, 0.5, 0.12)) return "#contact";
+      // released past the pinned story → linger on the last chapter until contact
+      if (st && st.progress >= 1) return hrefForCard(rail ? rail.getActive() : 0);
+      // flat fallback (no pin): pick the most-centred card unless the hero leads
+      if (!st && cards && cards.length) {
+        if (inView(heroEl, 1, 0.5)) return "#home";
+        var center = window.innerHeight / 2, best = -1, bestD = Infinity;
+        cards.forEach(function (c, i) {
+          var r = c.getBoundingClientRect();
+          if (r.bottom <= 0 || r.top >= window.innerHeight) return;
+          var d = Math.abs((r.top + r.bottom) / 2 - center);
+          if (d < bestD) { bestD = d; best = i; }
+        });
+        if (best >= 0) return hrefForCard(best);
+      }
+      return "#home";   // hero / top
+    }
+
+    var lastHref = null;
+    function setCurrent(href) {
+      if (href === lastHref) return;
+      lastHref = href;
+      links.forEach(function (a) {
+        var on = a.getAttribute("href") === href;
+        a.classList.toggle("is-current", on);
+        a.classList.toggle("active", on);          // keep the template's own state in sync
+        var li = a.closest(".nav-item");
+        if (li) li.classList.toggle("current", on);
+      });
+    }
+
+    return { update: function () { setCurrent(currentHref()); } };
   }
 
   /* ---- in-page nav (route through Lenis; map era anchors to pin offsets) ---- */
@@ -377,6 +477,11 @@
       st = initStory(lenis);
     } else if (stack) {
       stack.classList.add("story-flat");      // reduced-motion / no-GSAP only
+      // no pin to reuse → highlight the nav by section position instead
+      var flatCards = Array.prototype.slice.call(stack.querySelectorAll(".story-card"));
+      var navFlat = buildNavHighlight(null, null, flatCards);
+      window.addEventListener("scroll", navFlat.update, { passive: true });
+      navFlat.update();
     }
 
     initNav(lenis, st);
