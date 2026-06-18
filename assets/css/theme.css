@@ -317,29 +317,6 @@ a:hover { color: var(--lux-gold); }
   .hero-theatre .hero-intro { margin: 0 auto; }
   .hero-theatre .hero-cue { display: none; }
   .hero-theatre .hero-billing { flex-direction: column; gap: 16px; padding: 16px 7vw 24px; }
-
-  /* mobile-only scroll-reveal: each flat card fades + rises as it enters view.
-     Armed by story.js adding .story-reveal (IntersectionObserver, reveal-once).
-     Overrides the flat fallback's opacity/transform !important locks. Skipped
-     under reduced-motion (the @media block below restores instant visibility). */
-  .story-flat.story-reveal .story-card {
-    opacity: 0 !important;
-    transform: translateY(24px) !important;
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-    will-change: opacity, transform;
-  }
-  .story-flat.story-reveal .story-card.is-revealed {
-    opacity: 1 !important;
-    transform: translateY(0) !important;
-  }
-}
-/* reduced-motion: never hide cards waiting on the observer — show them at rest */
-@media only screen and (max-width: 767px) and (prefers-reduced-motion: reduce) {
-  .story-flat.story-reveal .story-card {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none;
-  }
 }
 .rn-slider-area .subtitle { color: var(--lux-gold) !important; }
 .rn-slider-area .title { color: var(--lux-ink); }
@@ -802,9 +779,77 @@ a:hover { color: var(--lux-gold); }
   .story-rail.rail-live.preview-near-active .rail-node.is-active .rail-label { opacity: 0; }
 }
 
-/* fallback: hide the rail on mobile / reduced-motion (story is a flat stack) */
-@media (max-width: 767px) { .story-rail { display: none; } }
+/* reduced-motion = flat stack, no scrub → no rail */
 @media (prefers-reduced-motion: reduce) { .story-rail { display: none; } }
+
+/* =====================================================================
+   MOBILE RAIL (≤767px) — the same chronology, as a THIN left-edge overlay.
+   No spare gutter at ~390px like desktop, so: hug the edge, narrow track,
+   small year labels (the scale), no expanded org label. Cards already get a
+   left inset (above) so their text clears this strip. Tap-to-jump enabled.
+   ===================================================================== */
+@media (max-width: 767px) {
+  .rail-track { left: 9px; gap: 16px; }
+  /* smaller dots so the strip stays slim */
+  .rail-dot { width: 7px; height: 7px; }
+  .rail-line, .rail-fill { left: 3px; top: 3.5px; bottom: 3.5px; width: 1.5px; }
+  .rail-node.is-active .rail-dot { transform: scale(1.8); }
+  /* small year labels just right of the dots — the timeline scale */
+  .rail-year { left: 14px; font-size: 9px; letter-spacing: 0.01em; }
+  /* no room for the expanded org label on a phone — year alone carries it */
+  .rail-label { display: none; }
+  /* years visible while the story is pinned (mirrors desktop's ≥1120 gate) */
+  .story-rail.rail-live .rail-node .rail-year { opacity: 0.5; }
+  .story-rail.rail-live .rail-node.is-passed .rail-year { opacity: 0.92; color: var(--lux-ink); }
+  .story-rail.rail-live .rail-node.is-active .rail-year { opacity: 1; color: var(--lux-ink); }
+  /* tap-to-jump: enable the nodes while pinned, but shrink the hit zone to the
+     left strip only so it can't sit over the card's links/text */
+  .story-rail.rail-live .rail-node { pointer-events: auto; cursor: pointer; }
+  .rail-node::before { left: -9px; width: 56px; height: 30px; }
+
+  /* LEFT inset so the card's glass panel clears the rail strip. This block is
+     AFTER the base .story-card / .shard-3d rules, so source order wins (the
+     ≤767 block higher up precedes them and would lose). Cap the shard to the
+     content box so a wide shard can't overflow back over the rail. */
+  .story-card { padding-left: calc(5vw + 66px); padding-right: 5vw; }
+  .shard-3d { width: min(840px, 100%); }
+
+  /* ---- compact the cards for phones so a long card fits the viewport ----
+     Smaller type + tighter line-height + less padding than desktop. Same
+     styling/colours/structure, just scaled down. Desktop (≥768px) untouched.
+     In this late block so it wins over the base .story-card / .shard-* rules. */
+  .story-card { padding-top: 3.2vh; padding-bottom: 3.2vh; }
+  .shard-face { padding: 20px 22px; border-radius: 14px; }
+  .story-card .card-folio { font-size: 9.5px; letter-spacing: 0.16em; margin-bottom: 6px; }
+  .story-card .kicker { font-size: 9.5px; letter-spacing: 0.22em; margin-bottom: 8px; }
+  .story-card .card-dates { font-size: 10.5px; }
+  .story-card .card-title { font-size: 22px; line-height: 1.14; margin: 4px 0 8px; }
+  .story-card .card-meta { font-size: 11.5px; margin-bottom: 10px; }
+  .story-card .card-body { font-size: 12.5px; line-height: 1.55; }
+  /* the template's base `p { font-size: var(--font-size-b2) }` sets an explicit
+     size on every paragraph, overriding the container font-size — so size the
+     paragraphs directly (this is the actual body/bullet text). */
+  .story-card .card-body p { font-size: 12.5px; line-height: 1.55; margin-bottom: 6px; }
+  .story-card .card-rewind { font-size: 11px; margin-top: 10px; }
+
+  /* A card too tall for the phone viewport (e.g. #experience) scrolls its BODY
+     internally so the card never clips top/bottom. The header block (folio /
+     kicker / dates / title / meta) stays fixed above; only .card-body scrolls.
+     story.js sets data-lenis-prevent on bodies that actually overflow, so Lenis
+     (syncTouch) releases touch to them instead of scrubbing the pin. */
+  .story-card .card-body {
+    max-height: 58vh;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: var(--lux-gold-soft) transparent;
+  }
+  .story-card .card-body::-webkit-scrollbar { width: 3px; }
+  .story-card .card-body::-webkit-scrollbar-thumb {
+    background: var(--lux-gold-soft); border-radius: 3px;
+  }
+}
 
 /* =====================================================================
    TASK 2 — recolor the last red nav controls (hamburger bars + close X)

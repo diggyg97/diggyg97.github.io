@@ -7,14 +7,17 @@
      back.  Shards tilt as they move (parallax → the 3D is felt).
    • Background (spotlight + glows) is inside the pinned stack, so it
      stays put — only the cards move.
-   • Flat fallback (mobile <768 / reduced-motion / no-GSAP): story.js adds
-     .story-flat → plain stacked glass panels, no pin, no transforms.
+   • The pinned scrubbed timeline + rail now run on MOBILE too (same system,
+     not a separate one). Touch is driven through Lenis (syncTouch) so the
+     scrub has a single scroll authority on phones.
+   • Flat fallback (reduced-motion / no-GSAP only): story.js adds .story-flat
+     → plain stacked glass panels, no pin, no transforms.
    ===================================================================== */
 (function () {
   "use strict";
 
   var prefersReduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var isDesktop = window.matchMedia("(min-width: 768px)").matches;
+  var canHover = window.matchMedia("(hover: hover)").matches;   // hover-preview is meaningless on touch
   var stack = document.querySelector(".story-stack");
 
   /* ---- smooth momentum scrolling ---- */
@@ -23,7 +26,13 @@
     var lenis = new Lenis({
       duration: 1.1,
       easing: function (t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
-      smoothWheel: true
+      smoothWheel: true,
+      // drive TOUCH through Lenis too, so the pin/scrub has ONE scroll authority
+      // on phones (same pipe as wheel: ticker → lenis.raf → ScrollTrigger.update).
+      // This is the single touch driver — we deliberately do NOT also use
+      // ScrollTrigger.normalizeScroll(), which would fight Lenis for touch.
+      syncTouch: true,
+      touchInertiaMultiplier: 18
     });
     if (window.gsap && window.ScrollTrigger) {
       lenis.on("scroll", ScrollTrigger.update);
@@ -112,9 +121,11 @@
       // where the rail is part of the set.
       setDone: function (on) { rail.classList.toggle("rail-done", !!on); },
 
-      // click → jump to that chapter via the SAME pin ScrollTrigger + Lenis;
-      // hover (non-active) → preview that chapter's label. Desktop / story-mode
-      // only (CSS gates pointer-events). Reuses the existing timeline — no new trigger.
+      // click/tap → jump to that chapter via the SAME pin ScrollTrigger + Lenis.
+      // Tap-to-jump runs everywhere; the hover-preview is added ONLY on hover-
+      // capable (non-touch) devices — on touch it's meaningless and a tap would
+      // leave a node stuck in :hover. The active node/label still updates from the
+      // timeline scrub (rail.sync) regardless of input. Reuses the existing timeline.
       enableInteraction: function (tl, lenis) {
         if (!tl || !tl.scrollTrigger) return;
         var st = tl.scrollTrigger, dur = tl.duration();
@@ -128,6 +139,7 @@
             if (lenis) lenis.scrollTo(target, { duration: 1.2 });
             else window.scrollTo({ top: target, behavior: "smooth" });
           });
+          if (!canHover) return;                                          // touch → tap-to-jump only, no hover-preview
           node.addEventListener("mouseenter", function () {
             if (i === last) return;                                       // active node keeps its own label
             node.classList.add("is-preview");
@@ -177,9 +189,19 @@
     if (!stack || !window.gsap || !window.ScrollTrigger) return null;
     gsap.registerPlugin(ScrollTrigger);
 
+    // Mobile browsers grow/shrink the viewport when the address bar shows/hides;
+    // that fires resize → ScrollTrigger would recalc the pin and the page lurches.
+    // ignoreMobileResize tells ScrollTrigger to skip those address-bar-only resizes.
+    ScrollTrigger.config({ ignoreMobileResize: true });
+
     var cards = gsap.utils.toArray(".story-card");
     if (cards.length < 2) return null;
     var n = cards.length;
+
+    // Stable pin-length reference: derive the scroll distance from a captured vh
+    // (NOT live window.innerHeight) so address-bar jitter can't change the pin
+    // length mid-scroll. Refreshed only on a real layout change (orientation).
+    var pinVH = window.innerHeight;
 
     // initial state: card 0 centred & visible; the rest waiting below AND invisible
     cards.forEach(function (card, i) {
@@ -188,6 +210,20 @@
     });
 
     var rail = buildRail(cards);   // left chronology rail, generated from the cards
+
+    // MOBILE: a card whose body is taller than its CSS cap (max-height) scrolls
+    // internally so it never clips the viewport. Lenis syncTouch otherwise eats
+    // every touchmove on the page to scrub the pin — data-lenis-prevent makes
+    // Lenis release touch to that body so it scrolls natively. Only flag bodies
+    // that actually overflow, so short cards still scrub-on-drag everywhere.
+    if (window.matchMedia("(max-width: 767px)").matches) {
+      cards.forEach(function (card) {
+        var body = card.querySelector(".card-body");
+        if (body && body.scrollHeight > body.clientHeight + 2) {
+          body.setAttribute("data-lenis-prevent", "");
+        }
+      });
+    }
 
     var tl = gsap.timeline({
       defaults: { ease: "none" },
@@ -198,7 +234,7 @@
       scrollTrigger: {
         trigger: stack,
         start: "top top",
-        end: function () { return "+=" + Math.round((n - 1) * window.innerHeight * 0.75); },   /* 0.75vh per chapter — same drama, less thumb */
+        end: function () { return "+=" + Math.round((n - 1) * pinVH * 0.75); },   /* 0.75·(stable vh) per chapter — same drama, less thumb */
         pin: true,
         pinSpacing: true,
         scrub: 0.6,                 // no anticipatePin — it causes the reverse-scroll jump
@@ -239,6 +275,13 @@
     ScrollTrigger.addEventListener("scrollEnd", syncRailState);
     ScrollTrigger.addEventListener("refresh", syncRailState);
 
+    // Orientation change IS a real layout change (ignoreMobileResize suppresses
+    // only address-bar resizes, not this) — re-capture the stable vh so the pin
+    // length matches the new orientation, then refresh once dimensions settle.
+    window.addEventListener("orientationchange", function () {
+      setTimeout(function () { pinVH = window.innerHeight; ScrollTrigger.refresh(); }, 250);
+    });
+
     // Dissolve the seam: the hero's billing / cue / pool fade + lift away as you
     // scroll the hero out into the story (transform + opacity only).
     var hero = document.querySelector(".hero-theatre");
@@ -265,28 +308,6 @@
     var dur = (st.animation && st.animation.duration) ? st.animation.duration() : (n - 1 + 0.1);
     var ct = idx === 0 ? 0 : idx + 0.85;
     return st.start + Math.min(ct / dur, 1) * (st.end - st.start);
-  }
-
-  /* ---- MOBILE-ONLY scroll-reveal: fade + rise each flat card as it enters the
-         viewport. IntersectionObserver (no pin, no ScrollTrigger). REVERSIBLE —
-         we keep observing and toggle .is-revealed off isIntersecting, so a card
-         fades/rises in on the way down AND fades/drops back out when it leaves,
-         re-animating on the way back. Strictly mobile (matches the <768px flat
-         fallback) and skipped under reduced-motion; desktop never enters here.
-         CSS does the actual motion. ---- */
-  function initMobileReveal() {
-    if (!stack || prefersReduce || isDesktop) return;
-    if (typeof IntersectionObserver === "undefined") return;   // no observer → cards stay plainly visible
-    var cards = Array.prototype.slice.call(stack.querySelectorAll(".story-card"));
-    if (!cards.length) return;
-
-    stack.classList.add("story-reveal");                       // arms the hidden initial state in CSS
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        entry.target.classList.toggle("is-revealed", entry.isIntersecting);
-      });
-    }, { threshold: 0.18, rootMargin: "0px 0px -8% 0px" });    // trigger as the card nears centre
-    cards.forEach(function (card) { io.observe(card); });
   }
 
   /* ---- in-page nav (route through Lenis; map era anchors to pin offsets) ---- */
@@ -345,15 +366,17 @@
   }
 
   function start() {
-    var canStack = !prefersReduce && isDesktop && window.gsap && window.ScrollTrigger;
+    // Pin/stack on EVERY viewport now (mobile included) — only reduced-motion or
+    // a missing GSAP/ScrollTrigger drops to the flat fallback. The pinned timeline
+    // is the single system driving the cards; there is no separate mobile path.
+    var canStack = !prefersReduce && window.gsap && window.ScrollTrigger;
     var lenis = prefersReduce ? null : initLenis();
     var st = null;
 
     if (canStack) {
       st = initStory(lenis);
     } else if (stack) {
-      stack.classList.add("story-flat");      // mobile / reduced-motion / no-GSAP
-      initMobileReveal();                     // mobile-only fade+rise as cards enter view
+      stack.classList.add("story-flat");      // reduced-motion / no-GSAP only
     }
 
     initNav(lenis, st);
