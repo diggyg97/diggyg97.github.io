@@ -211,6 +211,20 @@
 
     var rail = buildRail(cards);   // left chronology rail, generated from the cards
 
+    // MOBILE: a card whose body is taller than its CSS cap (max-height) scrolls
+    // internally so it never clips the viewport. Lenis syncTouch otherwise eats
+    // every touchmove on the page to scrub the pin — data-lenis-prevent makes
+    // Lenis release touch to that body so it scrolls natively. Only flag bodies
+    // that actually overflow, so short cards still scrub-on-drag everywhere.
+    if (window.matchMedia("(max-width: 767px)").matches) {
+      cards.forEach(function (card) {
+        var body = card.querySelector(".card-body");
+        if (body && body.scrollHeight > body.clientHeight + 2) {
+          body.setAttribute("data-lenis-prevent", "");
+        }
+      });
+    }
+
     var tl = gsap.timeline({
       defaults: { ease: "none" },
       // sync the rail from the TIMELINE too: the ScrollTrigger's onUpdate stops

@@ -813,6 +813,39 @@ a:hover { color: var(--lux-gold); }
      content box so a wide shard can't overflow back over the rail. */
   .story-card { padding-left: calc(5vw + 66px); padding-right: 5vw; }
   .shard-3d { width: min(840px, 100%); }
+
+  /* ---- compact the cards for phones so a long card fits the viewport ----
+     Smaller type + tighter line-height + less padding than desktop. Same
+     styling/colours/structure, just scaled down. Desktop (≥768px) untouched.
+     In this late block so it wins over the base .story-card / .shard-* rules. */
+  .story-card { padding-top: 3.2vh; padding-bottom: 3.2vh; }
+  .shard-face { padding: 20px 22px; border-radius: 14px; }
+  .story-card .card-folio { font-size: 9.5px; letter-spacing: 0.16em; margin-bottom: 6px; }
+  .story-card .kicker { font-size: 9.5px; letter-spacing: 0.22em; margin-bottom: 8px; }
+  .story-card .card-dates { font-size: 10.5px; }
+  .story-card .card-title { font-size: 22px; line-height: 1.14; margin: 4px 0 8px; }
+  .story-card .card-meta { font-size: 11.5px; margin-bottom: 10px; }
+  .story-card .card-body { font-size: 14px; line-height: 1.5; }
+  .story-card .card-body p { margin-bottom: 6px; }
+  .story-card .card-rewind { font-size: 11px; margin-top: 10px; }
+
+  /* A card too tall for the phone viewport (e.g. #experience) scrolls its BODY
+     internally so the card never clips top/bottom. The header block (folio /
+     kicker / dates / title / meta) stays fixed above; only .card-body scrolls.
+     story.js sets data-lenis-prevent on bodies that actually overflow, so Lenis
+     (syncTouch) releases touch to them instead of scrubbing the pin. */
+  .story-card .card-body {
+    max-height: 58vh;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: var(--lux-gold-soft) transparent;
+  }
+  .story-card .card-body::-webkit-scrollbar { width: 3px; }
+  .story-card .card-body::-webkit-scrollbar-thumb {
+    background: var(--lux-gold-soft); border-radius: 3px;
+  }
 }
 
 /* =====================================================================
