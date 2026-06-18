@@ -268,10 +268,12 @@
   }
 
   /* ---- MOBILE-ONLY scroll-reveal: fade + rise each flat card as it enters the
-         viewport. IntersectionObserver (no pin, no ScrollTrigger). Reveals once
-         — we unobserve on first intersection so scrolling back up never re-hides.
-         Strictly mobile (matches the <768px flat fallback) and skipped under
-         reduced-motion; desktop never enters here. CSS does the actual motion. ---- */
+         viewport. IntersectionObserver (no pin, no ScrollTrigger). REVERSIBLE —
+         we keep observing and toggle .is-revealed off isIntersecting, so a card
+         fades/rises in on the way down AND fades/drops back out when it leaves,
+         re-animating on the way back. Strictly mobile (matches the <768px flat
+         fallback) and skipped under reduced-motion; desktop never enters here.
+         CSS does the actual motion. ---- */
   function initMobileReveal() {
     if (!stack || prefersReduce || isDesktop) return;
     if (typeof IntersectionObserver === "undefined") return;   // no observer → cards stay plainly visible
@@ -281,9 +283,7 @@
     stack.classList.add("story-reveal");                       // arms the hidden initial state in CSS
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add("is-revealed");
-        io.unobserve(entry.target);                            // reveal-once
+        entry.target.classList.toggle("is-revealed", entry.isIntersecting);
       });
     }, { threshold: 0.18, rootMargin: "0px 0px -8% 0px" });    // trigger as the card nears centre
     cards.forEach(function (card) { io.observe(card); });
