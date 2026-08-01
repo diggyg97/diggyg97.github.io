@@ -20,6 +20,14 @@
   var canHover = window.matchMedia("(hover: hover)").matches;   // hover-preview is meaningless on touch
   var stack = document.querySelector(".story-stack");
 
+  // Shared time origin for the rim glint: the light's angle is a pure function
+  // of time-since-load, so every card computes the SAME angle at any instant —
+  // that's what makes it read as one continuous glint handing off between
+  // cards. GLINT_MS must match the CSS animation (shard-glint-rotate 12s).
+  var GLINT_MS = 12000;
+  var glintEpoch = performance.now();
+  function glintElapsed() { return (performance.now() - glintEpoch) % GLINT_MS; }
+
   /* ---- smooth momentum scrolling ---- */
   function initLenis() {
     if (typeof Lenis === "undefined") return null;
@@ -98,6 +106,22 @@
         nodes[i].classList.toggle("is-active", i === active);   // gold, enlarged, full label
         nodes[i].classList.toggle("is-passed", i < active);     // traveled: gold-tint dot, brighter year
         nodes[i].classList.toggle("is-adjacent", i === active - 1 || i === active + 1); // clear years by the label
+        // mirror the active chapter onto the CARD too — drives the rotating rim
+        // glint (.shard-glint), which lives only on the card being read.
+        // At each hand-off (one tiny calc, not per-frame): the card GAINING
+        // active gets --glint-phase (a negative animation-delay) so its fresh
+        // animation resumes at the current global angle instead of 0deg; the
+        // card LOSING active gets --glint-static so it freezes at that same
+        // angle while its glint fades out, instead of snapping to 0deg.
+        if (cards[i] && cards[i].classList.contains("is-active") !== (i === active)) {
+          var glint = cards[i].querySelector(".shard-glint");
+          if (glint) {
+            var t = glintElapsed();
+            if (i === active) glint.style.setProperty("--glint-phase", (-t).toFixed(0) + "ms");
+            else glint.style.setProperty("--glint-static", (t / GLINT_MS * 360).toFixed(1) + "deg");
+          }
+          cards[i].classList.toggle("is-active", i === active);
+        }
       }                                                         // i > active = upcoming (dim)
       // traveled-line fill: top (NOW) → active node. Nodes are evenly spaced.
       fill.style.transform = "scaleY(" + (n > 1 ? active / (n - 1) : 0).toFixed(4) + ")";
@@ -209,6 +233,16 @@
     cards.forEach(function (card, i) {
       card.style.zIndex = String(i + 1);                 // each incoming card sits ABOVE the last
       gsap.set(card, { yPercent: i === 0 ? 0 : 100, opacity: i === 0 ? 1 : 0 });
+      // rotating rim glint overlay — created only on this GSAP path, so the
+      // flat / reduced-motion fallback never gets the element at all. CSS shows
+      // and rotates it solely on the .is-active card (set by the rail's apply).
+      var shard = card.querySelector(".shard");
+      if (shard && !shard.querySelector(".shard-glint")) {
+        var glint = document.createElement("div");
+        glint.className = "shard-glint";
+        glint.setAttribute("aria-hidden", "true");
+        shard.appendChild(glint);
+      }
     });
 
     var rail = buildRail(cards);   // left chronology rail, generated from the cards

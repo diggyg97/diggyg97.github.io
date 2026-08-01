@@ -400,6 +400,71 @@ a:hover { color: var(--lux-gold); }
   background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.45), transparent 72%);
 }
 
+/* ---- rotating rim glint: one soft gold light slowly travelling the ACTIVE
+   card's edge (a glint circling a gilded frame). The overlay is injected by
+   story.js on the GSAP path only, so the flat / reduced-motion fallback never
+   even creates it. Masked to a thin ring band straddling the existing
+   rgba(201,162,75,.30) rim, so it reads as a highlight ON the rim, not a wash
+   over the glass. The light itself is an oversized conic hotspot rotated via
+   TRANSFORM (compositor-only — no per-frame repaint, unlike animating a
+   conic's --angle), which keeps it cheap alongside the mobile scrub. */
+.shard-glint {
+  position: absolute; inset: -1px; z-index: 2;
+  pointer-events: none;
+  border-radius: 19px;                       /* face radius 18px + 1px outset */
+  padding: 1.5px;                            /* hairline band riding the 1px rim */
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;                   /* keep only the band between the two boxes */
+  overflow: hidden;
+  filter: blur(1px);                         /* feather: a hard 1.5px band reads as a wire, not a light.
+                                                Compositor-side; the child animates transform-only. */
+  opacity: 0;
+  transition: opacity 0.8s ease;             /* soft hand-off as the active card changes */
+}
+.shard-glint::before {
+  content: "";
+  position: absolute; left: 50%; top: 50%;
+  width: 160%; aspect-ratio: 1 / 1;          /* square ≥ the card's diagonal, so rotation never uncovers a corner */
+  /* --glint-static: set by story.js when a card DEactivates — freezes the
+     light at the shared global angle so it doesn't snap to 0deg mid-fade */
+  transform: translate(-50%, -50%) rotate(var(--glint-static, 0deg));
+  /* single soft hotspot in the rim's own gold (#c9a24b family) — the moving
+     core is a lighter tint of the same hue, like light catching gilt.
+     Alphas are high because the masked band is ~1.5px + 1px blur: the
+     visible light is the gradient spread thin, not this raw intensity. */
+  background: conic-gradient(from 0deg,
+    rgba(201, 162, 75, 0)    0deg,
+    rgba(201, 162, 75, 0.32) 38deg,
+    rgba(201, 162, 75, 0.75) 55deg,
+    rgba(236, 211, 150, 1)   62deg,
+    rgba(201, 162, 75, 0.75) 69deg,
+    rgba(201, 162, 75, 0.32) 86deg,
+    rgba(201, 162, 75, 0)    124deg,
+    rgba(201, 162, 75, 0)    360deg);
+}
+.story-card.is-active .shard-glint { opacity: 1; }
+.story-card.is-active .shard-glint::before {
+  animation: shard-glint-rotate 12s linear infinite;
+  /* --glint-phase: NEGATIVE delay set by story.js at hand-off, so this card's
+     freshly-started animation resumes at the shared global angle — the light
+     reads as ONE glint travelling card to card, not restarting each time */
+  animation-delay: var(--glint-phase, 0s);
+}
+@keyframes shard-glint-rotate {
+  /* explicit from: without it the 0% frame would inherit the base transform
+     (the frozen --glint-static angle) and corrupt the phase math above */
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to   { transform: translate(-50%, -50%) rotate(360deg); }
+}
+/* belt & braces: reduced-motion keeps the current static rim/glow only
+   (story.js also never injects the overlay on that path) */
+@media (prefers-reduced-motion: reduce) {
+  .shard-glint { display: none; }
+  .shard-glint::before { animation: none; }
+}
+
 /* ---- shard content ---- */
 .story-card .card-folio {
   display: block; margin-bottom: 10px;
@@ -605,6 +670,7 @@ a:hover { color: var(--lux-gold); }
 .story-flat .shard { transform: none; transform-style: flat; }
 .story-flat .shard-extrude,
 .story-flat .shard-edge,
+.story-flat .shard-glint,
 .story-flat .shard-cast { display: none; }
 .story-flat .shard-face {
   clip-path: none;
@@ -835,6 +901,14 @@ a:hover { color: var(--lux-gold); }
      In this late block so it wins over the base .story-card / .shard-* rules. */
   .story-card { padding-top: 3.2vh; padding-bottom: 3.2vh; }
   .shard-face { padding: 20px 22px; border-radius: 14px; }
+  /* glint ring on the mobile rim: track the smaller face radius (14px + 1px
+     outset). Feathering comes from the base blur(1px). */
+  .shard-glint { border-radius: 15px; }
+  /* phone cards are PORTRAIT: a square sized off the card's WIDTH (160%)
+     is smaller than the ring's diagonal, so its own hard edges cross the
+     band (broken corners + a gold bar on the bottom rim). 300% of width
+     covers the diagonal of even the tallest capped card (~2.5× width). */
+  .shard-glint::before { width: 300%; }
   .story-card .card-folio { font-size: 9.5px; letter-spacing: 0.16em; margin-bottom: 6px; }
   .story-card .kicker { font-size: 9.5px; letter-spacing: 0.22em; margin-bottom: 8px; }
   .story-card .card-dates { font-size: 10.5px; }
