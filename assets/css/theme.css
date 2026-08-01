@@ -516,7 +516,7 @@ a:hover { color: var(--lux-gold); }
   background: var(--lux-glass-2);
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
-  border: 1px solid var(--lux-glass-brd);
+  border: 1px solid var(--lux-gold-soft);   /* same thin gold rim as the story cards */
   border-radius: 14px;
   padding: 26px 28px;
 }
@@ -586,7 +586,7 @@ a:hover { color: var(--lux-gold); }
   background: var(--lux-glass-2);
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
-  border: 1px solid var(--lux-glass-brd);
+  border: 1px solid var(--lux-gold-soft);   /* same thin gold rim as the story cards */
   border-radius: 16px;
   padding: 30px;
 }
